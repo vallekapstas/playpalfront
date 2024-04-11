@@ -4,12 +4,12 @@ import EventView from "@/views/EventView.vue";
 const routes = [
   {
     path: '/',
-    name: 'index',
+    name: 'indexRoute',
     component: EventView
   },
   {
     path: '/events',
-    name: 'events',
+    name: 'eventsRoute',
     component: EventView
   }
 
