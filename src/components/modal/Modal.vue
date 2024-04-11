@@ -4,15 +4,23 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" >Logi sisse</h1>
+          <h1 class="modal-title fs-5">
+            <slot name="title">
+              <!-- Title -->
+            </slot>
+          </h1>
           <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
         </div>
         <div class="modal-body">
-          ...
+          <slot name="body">
+            <!-- Body-->
+          </slot>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <slot name="buttons">
+            <!-- Button-->
+          </slot>
         </div>
       </div>
     </div>

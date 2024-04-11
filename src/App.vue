@@ -1,5 +1,5 @@
 <template>
-
+  <LogInModal ref="logInModalRef"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5" aria-label="Tenth navbar example">
     <div class="container-fluid">
       <div class="text-light">PlayPal</div>
@@ -9,14 +9,22 @@
       </div>
 
 
-      <router-link to="/login" class="nav-link">Logi sisse</router-link>
+      <router-link to="/login" class="nav-link" @click="openLogInModal">Logi sisse</router-link>
     </div>
   </nav>
 
   <router-view/>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router';
-const router = useRouter();
+<script>
+import LogInModal from "@/components/modal/LogInModal.vue";
+
+export default {
+  components: {LogInModal},
+  methods: {
+    openLogInModal() {
+      this.$refs.logInModalRef.$refs.modalRef.openModal()
+    },
+  }
+}
 </script>
