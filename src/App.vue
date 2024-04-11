@@ -6,7 +6,6 @@
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
         <router-link to="/" class="nav-link" aria-current="page">Üritused</router-link>
-        <router-link to="/other" class="nav-link" aria-current="page">Muu</router-link>
       </div>
 
 
