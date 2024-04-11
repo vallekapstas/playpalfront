@@ -78,7 +78,7 @@ export default {
 
     handleLoginRequestResponse() {
       this.saveLoginResponseInfoToSessionStorage()
-      this.$emit('user-logged-in')
+      this.$emit('event-user-logged-in')
       this.resetAllInputFields()
       this.$refs.modalRef.closeModal()
       router.push({name: 'indexRoute'})
