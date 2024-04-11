@@ -5,18 +5,12 @@
       <div class="text-light">PlayPal</div>
 
       <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">Üritused</a>
-          </li>
-        </ul>
+        <router-link to="/" class="nav-link" aria-current="page">Üritused</router-link>
+        <router-link to="/other" class="nav-link" aria-current="page">Muu</router-link>
       </div>
 
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Logi sisse</a>
-        </li>
-      </ul>
+
+      <router-link to="/login" class="nav-link">Logi sisse</router-link>
     </div>
   </nav>
 
@@ -24,4 +18,6 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+const router = useRouter();
 </script>
