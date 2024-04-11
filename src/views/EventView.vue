@@ -11,15 +11,23 @@
       </div>
     </div>
   </div>
+  <p>LogInModal</p>
+  <LogInModal/>
+  <p>Modal</p>
+  <Modal></Modal>
 </template>
 
 <script>
 // @ is an alias to /src
-import EventComponent from '@/components/EventComponent.vue'
+import EventComponent from '@/components/event/EventComponent.vue'
+import LogInModal from "@/components/modal/LogInModal.vue";
+import Modal from "@/components/modal/Modal.vue";
 
 export default {
   name: 'HomeView',
   components: {
+    Modal,
+    LogInModal,
     EventComponent
   }
 }
