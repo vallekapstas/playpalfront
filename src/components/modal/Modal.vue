@@ -1,26 +1,17 @@
 <template>
-  <!-- Button trigger modal -->
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" :data-bs-target="'#' + modalId">
-    Launch demo modal
-  </button>
-
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" @click="modalId">
-    Vue button
-  </button>
-
-  <!-- Modal -->
-  <div class="modal fade" :id="modalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div v-if="isOpen" class="modal-backdrop fade show d-block"/>
+  <div v-if="isOpen" class="modal fade show" tabindex="-1" style="display: block;">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h1 class="modal-title fs-5" >Logi sisse</h1>
+          <button type="button" class="btn-close" aria-label="Close" @click="closeModal"></button>
         </div>
         <div class="modal-body">
           ...
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" @click="closeModal">Close</button>
           <button type="button" class="btn btn-primary">Save changes</button>
         </div>
       </div>
@@ -31,10 +22,22 @@
 <script>
 export default {
   name: 'Modal',
+
   data() {
     return {
-      modalId: 'modal'
+      isOpen: false
     }
   },
+
+  methods: {
+    openModal() {
+      this.isOpen = true
+    },
+
+    closeModal() {
+      this.isOpen = false
+    }
+  }
+
 }
 </script>
