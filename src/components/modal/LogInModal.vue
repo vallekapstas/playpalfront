@@ -77,7 +77,7 @@ export default {
         this.handleLoginRequestResponse()
       }).catch(error => {
         this.errorResponse = error.response.data
-        this.handleError(error.response.data)
+        this.handleError(error.response.status)
       })
     },
 
@@ -95,6 +95,26 @@ export default {
       sessionStorage.setItem('roleId', this.loginResponse.roleId)
     },
 
+    handleError(statusCode) {
+        this.handleIncorrectCredentialsError(statusCode)
+      this.handleSomethingWentWrongError()
+    },
+
+    handleIncorrectCredentialsError(statusCode) {
+      let incorrectCredentials = false
+      incorrectCredentials = statusCode === 403 && this.errorResponse.errorCode === 403001
+
+      if (incorrectCredentials) {
+        this.displayIncorrectCredentialsAlert(this.errorResponse.message)
+      }
+    },
+
+    handleSomethingWentWrongError() {
+      if (403001 !== this.errorResponse.errorCode) {
+        router.push({name: 'errorRoute'})
+      }
+    },
+
     resetAllInputFields() {
       this.username = ''
       this.password = ''
@@ -107,6 +127,15 @@ export default {
       }
       this.$emit('event-fill-all-fields-alert', alertParams)
     },
+
+    displayIncorrectCredentialsAlert(errorMessage) {
+      const alertParams = {
+        style: 'alert-danger',
+        message: errorMessage
+      }
+      this.$emit('event-incorrect-credentials-alert', alertParams)
+    }
+
   }
 }
 </script>

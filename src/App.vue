@@ -1,6 +1,9 @@
 <template>
   <AlertComponent ref="alertComponentRef"/>
-  <LogInModal ref="logInModalRef" @event-user-logged-in="handleUserLoggedIn" @event-fill-all-fields-alert="displayAlert"/>
+  <LogInModal ref="logInModalRef"
+              @event-user-logged-in="handleUserLoggedIn"
+              @event-fill-all-fields-alert="displayAlert"
+              @event-incorrect-credentials-alert="displayAlert"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <div class="text-light">

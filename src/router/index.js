@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import EventView from "@/views/EventView.vue";
+import ErrorView from "@/views/ErrorView.vue";
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: '/events',
     name: 'eventsRoute',
     component: EventView
+  },
+  {
+    path: '/error',
+    name: 'errorRoute',
+    component: ErrorView
   }
 
 
