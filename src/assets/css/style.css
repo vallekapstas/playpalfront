@@ -21,7 +21,7 @@ nav a.router-link-exact-active {
     color: #ffffff;
 }
 
-* Kui modaal on nähtav, rakenda järgmised stiilid */
+/* Kui modaal on nähtav, rakenda järgmised stiilid */
 .modal.fade.show.d-block {
     background-color: rgba(0, 0, 0, 0.8); /* Tausta värv koos läbipaistvusega */
     position: fixed; /* Positsiooni tüüp on fikseeritud */
@@ -39,4 +39,14 @@ nav a.router-link-exact-active {
     top: 10%; /* Ülemine paigutus on 10% */
     left: 50%; /* Vasak paigutus on 50% */
     transform: translateX(-50%); /* Teisendab X-telje piki -50% võrra */
+}
+
+/* Custom Alert Styling */
+.alert-style {
+    /*display: none;*/
+    position: fixed;
+    z-index: 9999;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

@@ -26,7 +26,11 @@ export default {
   data() {
     return {
       isLoggedIn: false,
-      isAdmin: false
+      isAdmin: false,
+      alertParams: {
+        style: '',
+        message: ''
+      }
     }
   },
   methods: {
@@ -37,6 +41,9 @@ export default {
     handleUserLoggedIn() {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()
+
+      this.alertParams.message = 'Oled sisse logitud'
+      this.displayAlert(this.alertParams)
     },
 
     updateIsLoggedInValue() {
@@ -50,6 +57,11 @@ export default {
         this.isAdmin = roleId === '2'
       }
     },
+
+    displayAlert(alertParams) {
+      // todo: activate component
+      alert(alertParams.message)
+    }
   }
 }
 </script>
