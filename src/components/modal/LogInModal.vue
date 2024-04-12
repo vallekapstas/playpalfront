@@ -15,7 +15,7 @@
             </div>
 
             <div>
-              <label for="password"  class="form-label">Parool</label>
+              <label for="password" class="form-label">Parool</label>
               <input v-model="password" type="password" class="form-control" id="password">
             </div>
           </div>
@@ -96,7 +96,7 @@ export default {
     },
 
     handleError(statusCode) {
-        this.handleIncorrectCredentialsError(statusCode)
+      this.handleIncorrectCredentialsError(statusCode)
       this.handleSomethingWentWrongError()
     },
 

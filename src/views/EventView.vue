@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <EventComponent />
+        <EventComponent/>
       </div>
     </div>
   </div>
