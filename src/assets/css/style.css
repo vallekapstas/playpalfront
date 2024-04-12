@@ -43,7 +43,6 @@ nav a.router-link-exact-active {
 
 /* Custom Alert Styling */
 .alert-style {
-    /*display: none;*/
     position: fixed;
     z-index: 9999;
     top: 10%;

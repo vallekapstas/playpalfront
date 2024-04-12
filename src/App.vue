@@ -1,5 +1,5 @@
 <template>
-<!-- todo: alert component and implementation for logging in -->
+  <AlertComponent ref="alertComponentRef"/>
   <LogInModal ref="logInModalRef" @event-user-logged-in="handleUserLoggedIn"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
@@ -20,9 +20,10 @@
 
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
+import AlertComponent from "@/components/alert/AlertComponent.vue";
 
 export default {
-  components: {LogInModal},
+  components: {AlertComponent, LogInModal},
   data() {
     return {
       isLoggedIn: false,
@@ -42,6 +43,7 @@ export default {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()
 
+      this.alertParams.style = 'alert-success'
       this.alertParams.message = 'Oled sisse logitud'
       this.displayAlert(this.alertParams)
     },
@@ -59,8 +61,7 @@ export default {
     },
 
     displayAlert(alertParams) {
-      // todo: activate component
-      alert(alertParams.message)
+      this.$refs.alertComponentRef.displayAlert(alertParams)
     }
   }
 }
