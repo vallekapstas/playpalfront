@@ -4,31 +4,28 @@
               @event-user-logged-in="handleUserLoggedIn"
               @event-fill-all-fields-alert="displayAlert"
               @event-incorrect-credentials-alert="displayAlert"/>
+  <LogOutModal ref="logOutModalRef" @event-user-logged-out=""/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <div class="text-light">
         <router-link to="/" class="nav-link" aria-current="page">PlayPal</router-link>
       </div>
-
       <div class="collapse navbar-collapse justify-content-md-center">
         <router-link to="/events" class="nav-link" aria-current="page">Üritused</router-link>
       </div>
-
-      <router-link v-if="isLoggedIn" to="/logout" class="nav-link" @click="">Logi välja</router-link>
+      <router-link v-if="isLoggedIn" to="/logout" class="nav-link" @click="openLogoutModal">Logi välja</router-link>
       <router-link v-else to="/login" class="nav-link" @click="openLogInModal">Logi sisse</router-link>
-
     </div>
   </nav>
-
   <router-view/>
 </template>
-
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
 import AlertComponent from "@/components/alert/AlertComponent.vue";
+import LogOutModal from "@/components/modal/LogOutModal.vue";
 
 export default {
-  components: {AlertComponent, LogInModal},
+  components: {LogOutModal, AlertComponent, LogInModal},
   data() {
     return {
       isLoggedIn: false,
@@ -42,6 +39,9 @@ export default {
   methods: {
     openLogInModal() {
       this.$refs.logInModalRef.$refs.modalRef.openModal()
+    },
+    openLogoutModal() {
+      this.$refs.logOutModalRef.$refs.modalRef.openModal()
     },
 
     handleUserLoggedIn() {
