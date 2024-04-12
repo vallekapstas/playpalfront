@@ -45,6 +45,10 @@ export default {
         userId: 0,
         roleName: '',
         roleId: 0
+      },
+      errorResponse: {
+        message: '',
+        errorCode: 0
       }
     }
   },
@@ -53,7 +57,7 @@ export default {
       if (this.allFieldsWithCorrectInput()) {
         this.sendLoginRequest()
       } else {
-        alert('täida kõik väljad')
+        this.displayFillAllFieldsAlert()
       }
     },
 
@@ -72,7 +76,8 @@ export default {
         this.loginResponse = response.data
         this.handleLoginRequestResponse()
       }).catch(error => {
-        const errorResponseJSON = error.response.data
+        this.errorResponse = error.response.data
+        this.handleError(error.response.data)
       })
     },
 
@@ -93,6 +98,14 @@ export default {
     resetAllInputFields() {
       this.username = ''
       this.password = ''
+    },
+
+    displayFillAllFieldsAlert() {
+      const alertParams = {
+        style: 'alert-danger',
+        message: 'Täida kõik väljad'
+      }
+      this.$emit('event-fill-all-fields-alert', alertParams)
     },
   }
 }
