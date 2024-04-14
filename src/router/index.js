@@ -1,6 +1,8 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import EventView from "@/views/EventView.vue";
 import ErrorView from "@/views/ErrorView.vue";
+import logOutModal from "@/components/modal/LogOutModal.vue";
+import logInModal from "@/components/modal/LogInModal.vue";
 
 const routes = [
     {
@@ -17,6 +19,16 @@ const routes = [
         path: '/error',
         name: 'errorRoute',
         component: ErrorView
+    },
+    {
+        path: '/logout',
+        name: 'LogOutModal',
+        component: logOutModal
+    },
+    {
+        path: '/login',
+        name: 'LogInModal',
+        component: logInModal
     }
 
 

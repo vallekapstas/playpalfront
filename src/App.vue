@@ -4,7 +4,8 @@
               @event-user-logged-in="handleUserLoggedIn"
               @event-fill-all-fields-alert="displayAlert"
               @event-incorrect-credentials-alert="displayAlert"/>
-  <LogOutModal ref="logOutModalRef" @event-user-logged-out=""/>
+  <LogOutModal ref="logOutModalRef"
+               @event-user-logged-out="handleUserLoggedOut"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <div class="text-light">
@@ -15,6 +16,9 @@
       </div>
       <router-link v-if="isLoggedIn" to="/logout" class="nav-link" @click="openLogoutModal">Logi välja</router-link>
       <router-link v-else to="/login" class="nav-link" @click="openLogInModal">Logi sisse</router-link>
+
+
+
     </div>
   </nav>
   <router-view/>
@@ -50,6 +54,11 @@ export default {
 
       this.alertParams.style = 'alert-success'
       this.alertParams.message = 'Oled sisse logitud'
+      this.displayAlert(this.alertParams)
+    },
+    handleUserLoggedOut() {
+      this.alertParams.style = 'alert-warning'
+      this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
     },
 
