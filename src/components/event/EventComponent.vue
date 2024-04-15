@@ -3,7 +3,7 @@
 
   <div class="container">
 
-    <div @click="openEventPreviewModal"
+    <div @click="openEventPreviewModal(1)"
          class="event-wrapper text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
 
       <div class="row mb-3">
@@ -37,7 +37,7 @@
 
 
   <div class="container justify-content-center">
-    <div @click="openEventPreviewModal"
+    <div @click="openEventPreviewModal(2)"
         class="event-wrapper text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
 
       <div class="row mb-3">
@@ -72,7 +72,7 @@
 
 
   <div class="container justify-content-center">
-    <div @click="openEventPreviewModal"
+    <div @click="openEventPreviewModal(3)"
         class="event-wrapper text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
 
       <div class="row mb-3">
@@ -113,8 +113,8 @@ export default {
   name: 'EventComponent',
 
   methods: {
-    openEventPreviewModal() {
-      alert('test: open event preview modal')
+    openEventPreviewModal(id) {
+      alert('test: open event preview modal ID: ' + id)
     }
   },
 
