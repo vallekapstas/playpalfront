@@ -5,7 +5,8 @@
               @event-fill-all-fields-alert="displayAlert"
               @event-incorrect-credentials-alert="displayAlert"/>
   <LogOutModal ref="logOutModalRef"
-               @event-user-logged-out="handleUserLoggedOut"/>
+               @event-user-logged-out="handleUserLoggedOut"
+               @event-update-nav-menu = "updateNavMenu"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <div class="text-light">
@@ -21,7 +22,7 @@
 
     </div>
   </nav>
-  <router-view/>
+  <router-view @event-update-nav-menu="updateNavMenu"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
@@ -61,6 +62,10 @@ export default {
       this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
     },
+    updateNavMenu (){
+      this.updateIsLoggedInValue()
+      this.updateIsAdminValue()
+    },
 
     updateIsLoggedInValue() {
       const userId = sessionStorage.getItem('userId')
@@ -76,7 +81,10 @@ export default {
 
     displayAlert(alertParams) {
       this.$refs.alertComponentRef.displayAlert(alertParams)
-    }
+    },
+  },
+  mounted() {
+  this.updateNavMenu()
   }
 }
 </script>
