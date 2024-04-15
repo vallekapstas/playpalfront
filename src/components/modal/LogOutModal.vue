@@ -20,7 +20,6 @@ export default {
       sessionStorage.clear()
       this.$emit('event-user-logged-out')
       this.$refs.modalRef.closeModal()
-      this.$emit('event-update-nav-menu')
       router.push({name: 'indexRoute'})
     }
   }
