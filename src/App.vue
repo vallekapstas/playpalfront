@@ -6,7 +6,7 @@
               @event-incorrect-credentials-alert="displayAlert"/>
   <LogOutModal ref="logOutModalRef"
                @event-user-logged-out="handleUserLoggedOut"
-               @event-update-nav-menu = "updateNavMenu"/>
+               @event-update-nav-menu="updateNavMenu"/>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
     <div class="container-fluid">
       <div class="text-light">
@@ -17,7 +17,6 @@
       </div>
       <router-link v-if="isLoggedIn" to="/logout" class="nav-link" @click="openLogoutModal">Logi välja</router-link>
       <router-link v-else to="/login" class="nav-link" @click="openLogInModal">Logi sisse</router-link>
-
 
 
     </div>
@@ -62,7 +61,7 @@ export default {
       this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
     },
-    updateNavMenu (){
+    updateNavMenu() {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()
     },
@@ -84,7 +83,7 @@ export default {
     },
   },
   mounted() {
-  this.updateNavMenu()
+    this.updateNavMenu()
   }
 }
 </script>
