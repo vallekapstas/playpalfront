@@ -8,7 +8,7 @@
                @event-user-logged-out="handleUserLoggedOut"/>
   <nav class="navbar navbar-expand-sm mb-3">
     <div class="container-fluid">
-      <div class="col-2">
+      <div class="col-2 justify-content-start">
         <router-link to="/" class="navbar-brand">
           <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 3.5rem"/>
         </router-link>
