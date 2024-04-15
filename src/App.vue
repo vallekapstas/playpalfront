@@ -6,17 +6,31 @@
               @event-incorrect-credentials-alert="displayAlert"/>
   <LogOutModal ref="logOutModalRef"
                @event-user-logged-out="handleUserLoggedOut"/>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+  <nav class="navbar navbar-expand-sm mb-3">
     <div class="container-fluid">
-      <div class="text-light">
-        <router-link to="/" class="nav-link" aria-current="page">PlayPal</router-link>
+      <div class="col-2">
+        <router-link to="/" class="navbar-brand" aria-current="page">
+          <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 3.5rem"/>
+        </router-link>
       </div>
-      <div class="collapse navbar-collapse justify-content-md-center">
-        <router-link to="/events" class="nav-link" aria-current="page">Üritused</router-link>
-      </div>
-      <router-link v-if="isLoggedIn" to="/logout" class="nav-link" @click="openLogoutModal">Logi välja</router-link>
-      <router-link v-else to="/login" class="nav-link" @click="openLogInModal">Logi sisse</router-link>
 
+      <div class=" col-8 collapse navbar-collapse justify-content-md-center fs-3">
+        <router-link to="/events" class="nav-link" aria-current="page">Üritused</router-link>
+        |
+        <router-link to="/error" class="nav-link" aria-current="page">Error</router-link>
+      </div>
+
+      <div class="col-2 d-grid gap-2 d-md-block">
+        <template v-if="isLoggedIn" >
+          <router-link to="/logout" class="nav-link" @click="openLogoutModal">
+            <button class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Logi välja</button>
+          </router-link>
+        </template>
+        <template v-else>
+            <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Registreeri</a>
+            <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Logi sisse</button>
+        </template>
+      </div>
 
     </div>
   </nav>

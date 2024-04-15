@@ -12,13 +12,13 @@ nav {
 
 nav a {
     font-weight: bold;
-    color: #ffffff !important;
+    /*color: #ffffff !important;*/
     margin-left: 5px;
     margin-right: 5px;
 }
 
 nav a.router-link-exact-active {
-    color: #ffffff;
+    /*color: #ffffff;*/
 }
 
 /* Kui modaal on nähtav, rakenda järgmised stiilid */
