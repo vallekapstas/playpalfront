@@ -3,6 +3,7 @@ import EventView from "@/views/EventView.vue";
 import ErrorView from "@/views/ErrorView.vue";
 import logOutModal from "@/components/modal/LogOutModal.vue";
 import logInModal from "@/components/modal/LogInModal.vue";
+import RegisterView from "@/views/RegisterView.vue";
 
 const routes = [
     {
@@ -29,7 +30,13 @@ const routes = [
         path: '/login',
         name: 'LogInModal',
         component: logInModal
-    }
+    },
+    {
+        path: '/register',
+        name: 'registerRoute',
+        component: RegisterView
+    },
+
 
 
 
