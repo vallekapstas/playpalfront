@@ -18,7 +18,7 @@
         <router-link to="/events" class="nav-link">Üritused</router-link>
       </div>
 
-      <div class="collapse navbar-collapse col-2" id="navMenu">
+      <div class="collapse navbar-collapse justify-content-end col-2" id="navMenu">
         <template v-if="isLoggedIn">
           <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
             Logi välja
