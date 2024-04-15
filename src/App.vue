@@ -14,32 +14,24 @@
         </router-link>
       </div>
 
-      <!-- REGULAR MENU -->
-      <div class="collapse navbar-collapse" id="navMenu">
-
-        <div class=" col-8 d-grid d-md-block fs-5">
-          <router-link to="/events" class="nav-link">Üritused</router-link>
-          <router-link to="/error" class="nav-link">Error</router-link>
-        </div>
-
-        <div class="col-2 d-grid d-md-block">
-          <template v-if="isLoggedIn">
-            <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi välja
-            </button>
-          </template>
-          <template v-else>
-            <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Registreeri</a>
-            <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi sisse
-            </button>
-          </template>
-        </div>
-
+      <div class="collapse navbar-collapse justify-content-center col-8 fs-5" id="navMenu">
+        <router-link to="/events" class="nav-link">Üritused</router-link>
+        |
+        <router-link to="/error" class="nav-link">Error</router-link>
       </div>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
-              aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="col-2 d-grid d-md-block">
+        <template v-if="isLoggedIn">
+          <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
+            Logi välja
+          </button>
+        </template>
+        <template v-else>
+          <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Registreeri</a>
+          <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi sisse
+          </button>
+        </template>
+      </div>
 
     </div>
   </nav>
@@ -54,6 +46,7 @@ export default {
   components: {LogOutModal, AlertComponent, LogInModal},
   data() {
     return {
+      showMobileMenu: false,
       isLoggedIn: false,
       isAdmin: false,
       alertParams: {
@@ -68,6 +61,10 @@ export default {
     },
     openLogoutModal() {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
+    },
+
+    toggleMobileMenu() {
+      this.showMobileMenu = !this.showMobileMenu
     },
 
     handleUserLoggedIn() {

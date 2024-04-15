@@ -6,6 +6,10 @@
     color: #2c3e50;
 }
 
+.mobile-menu {
+    display: none; /* Hide the mobile menu by default */
+}
+
 nav {
     padding: 30px;
 }
