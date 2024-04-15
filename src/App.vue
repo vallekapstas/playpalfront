@@ -66,10 +66,6 @@ export default {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
     },
 
-    toggleMobileMenu() {
-      this.showMobileMenu = !this.showMobileMenu
-    },
-
     handleUserLoggedIn() {
       this.handleUserStatusUpdates()
 
