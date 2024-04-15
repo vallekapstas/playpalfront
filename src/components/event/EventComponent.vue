@@ -96,7 +96,7 @@
           <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> 4-8</div>
         </div>
         <div class="col-lg">
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-building-fill"></i> Raini kodu</div>
+          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-building-fill"></i> Nipitiri</div>
           <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-star-fill"></i> Algajad</div>
           <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-currency-exchange"></i> Tasuta</div>
         </div>
