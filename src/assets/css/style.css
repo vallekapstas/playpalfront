@@ -10,15 +10,18 @@ nav {
     padding: 30px;
 }
 
-nav a {
-    font-weight: bold;
-    /*color: #ffffff !important;*/
+nav a.nav-link {
+    color: #000000 !important;
     margin-left: 5px;
     margin-right: 5px;
 }
 
-nav a.router-link-exact-active {
-    /*color: #ffffff;*/
+nav a.nav-link:hover {
+    color: #666666 !important;
+}
+
+nav a.router-link-active {
+    color: #ff4646 !important;
 }
 
 /* Kui modaal on nähtav, rakenda järgmised stiilid */

@@ -9,28 +9,37 @@
   <nav class="navbar navbar-expand-sm mb-3">
     <div class="container-fluid">
       <div class="col-2">
-        <router-link to="/" class="navbar-brand" aria-current="page">
+        <router-link to="/" class="navbar-brand">
           <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 3.5rem"/>
         </router-link>
       </div>
 
-      <div class=" col-8 collapse navbar-collapse justify-content-md-center fs-3">
-        <router-link to="/events" class="nav-link" aria-current="page">Üritused</router-link>
-        |
-        <router-link to="/error" class="nav-link" aria-current="page">Error</router-link>
+      <!-- REGULAR MENU -->
+      <div class="collapse navbar-collapse" id="navMenu">
+
+        <div class=" col-8 d-grid d-md-block fs-5">
+          <router-link to="/events" class="nav-link">Üritused</router-link>
+          <router-link to="/error" class="nav-link">Error</router-link>
+        </div>
+
+        <div class="col-2 d-grid d-md-block">
+          <template v-if="isLoggedIn">
+            <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi välja
+            </button>
+          </template>
+          <template v-else>
+            <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Registreeri</a>
+            <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi sisse
+            </button>
+          </template>
+        </div>
+
       </div>
 
-      <div class="col-2 d-grid gap-2 d-md-block">
-        <template v-if="isLoggedIn" >
-          <router-link to="/logout" class="nav-link" @click="openLogoutModal">
-            <button class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Logi välja</button>
-          </router-link>
-        </template>
-        <template v-else>
-            <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Registreeri</a>
-            <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap">Logi sisse</button>
-        </template>
-      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+              aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
     </div>
   </nav>
