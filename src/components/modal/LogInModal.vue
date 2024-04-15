@@ -1,6 +1,6 @@
 <template>
 
-  <Modal ref="modalRef" :modal-bg-color="'playpal-bg'" :modal-extra-classes="'modal-login'">
+  <Modal ref="modalRef" @event-open-modal="focusOnFirstInputField" @event-close-modal="resetAllInputFields" :modal-bg-color="'playpal-bg'" :modal-extra-classes="'modal-login'">
     <template #title>
       Sisse logimine
     </template>
@@ -11,7 +11,7 @@
           <div class="col">
             <div class="mb-3">
               <label for="username" class="form-label">Kasutajanimi</label>
-              <input v-model="username" type="text" class="form-control border border-danger-subtle shadow-sm" id="username">
+              <input ref="usernameInput" v-model="username" type="text" class="input-focus form-control border border-danger-subtle shadow-sm" id="username">
             </div>
 
             <div>
@@ -24,7 +24,7 @@
     </template>
 
     <template #buttons>
-      <button type="button" class="btn btn-primary shadow-sm" @click="executeLogIn">Logi sisse</button>
+      <button type="submit" class="btn btn-primary shadow-sm" @click="executeLogIn">Logi sisse</button>
     </template>
 
   </Modal>
@@ -52,6 +52,7 @@ export default {
       }
     }
   },
+
   methods: {
     executeLogIn() {
       if (this.allFieldsWithCorrectInput()) {
@@ -134,8 +135,33 @@ export default {
         message: errorMessage
       }
       this.$emit('event-incorrect-credentials-alert', alertParams)
+    },
+
+
+    // FOCUS & KEYPRESS
+
+    focusOnFirstInputField() {
+      setTimeout(() => {
+        if (this.$refs.usernameInput) {
+          this.$refs.usernameInput.focus();
+        }
+      }, 100);
+    },
+
+    handleKeyPress(event) {
+      if (event.key === 'Enter' && this.$refs.modalRef.isOpen && this.allFieldsWithCorrectInput()) {
+        this.executeLogIn()
+      }
     }
 
+  },
+
+  mounted() {
+    document.addEventListener('keyup', this.handleKeyPress);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('keyup', this.handleKeyPress);
   }
 }
 </script>

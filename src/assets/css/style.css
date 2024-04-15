@@ -152,7 +152,7 @@ html {
     border-color: #fc4c69;
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
     color: #fc4c69;
     border-color: #fc4c69;
     background-color: #ffffff;
@@ -164,7 +164,7 @@ html {
     background-color: #ffffff;
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:hover, .btn-outline-primary:focus {
     background-color: #ff889c;
     border-color: #fc4c69;
 }
@@ -181,7 +181,7 @@ html {
 .alert-style {
     position: fixed;
     z-index: 9999;
-    top: 8%;
+    top: 7.5%;
     left: 50%;
     transform: translate(-50%, -50%);
 }

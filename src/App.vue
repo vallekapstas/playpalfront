@@ -9,18 +9,18 @@
   <nav class="navbar navbar-expand-sm mb-5">
     <div class="container-fluid">
       <div class="col-2 justify-content-start">
-        <router-link to="/" class="navbar-brand">
+        <router-link to="/" @click="handleRouteClick('/')" class="navbar-brand">
           <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 4.5rem"/>
         </router-link>
       </div>
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-4" id="navMenu">
         <template v-if="isLoggedIn">
-          <router-link to="/myevents" class="nav-link">Minu üritused</router-link>
-          <router-link to="/profile" class="nav-link">Profiil</router-link>
+          <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused</router-link>
+          <router-link to="/profile" @click="handleRouteClick('/profile')" class="nav-link">Profiil</router-link>
         </template>
         <template v-if="isAdmin">
-          <router-link to="/manage" class="nav-link">Halda</router-link>
+          <router-link to="/manage" @click="handleRouteClick('/manage')" class="nav-link">Halda</router-link>
         </template>
       </div>
 
@@ -58,10 +58,13 @@ export default {
       showMobileMenu: false,
       isLoggedIn: false,
       isAdmin: false,
+
       alertParams: {
         style: '',
         message: ''
-      }
+      },
+
+      routeKey: 0
     }
   },
   methods: {
@@ -118,6 +121,13 @@ export default {
     displayAlert(alertParams) {
       this.$refs.alertComponentRef.displayAlert(alertParams)
     },
+
+    handleRouteClick(route) {
+      if (this.$route.path === route) {
+        this.routeKey++;
+      }
+    }
+
   },
   mounted() {
     this.handleUserStatusUpdates()

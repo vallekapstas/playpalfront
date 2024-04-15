@@ -4,7 +4,7 @@
       Logi välja?
     </template>
     <template #buttons>
-      <button @click="executeLogOut" type="button" class="btn btn-primary">Jah</button>
+      <button @click="executeLogOut" type="submit" class="btn btn-primary">Jah</button>
     </template>
   </Modal>
 </template>
@@ -15,13 +15,29 @@ import router from "@/router";
 export default {
   name: "LogOutModal",
   components: {Modal},
+
+  mounted() {
+    document.addEventListener('keydown', this.handleEnterKeyDown);
+  },
+
+  beforeUnmount() {
+    document.removeEventListener('keydown', this.handleEnterKeyDown);
+  },
+
   methods: {
     executeLogOut() {
       sessionStorage.clear()
       this.$emit('event-user-logged-out')
       this.$refs.modalRef.closeModal()
       router.push({name: 'indexRoute'})
-    }
+    },
+
+    handleEnterKeyDown(event) {
+      if (event.key === 'Enter' && this.$refs.modalRef.isOpen) {
+        this.executeLogOut();
+      }
+    },
+
   }
 }
 </script>
