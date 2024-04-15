@@ -1,10 +1,10 @@
 <template>
-  <Modal ref="modalRef">
+  <Modal ref="modalRef" :modal-bg-color="'playpal-bg'" :modal-extra-classes="'modal-logout'">
     <template #title>
-      Kas soovid välja logida?
+      Logi välja?
     </template>
     <template #buttons>
-      <button @click="executeLogOut" type="button" class="btn btn-outline-success">Jah</button>
+      <button @click="executeLogOut" type="button" class="btn btn-primary">Jah</button>
     </template>
   </Modal>
 </template>

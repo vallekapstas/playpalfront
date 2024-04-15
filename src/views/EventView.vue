@@ -5,8 +5,8 @@
         <h1>Üritused</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
+    <div class="row justify-content-center">
+      <div class="col col-10">
         <EventComponent/>
       </div>
     </div>

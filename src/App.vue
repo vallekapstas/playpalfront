@@ -6,15 +6,15 @@
               @event-incorrect-credentials-alert="displayAlert"/>
   <LogOutModal ref="logOutModalRef"
                @event-user-logged-out="handleUserLoggedOut"/>
-  <nav class="navbar navbar-expand-sm mb-3">
+  <nav class="navbar navbar-expand-sm mb-5">
     <div class="container-fluid">
       <div class="col-2 justify-content-start">
         <router-link to="/" class="navbar-brand">
-          <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 3.5rem"/>
+          <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 4.5rem"/>
         </router-link>
       </div>
 
-      <div class="collapse navbar-collapse justify-content-center col-8 fs-5" id="navMenu">
+      <div class="collapse navbar-collapse justify-content-center col-8 fs-4" id="navMenu">
         <template v-if="isLoggedIn">
           <router-link to="/myevents" class="nav-link">Minu üritused</router-link>
           <router-link to="/profile" class="nav-link">Profiil</router-link>
@@ -26,13 +26,13 @@
 
       <div class="collapse navbar-collapse justify-content-end col-2" id="navMenu">
         <template v-if="isLoggedIn">
-          <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
+          <button @click="openLogoutModal" class="btn btn-outline-primary shadow-sm text-nowrap m-1">
             Logi välja
           </button>
         </template>
         <template v-else>
-          <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Registreeri</a>
-          <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
+          <button @click="goToRegisterView" class="btn btn-outline-primary shadow-sm text-nowrap m-1">Registreeri</button>
+          <button @click="openLogInModal" class="btn btn-outline-primary shadow-sm text-nowrap m-1">
             Logi sisse
           </button>
         </template>
@@ -68,8 +68,13 @@ export default {
     openLogInModal() {
       this.$refs.logInModalRef.$refs.modalRef.openModal()
     },
+
     openLogoutModal() {
       this.$refs.logOutModalRef.$refs.modalRef.openModal()
+    },
+
+    goToRegisterView() {
+      // router.push({name: 'registerRoute'})
     },
 
     handleUserLoggedIn() {
@@ -79,6 +84,7 @@ export default {
       this.alertParams.message = 'Oled sisse logitud'
       this.displayAlert(this.alertParams)
     },
+
     handleUserLoggedOut() {
       this.resetUserStatuses()
 
@@ -86,6 +92,7 @@ export default {
       this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
     },
+
     handleUserStatusUpdates() {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()

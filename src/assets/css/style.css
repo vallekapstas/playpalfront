@@ -17,34 +17,164 @@ nav a.nav-link {
 }
 
 nav a.nav-link:hover {
-    color: #666666 !important;
+    color: #fc4c69 !important;
     text-decoration: underline;
-    text-decoration-color: #666666;
+    text-decoration-color: #fc4c69;
     text-underline-offset: 0.25rem;
+    animation-name: skew-y-shakeing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
 }
 
 nav a.router-link-active {
-    color: #ff4646 !important;
+    color: #ff8499 !important;
 }
 
-/* Kui modaal on nähtav, rakenda järgmised stiilid */
-.modal.fade.show.d-block {
-    background-color: rgba(0, 0, 0, 0.8); /* Tausta värv koos läbipaistvusega */
-    position: fixed; /* Positsiooni tüüp on fikseeritud */
-    z-index: 1050; /* Z-indeks määrab modaalakna kihi järjekorra */
-    left: 0; /* Vasak paigutus on null */
-    top: 0; /* Ülemine paigutus on null */
-    width: 100%; /* Laius on 100% */
-    height: 100%; /* Kõrgus on 100% */
-    overflow: hidden; /* Peidab ülejäänud sisu, mis ei mahu alale */
+h1,h2,h3,h4,h5,h6 {
+    color: #fc4c69;
+    text-transform: uppercase;
+    letter-spacing: 5px;
 }
 
-/* Rakenda järgmised stiilid modaalakna sisule */
+h1:hover,h2:hover,h3:hover,h4:hover,h5:hover,h6:hover {
+    color: #ff8499;
+}
+
+@keyframes tilt-n-move-shaking {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(1px, 1px) rotate(1deg); }
+    50% { transform: translate(0, 0) rotate(0deg); }
+    75% { transform: translate(-1px, 1px) rotate(-1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes skew-y-shakeing{
+    0% { transform: skewY(-5deg); }
+    5% { transform: skewY(5deg); }
+    10% { transform: skewY(-5deg); }
+    15% { transform: skewY(5deg); }
+    20% { transform: skewY(0deg); }
+    100% { transform: skewY(0deg); }
+}
+
+h1 {
+    font-size: 2.25rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.75rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    font-size: 1.25rem;
+}
+
+h6 {
+    font-size: 1rem;
+}
+
+a {
+    color: #000000 !important;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+a:hover {
+    color: #fc4c69 !important;
+    text-decoration: underline;
+    text-decoration-color: #fc4c69;
+    text-underline-offset: 0.25rem;
+}
+
+/* When the modal is visible, apply the following styles */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background color */
+    position: fixed; /* Position type is fixed */
+    z-index: 1050; /* Z-index determines the stacking order of the modal window */
+    left: 0; /* Left position is zero */
+    top: 0; /* Top position is zero */
+    width: 100%; /* Width is 100% */
+    height: 100%; /* Height is 100% */
+    overflow: hidden; /* Hides the rest of the content that does not fit into the area */
+}
+
+/* Define a base font size */
+html {
+    font-size: 16px; /* Adjust as needed */
+}
+
+/* Define modal width using rem units */
 .modal-dialog {
-    position: fixed; /* Positsiooni tüüp on fikseeritud */
-    top: 10%; /* Ülemine paigutus on 10% */
-    left: 50%; /* Vasak paigutus on 50% */
-    transform: translateX(-50%); /* Teisendab X-telje piki -50% võrra */
+    margin: auto;
+    max-width: 30rem; /* Default maximum width */
+    width: auto;
+    transform: none;
+    top: 10%; /* Adjust top position as needed */
+    bottom: auto;
+    left: 0;
+    right: 0;
+}
+
+.modal-login {
+    max-width: 20rem;
+}
+
+.modal-logout {
+    max-width: 15rem;
+}
+
+.event-wrapper:hover {
+    animation-name: tilt-n-move-shaking;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    cursor: pointer;
+    background-color: #fff6f8 !important;
+}
+
+.playpal-bg {
+    background-color: #fff6f8;
+}
+
+.text-primary {
+    color: #fc4c69 !important;
+}
+
+.btn-primary {
+    background-color: #ff889c;
+    border-color: #fc4c69;
+}
+
+.btn-primary:hover {
+    color: #fc4c69;
+    border-color: #fc4c69;
+    background-color: #ffffff;
+}
+
+.btn-outline-primary {
+    color: #fc4c69;
+    border-color: #fc4c69;
+    background-color: #ffffff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #ff889c;
+    border-color: #fc4c69;
+}
+
+.border-primary {
+    border-color: #fc4c69 !important;
+}
+
+.border-primary-subtle {
+    border-color: #ff889c !important;
 }
 
 /* Custom Alert Styling */

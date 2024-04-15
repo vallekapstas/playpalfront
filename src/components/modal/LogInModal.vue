@@ -1,8 +1,8 @@
 <template>
 
-  <Modal ref="modalRef">
+  <Modal ref="modalRef" :modal-bg-color="'playpal-bg'" :modal-extra-classes="'modal-login'">
     <template #title>
-      Kas soovid sisse logida?
+      Sisse logimine
     </template>
 
     <template #body>
@@ -11,12 +11,12 @@
           <div class="col">
             <div class="mb-3">
               <label for="username" class="form-label">Kasutajanimi</label>
-              <input v-model="username" type="text" class="form-control" id="username">
+              <input v-model="username" type="text" class="form-control border border-danger-subtle shadow-sm" id="username">
             </div>
 
             <div>
               <label for="password" class="form-label">Parool</label>
-              <input v-model="password" type="password" class="form-control" id="password">
+              <input v-model="password" type="password" class="form-control border border-danger-subtle shadow-sm" id="password">
             </div>
           </div>
         </div>
@@ -24,7 +24,7 @@
     </template>
 
     <template #buttons>
-      <button type="button" class="btn btn-success" @click="executeLogIn">Logi sisse</button>
+      <button type="button" class="btn btn-primary shadow-sm" @click="executeLogIn">Logi sisse</button>
     </template>
 
   </Modal>

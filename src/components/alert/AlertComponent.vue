@@ -1,5 +1,5 @@
 <template>
-  <div v-if="alertDisplay" :class="'alert alert-style shadow ' + alertParams.style" role="alert">
+  <div v-if="alertDisplay" :class="'alert alert-style fs-5 fw-bold shadow-lg px-5 py-4 ' + alertParams.style" role="alert">
     {{ alertParams.message }}
   </div>
 </template>

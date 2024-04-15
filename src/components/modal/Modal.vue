@@ -1,9 +1,9 @@
 <template>
-  <div v-if="isOpen" class="modal-backdrop fade show d-block"/>
-  <div v-if="isOpen" class="modal fade show" tabindex="-1" style="display: block;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
+  <div v-if="isOpen" class="modal-backdrop"/>
+  <div v-if="isOpen" class="modal" tabindex="-1" style="display: block;" ref="modalRef">
+    <div :class="'modal-dialog ' + modalExtraClasses">
+      <div :class="'modal-content ' + modalBgColor">
+        <div class="modal-header border-0">
           <h1 class="modal-title fs-5">
             <slot name="title">
               <!-- Title -->
@@ -16,8 +16,8 @@
             <!-- Body-->
           </slot>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="closeModal">Sulge</button>
+        <div class="modal-footer border-0 justify-content-center">
+          <button type="button" class="btn btn-dark shadow-sm" @click="closeModal">Sulge</button>
           <slot name="buttons">
             <!-- Button-->
           </slot>
@@ -31,9 +31,15 @@
 export default {
   name: 'Modal',
 
+  props: {
+    modalBgColor: '',
+    modalExtraClasses: ''
+  },
+
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      useEnterForCloseButton: false
     }
   },
 
