@@ -22,6 +22,9 @@ nav a.nav-link {
 
 nav a.nav-link:hover {
     color: #666666 !important;
+    text-decoration: underline;
+    text-decoration-color: #666666;
+    text-underline-offset: 0.25rem;
 }
 
 nav a.router-link-active {
