@@ -16,8 +16,8 @@ nav {
 
 nav a.nav-link {
     color: #000000 !important;
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
 }
 
 nav a.nav-link:hover {

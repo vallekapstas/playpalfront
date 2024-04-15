@@ -16,11 +16,10 @@
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-5" id="navMenu">
         <router-link to="/events" class="nav-link">Üritused</router-link>
-        |
         <router-link to="/error" class="nav-link">Error</router-link>
       </div>
 
-      <div class="col-2 d-grid d-md-block">
+      <div class="collapse navbar-collapse col-2" id="navMenu">
         <template v-if="isLoggedIn">
           <button @click="openLogoutModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
             Logi välja
@@ -28,10 +27,15 @@
         </template>
         <template v-else>
           <a href="/register" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Registreeri</a>
-          <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">Logi sisse
+          <button @click="openLogInModal" class="btn btn-sm btn-outline-dark shadow-sm text-nowrap m-1">
+            Logi sisse
           </button>
         </template>
       </div>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
     </div>
   </nav>
