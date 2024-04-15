@@ -15,7 +15,13 @@
       </div>
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-5" id="navMenu">
-        <router-link to="/events" class="nav-link">Üritused</router-link>
+        <template v-if="isLoggedIn">
+          <router-link to="/myevents" class="nav-link">Minu üritused</router-link>
+          <router-link to="/profile" class="nav-link">Profiil</router-link>
+        </template>
+        <template v-if="isAdmin">
+          <router-link to="/manage" class="nav-link">Halda</router-link>
+        </template>
       </div>
 
       <div class="collapse navbar-collapse justify-content-end col-2" id="navMenu">
@@ -74,7 +80,7 @@ export default {
       this.displayAlert(this.alertParams)
     },
     handleUserLoggedOut() {
-      this.handleUserStatusUpdates()
+      this.resetUserStatuses()
 
       this.alertParams.style = 'alert-warning'
       this.alertParams.message = 'Oled välja logitud'
@@ -85,6 +91,11 @@ export default {
       this.updateIsAdminValue()
     },
 
+    resetUserStatuses() {
+      this.isLoggedIn = false
+      this.isAdmin = false
+    },
+
     updateIsLoggedInValue() {
       const userId = sessionStorage.getItem('userId')
       this.isLoggedIn = userId !== null
@@ -93,7 +104,7 @@ export default {
     updateIsAdminValue() {
       if (this.isLoggedIn) {
         const roleId = sessionStorage.getItem('roleId')
-        this.isAdmin = roleId === '2'
+        this.isAdmin = roleId === '1'
       }
     },
 
