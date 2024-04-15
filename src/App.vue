@@ -16,7 +16,6 @@
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-5" id="navMenu">
         <router-link to="/events" class="nav-link">Üritused</router-link>
-        <router-link to="/error" class="nav-link">Error</router-link>
       </div>
 
       <div class="collapse navbar-collapse col-2" id="navMenu">
