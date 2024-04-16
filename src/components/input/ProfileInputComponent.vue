@@ -46,6 +46,12 @@
       <div class="valid-feedback">
       </div>
     </div>
+    <div class="col-md-4">
+      <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
+        <input type="date" class = "form-control">
+      <div class="valid-feedback">
+      </div>
+    </div>
     <div>
       <div class="col-md-4">
         <label for="validationCustom01" class="form-label">Sugu*</label>
