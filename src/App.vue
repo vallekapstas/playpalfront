@@ -50,6 +50,7 @@
 import LogInModal from "@/components/modal/LogInModal.vue";
 import AlertComponent from "@/components/alert/AlertComponent.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
+import router from "@/router";
 
 export default {
   components: {LogOutModal, AlertComponent, LogInModal},
@@ -77,7 +78,7 @@ export default {
     },
 
     goToRegisterView() {
-      // router.push({name: 'registerRoute'})
+      router.push({name: 'registerRoute'})
     },
 
     handleUserLoggedIn() {
