@@ -1,21 +1,21 @@
 <template>
   <form class="row g-3 needs-validation" novalidate>
     <div class="col-md-4">
-      <label for="validationCustom01" class="form-label">Eesnimi</label>
+      <label for="validationCustom01" class="form-label">Eesnimi*</label>
       <input type="text" class="form-control" id="validationCustom01" value="" required>
       <div class="valid-feedback">
         Sobib!
       </div>
     </div>
     <div class="col-md-4">
-      <label for="validationCustom02" class="form-label">Perekonnanimi</label>
+      <label for="validationCustom02" class="form-label">Perekonnanimi*</label>
       <input type="text" class="form-control" id="validationCustom02" value="" required>
       <div class="valid-feedback">
         Sobib!
       </div>
     </div>
     <div class="col-md-4">
-      <label for="validationCustomUsername" class="form-label">Kasutajanimi</label>
+      <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
       <div class="input-group">
         <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required v-model="userName" @input="validateUserName">
         <span class="input-group-text" id="inputGroupPrepend">
@@ -29,28 +29,21 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <label for="validationCustom03" class="form-label">City</label>
-      <input type="text" class="form-control" id="validationCustom03" required>
-      <div class="invalid-feedback">
-        Palun vali Linn.
+    <div>
+      <LocationDropdownsComponent/>
+    </div>
+    <div class="col-md-4">
+      <label for="validationCustom01" class="form-label">Parool*</label>
+      <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+      <div class="valid-feedback">
+
       </div>
     </div>
-    <div class="col-md-3">
-      <label for="validationCustom04" class="form-label">State</label>
-      <select class="form-select" id="validationCustom04" required>
-        <option selected disabled value="">Choose...</option>
-        <option>...</option>
-      </select>
-      <div class="invalid-feedback">
-        Please select a valid state.
-      </div>
-    </div>
-    <div class="col-md-3">
-      <label for="validationCustom05" class="form-label">Zip</label>
-      <input type="text" class="form-control" id="validationCustom05" required>
-      <div class="invalid-feedback">
-        Please provide a valid zip.
+    <div class="col-md-4">
+      <label for="validationCustom01" class="form-label">Parool uuesti*</label>
+      <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+      <div class="valid-feedback">
+
       </div>
     </div>
     <div class="col-12">
@@ -72,8 +65,11 @@
 
 
 <script>
+import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+
 export default {
   name: "ProfileInputComponent",
+  components: {LocationDropdownsComponent},
   data() {
     return {
       userName: '',
