@@ -3,7 +3,7 @@
 
   <div class="container text-center">
     <div class="row">
-      <div class="col">
+      <div class="col-11" style="margin-bottom: 50px;">
         <h1>Registreeri</h1>
       </div>
     </div>

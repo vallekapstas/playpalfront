@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="row g-3 needs-validation" novalidate>
+  <div class="row col-11 needs-validation" novalidate>
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Eesnimi*</label>
       <input type="text" class="form-control" id="validationCustom01" value="" required>
@@ -18,42 +17,45 @@
     <div class="col-md-4">
       <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
       <div class="input-group">
-        <input type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required v-model="userName" @input="validateUserName">
+        <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName" @input="validateUserName">
         <span class="input-group-text" id="inputGroupPrepend">
-          <span v-if="isCheckingUserName">Checking...</span>
-          <span v-if="userName && !isCheckingUserName && !isUserNameAvailable" class="rejection-tick">❌</span>
-          <span v-if="userName && !isCheckingUserName && isUserNameAvailable" class="approval-tick">✔️</span>
-        </span>
+      <span v-if="isCheckingUserName" class="status-text">Checking...</span>
+      <span v-if="userName && !isCheckingUserName && !isUserNameAvailable" class="rejection-tick">❌</span>
+      <span v-if="userName && !isCheckingUserName && isUserNameAvailable" class="approval-tick">✔️</span>
+    </span>
+      </div>
+      <div class="error-message" style="height: 20px;">
         <div v-if="!isUserNameAvailable">{{ errorMessage }}</div>
-        <div class="invalid-feedback">
-          Palun vali kasutajanimi.
-        </div>
+      </div>
+      <div class="invalid-feedback">
+        Palun vali kasutajanimi.
       </div>
     </div>
-    <div>
+    <div style="margin-top: 50px;">
+      <label class="form-label">Elukoht*</label>
       <LocationDropdownsComponent/>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 50px;">
       <label for="validationCustom01" class="form-label">Parool*</label>
       <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       <div class="valid-feedback">
 
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 50px;">
       <label for="validationCustom01" class="form-label">Parool uuesti*</label>
       <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       <div class="valid-feedback">
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 50px;">
       <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
         <input type="date" class = "form-control">
       <div class="valid-feedback">
       </div>
     </div>
     <div>
-      <div class="col-md-4">
+      <div class="col-md-4" style="margin-top: 50px; display: flex; flex-direction: column; align-items: center;">
         <label for="validationCustom01" class="form-label">Sugu*</label>
 
         <div class="form-check">
@@ -108,16 +110,27 @@ export default {
   methods: {
 
     async validateUserName() {
-      this.isCheckingUserName = true;
-      try {
-        const response = await this.$http.get(`/user/${this.userName}`);
-        this.isUserNameAvailable = !response.data;
-        this.errorMessage = this.isUserNameAvailable ? '' : 'Username is already taken';
-      } catch (error) {
-        console.error('Error checking userName availability:', error);
-        this.errorMessage = 'Error checking userName availability';
-      } finally {
-        this.isCheckingUserName = false;
+      const trimmedUserName = this.userName.trim(); // Remove leading and trailing spaces
+
+      // Check if the username is not empty
+      if (trimmedUserName) {
+        this.isCheckingUserName = true;
+        try {
+          setTimeout(async () => {
+            const response = await this.$http.get(`/user/${trimmedUserName}`);
+            this.isUserNameAvailable = !response.data;
+            this.errorMessage = this.isUserNameAvailable ? '' : 'Username is already taken';
+            this.isCheckingUserName = false;
+          }, 500);
+        } catch (error) {
+          console.error('Error checking userName availability:', error);
+          this.errorMessage = 'Error checking userName availability';
+          this.isCheckingUserName = false;
+        }
+      } else {
+        // Handle empty username case here
+        this.errorMessage = 'Username cannot be empty';
+        this.isCheckingUserName = false; // Reset the loading state
       }
     }
   },
@@ -148,6 +161,21 @@ mounted() {
 
 .rejection-tick {
   color: red;
+}
+.input-group {
+  position: relative; /* Ensure relative positioning for absolute positioning */
+}
+
+.status-text {
+  position: absolute;
+  left: 10px; /* Adjust left position as needed */
+  top: 50%; /* Align vertically */
+  transform: translateY(-50%);
+}
+
+.rejection-tick,
+.approval-tick {
+  margin-right: 10px; /* Adjust margin as needed */
 }
 </style>
 
