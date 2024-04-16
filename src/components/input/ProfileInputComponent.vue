@@ -1,94 +1,105 @@
 <template>
   <div class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
-  <div class="row col-11 mx-auto needs-validation" novalidate>
-    <div class="col-md-4" style="margin-top: 30px;" >
-      <label for="validationCustom01" class="form-label">Eesnimi*</label>
-      <input type="text" class="form-control" id="validationCustom01" value="" required>
-      <div class="valid-feedback">
-        Sobib!
+    <div class="row col-11 mx-auto needs-validation" novalidate>
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom01" class="form-label">Eesnimi*</label>
+        <input type="text" class="form-control" id="validationCustom01" value="" required>
+        <div class="valid-feedback">
+          Sobib!
+        </div>
       </div>
-    </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-      <label for="validationCustom02" class="form-label">Perekonnanimi*</label>
-      <input type="text" class="form-control" id="validationCustom02" value="" required>
-      <div class="valid-feedback">
-        Sobib!
+
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom02" class="form-label">Perekonnanimi*</label>
+        <input type="text" class="form-control" id="validationCustom02" value="" required>
+        <div class="valid-feedback">
+          Sobib!
+        </div>
       </div>
-    </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-      <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
-      <div class="input-group">
-        <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName" @input="validateUserName">
-        <span class="input-group-text" id="inputGroupPrepend">
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName"
+                 @input="validateUserName">
+          <span class="input-group-text" id="inputGroupPrepend">
       <span v-if="isCheckingUserName" class="status-text">Checking...</span>
       <span v-if="userName && !isCheckingUserName && !isUserNameAvailable" class="rejection-tick">❌</span>
       <span v-if="userName && !isCheckingUserName && isUserNameAvailable" class="approval-tick">✔️</span>
     </span>
+        </div>
+        <div class="error-message" style="height: 10px;">
+          <div v-if="!isUserNameAvailable">{{ errorMessage }}</div>
+        </div>
+        <div class="invalid-feedback">
+          Palun vali kasutajanimi.
+        </div>
       </div>
-      <div class="error-message" style="height: 10px;">
-        <div v-if="!isUserNameAvailable">{{ errorMessage }}</div>
-      </div>
-      <div class="invalid-feedback">
-        Palun vali kasutajanimi.
-      </div>
-    </div>
-    <div style="margin-top: 20px;">
-      <label class="form-label">Elukoht*</label>
-      <LocationDropdownsComponent/>
-    </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-      <label for="validationCustom01" class="form-label">Parool*</label>
-      <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-      <div class="valid-feedback">
 
+
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom01" class="form-label">Parool*</label>
+        <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+        <div class="valid-feedback">
+        </div>
       </div>
-    </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-      <label for="validationCustom01" class="form-label">Parool uuesti*</label>
-      <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-      <div class="valid-feedback">
+
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom01" class="form-label">Parool uuesti*</label>
+        <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+        <div class="valid-feedback">
+        </div>
       </div>
-    </div>
-    <div class="col-md-4" style="margin-top: 30px;">
-      <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
-        <input type="date" class = "form-control">
-      <div class="valid-feedback">
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
+        <input type="date" class="form-control">
+        <div class="valid-feedback">
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="col-md-12" style="margin-top: 30px; display: flex; flex-direction: column; align-items: center;">
+
+      <div style="margin-top: 20px;">
+        <label class="form-label">Elukoht*</label>
+        <LocationDropdownsComponent/>
+      </div>
+
+
+      <div class="col-md-12 text-center" style="margin-top: 30px;">
         <label for="validationCustom01" class="form-label">Sugu*</label>
 
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            Naine
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-          <label class="form-check-label" for="flexRadioDefault2">
-            Mees
-          </label>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="col-2" style="margin-top: 30px;">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
-        <label class="form-check-label" for="invalidCheck">
-          Agree to terms and conditions
-        </label>
-        <div class="invalid-feedback">
-          You must agree before submitting.
+        <div class="row justify-content-center">
+          <div class="col-md-4">
+            <button class="btn"
+                    :class="{ 'btn-outline-secondary': selectedGender !== 'female', 'btn-secondary': selectedGender === 'female' }"
+                    type="button" style="width: 100%" @click="selectGender('female')">
+              Naine
+            </button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn"
+                    :class="{ 'btn-outline-secondary': selectedGender !== 'male', 'btn-secondary': selectedGender === 'male' }"
+                    type="button" style="width: 100%" @click="selectGender('male')">
+              Mees
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-12">
-      <button class="btn btn-primary" type="submit">Submit form</button>
-    </div>
+
+      <div class="form-floating" style="margin-top: 30px;">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Lemmikmängud</label>
+      </div>
+
+      <div class="form-floating" style="margin-top: 30px;">
+        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+        <label for="floatingTextarea">Enesetutvustus</label>
+      </div>
+
+
+      <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
+        <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
+        <button class="btn btn-primary" type="submit">Registreeri</button>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -96,6 +107,7 @@
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import router from "@/router";
 
 export default {
   name: "ProfileInputComponent",
@@ -105,7 +117,8 @@ export default {
       userName: '',
       isCheckingUserName: false,
       isUserNameAvailable: true,
-      errorMessage: ''
+      errorMessage: '',
+      selectedGender: null
     }
 
   },
@@ -134,24 +147,30 @@ export default {
         this.errorMessage = 'Username cannot be empty';
         this.isCheckingUserName = false; // Reset the loading state
       }
+    },
+
+    goToEventView() {
+      router.push({name: 'indexRoute'})
+    },
+    selectGender(gender) {
+      this.selectedGender = gender;
     }
   },
 
-mounted() {
-  // Add the script for disabling form submissions
-  const forms = document.querySelectorAll('.needs-validation');
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      form.classList.add('was-validated');
-    }, false);
-  });
-}
+  mounted() {
+    // Add the script for disabling form submissions
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }
 };
-
 
 
 </script>
@@ -164,6 +183,7 @@ mounted() {
 .rejection-tick {
   color: red;
 }
+
 .input-group {
   position: relative; /* Ensure relative positioning for absolute positioning */
 }
