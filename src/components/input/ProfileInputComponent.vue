@@ -64,7 +64,7 @@
         </div>
         <div>
           <div >
-            <input type="date" >
+            <input type="date" class="form-control">
           </div>
         </div>
       </div>
