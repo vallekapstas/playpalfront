@@ -1,20 +1,21 @@
 <template>
-  <div class="row col-11 needs-validation" novalidate>
-    <div class="col-md-4">
+  <div class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
+  <div class="row col-11 mx-auto needs-validation" novalidate>
+    <div class="col-md-4" style="margin-top: 30px;" >
       <label for="validationCustom01" class="form-label">Eesnimi*</label>
       <input type="text" class="form-control" id="validationCustom01" value="" required>
       <div class="valid-feedback">
         Sobib!
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 30px;">
       <label for="validationCustom02" class="form-label">Perekonnanimi*</label>
       <input type="text" class="form-control" id="validationCustom02" value="" required>
       <div class="valid-feedback">
         Sobib!
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-top: 30px;">
       <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
       <div class="input-group">
         <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName" @input="validateUserName">
@@ -24,38 +25,38 @@
       <span v-if="userName && !isCheckingUserName && isUserNameAvailable" class="approval-tick">✔️</span>
     </span>
       </div>
-      <div class="error-message" style="height: 20px;">
+      <div class="error-message" style="height: 10px;">
         <div v-if="!isUserNameAvailable">{{ errorMessage }}</div>
       </div>
       <div class="invalid-feedback">
         Palun vali kasutajanimi.
       </div>
     </div>
-    <div style="margin-top: 50px;">
+    <div style="margin-top: 20px;">
       <label class="form-label">Elukoht*</label>
       <LocationDropdownsComponent/>
     </div>
-    <div class="col-md-4" style="margin-top: 50px;">
+    <div class="col-md-4" style="margin-top: 30px;">
       <label for="validationCustom01" class="form-label">Parool*</label>
       <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       <div class="valid-feedback">
 
       </div>
     </div>
-    <div class="col-md-4" style="margin-top: 50px;">
+    <div class="col-md-4" style="margin-top: 30px;">
       <label for="validationCustom01" class="form-label">Parool uuesti*</label>
       <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       <div class="valid-feedback">
       </div>
     </div>
-    <div class="col-md-4" style="margin-top: 50px;">
+    <div class="col-md-4" style="margin-top: 30px;">
       <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
         <input type="date" class = "form-control">
       <div class="valid-feedback">
       </div>
     </div>
     <div>
-      <div class="col-md-4" style="margin-top: 50px; display: flex; flex-direction: column; align-items: center;">
+      <div class="col-md-12" style="margin-top: 30px; display: flex; flex-direction: column; align-items: center;">
         <label for="validationCustom01" class="form-label">Sugu*</label>
 
         <div class="form-check">
@@ -74,7 +75,7 @@
       </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-2" style="margin-top: 30px;">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
         <label class="form-check-label" for="invalidCheck">
@@ -89,6 +90,7 @@
       <button class="btn btn-primary" type="submit">Submit form</button>
     </div>
     </div>
+  </div>
 </template>
 
 

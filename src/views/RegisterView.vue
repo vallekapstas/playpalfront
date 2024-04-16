@@ -3,8 +3,8 @@
 
   <div class="container text-center">
     <div class="row">
-      <div class="col-11" style="margin-bottom: 50px;">
-        <h1>Registreeri</h1>
+      <div class="col-12" style="margin-bottom: 30px;">
+        <h1>Registreeri kasutajaks</h1>
       </div>
     </div>
     <div class="row">
