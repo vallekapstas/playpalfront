@@ -2,7 +2,7 @@
   <div class="container text-center">
     <div class="row">
       <div class="col">
-        <select v-model="selectedCountriesId" @change="handleChangeCountry" class="form-select">
+        <select v-model="selectedCountryId" @change="handleChangeCountry" class="form-select">
           <option selected :value="0">Vali Riik</option>
           <option v-for="country in countries" :value="country.countryId" :key="country.countryId" class="dropdown-item">
             {{ country.countryName }}
@@ -10,7 +10,7 @@
         </select>
       </div>
       <div class="col">
-        <select v-model="selectedCountiesId" @change="handleChangeCounty" class="form-select">
+        <select v-model="selectedCountyId" @change="handleChangeCounty" class="form-select">
           <option selected :value="0">Vali Maakond</option>
           <option v-for="county in counties" :value="county.countyId" :key="county.countyId" class="dropdown-item">
             {{ county.countyName }}
@@ -18,7 +18,7 @@
         </select>
       </div>
       <div class="col">
-        <select v-model="selectedCitiesId" @change="handleChangeCity" class="form-select">
+        <select v-model="selectedCityId" @change="handleChangeCity" class="form-select">
           <option selected :value="0">Vali Linn</option>
           <option v-for="city in cities" :value="city.cityId" :key="city.cityId" class="dropdown-item">
             {{ city.cityName }}
@@ -38,9 +38,9 @@ export default {
   name: "LocationDropdownsComponent",
   data() {
     return {
-      selectedCountriesId: 0,
-      selectedCountiesId: 0,
-      selectedCitiesId: 0,
+      selectedCountryId: 0,
+      selectedCountyId: 0,
+      selectedCityId: 0,
       countries: [
         {
           countryId: 0,
@@ -75,7 +75,7 @@ export default {
     },
 
     async sendGetCountiesRequest() {
-      await this.$http.get(`/counties/country/${this.selectedCountriesId}`)
+      await this.$http.get(`/counties/country/${this.selectedCountryId}`)
           .then(response => {
             this.counties = response.data
           })
@@ -84,7 +84,7 @@ export default {
           })
     },
     async sendGetCitiesRequest() {
-      await this.$http.get(`/cities/county/${this.selectedCountiesId}`)
+      await this.$http.get(`/cities/county/${this.selectedCountyId}`)
           .then(response => {
             this.cities = response.data
           })
@@ -94,9 +94,9 @@ export default {
     },
 
     handleChangeCountry() {
-      this.$emit('event-selected-country-change', this.selectedCountriesId)
+      this.$emit('event-selected-country-change', this.selectedCountryId)
 
-      if (this.selectedCountriesId === 0) {
+      if (this.selectedCountryId === 0) {
         this.resetCounties()
         this.resetCities()
       } else {
@@ -107,32 +107,27 @@ export default {
     },
 
     handleChangeCounty() {
-      this.$emit('event-selected-county-change', this.selectedCountiesId)
+      this.$emit('event-selected-county-change', this.selectedCountyId)
 
-      if (this.selectedCountiesId === 0) {
+      if (this.selectedCountyId === 0) {
         this.resetCities()
-        this.resetCountries()
       } else {
         this.resetCities()
         this.sendGetCitiesRequest();
       }
     },
     handleChangeCity() {
-      this.$emit('event-selected-city-change', this.selectedCitiesId)
+      this.$emit('event-selected-city-change', this.selectedCityId)
     },
 
     resetCounties() {
-      this.selectedCountiesId = 0
+      this.selectedCountyId = 0
       this.counties = []
     },
 
     resetCities() {
-      this.selectedCitiesId = 0
+      this.selectedCityId = 0
       this.cities = []
-    },
-    resetCountries() {
-      this.selectedCountriesId = 0
-
     },
 
   },
