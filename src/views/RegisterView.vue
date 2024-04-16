@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <LocationDropdownsComponent/>
+        <ProfileInputComponent/>
       </div>
     </div>
   </div>
@@ -19,10 +19,11 @@
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import ProfileInputComponent from "@/components/input/ProfileInputComponent.vue";
 
 export default {
   name: "RegisterView",
-  components: {LocationDropdownsComponent}
+  components: {ProfileInputComponent, LocationDropdownsComponent}
 }
 </script>
 
