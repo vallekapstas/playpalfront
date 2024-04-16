@@ -1,5 +1,6 @@
 <template>
-  <form class="row g-3 needs-validation" novalidate>
+  <div
+    class="row g-3 needs-validation" novalidate>
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Eesnimi*</label>
       <input type="text" class="form-control" id="validationCustom01" value="" required>
@@ -43,9 +44,28 @@
       <label for="validationCustom01" class="form-label">Parool uuesti*</label>
       <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
       <div class="valid-feedback">
+      </div>
+    </div>
+    <div>
+      <div class="col-md-4">
+        <label for="validationCustom01" class="form-label">Sugu*</label>
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+          <label class="form-check-label" for="flexRadioDefault1">
+            Naine
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+          <label class="form-check-label" for="flexRadioDefault2">
+            Mees
+          </label>
+        </div>
 
       </div>
     </div>
+
     <div class="col-12">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
@@ -60,7 +80,7 @@
     <div class="col-12">
       <button class="btn btn-primary" type="submit">Submit form</button>
     </div>
-  </form>
+    </div>
 </template>
 
 
