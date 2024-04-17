@@ -93,6 +93,7 @@
       <div class="col-md-12 text-center" style="margin-top: 30px;">
         <label for="firstName" class="form-label">Sugu*</label>
 
+
         <div class="row justify-content-center">
           <div class="col-md-4">
             <button class="btn"
@@ -108,6 +109,13 @@
               Mees
             </button>
           </div>
+
+            <div v-if="!validGender" class="col-md-6 input-invalid">
+            Palun vali sugu!
+            </div>
+
+          </div>
+
         </div>
       </div>
 
@@ -129,7 +137,7 @@
 
 
     </div>
-  </div>
+
 </template>
 
 
@@ -151,7 +159,7 @@ export default {
       userName: '',
       isUserNameAvailable: true,
       errorMessage: '',
-      selectedGender: null,
+      selectedGender: '',
       firstName: '',
       lastName: '',
       password: true,
@@ -159,6 +167,7 @@ export default {
       country: 0,
       county: 0,
       city: 0,
+      gender: '',
       validFirstName: true,
       validLastName: true,
       validUserName: true,
@@ -166,7 +175,9 @@ export default {
       validPassword: true,
       validCountry: true,
       validCounty: true,
-      validCity: true
+      validCity: true,
+      validGender: true
+
 
 
     }
@@ -218,10 +229,12 @@ export default {
       this.validCountry = this.country > 0
       this.validCounty = this.county > 0
       this.validCity = this.city > 0
+      this.validGender = this.selectedGender.length > 0
+
 
 
       return this.validFirstName && this.validLastName && this.validUserName && this.validBirtDate && this.validPassword
-          && this.validCountry && this.validCounty && this.validCity
+          && this.validCountry && this.validCounty && this.validCity && this.validGender
 
     },
     clearErrors() {
