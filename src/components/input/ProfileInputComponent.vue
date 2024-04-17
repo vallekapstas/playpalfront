@@ -3,16 +3,19 @@
     <div class="row col-11 mx-auto needs-validation" novalidate>
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustom01" class="form-label">Eesnimi*</label>
-        <input type="text" class="form-control" id="validationCustom01" value="" required>
-        <div class="valid-feedback">
+        <input type="text" class="form-control" id="validationCustom01" v-model="firstName" required>
+        <div class="valid-feedback" v-if="firstNameValid">
           Sobib!
+        </div>
+        <div class = "invalid-feedback" v-else>
+        Palun sisesta eesnimi
         </div>
       </div>
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustom02" class="form-label">Perekonnanimi*</label>
         <input type="text" class="form-control" id="validationCustom02" value="" required>
-        <div class="valid-feedback">
+        <div class="valid-feedback" >
           Sobib!
         </div>
       </div>
@@ -104,7 +107,7 @@
 
       <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
         <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
-        <button class="btn btn-primary" type="submit">Registreeri</button>
+        <button class="btn btn-primary" type="submit" @click="submitForm">Registreeri</button>
       </div>
 
 
@@ -126,7 +129,10 @@ export default {
       isCheckingUserName: false,
       isUserNameAvailable: true,
       errorMessage: '',
-      selectedGender: null
+      selectedGender: null,
+      firstName: '',
+      firstNameValid: false
+
     }
 
   },
@@ -156,7 +162,15 @@ export default {
         this.isCheckingUserName = false; // Reset the loading state
       }
     },
-
+    submitForm() {
+      if (this.validateForm()){
+        this.goToEventView()
+      }
+    },
+    validateForm() {
+      this.firstNameValid = !!this.firstName;
+      return this.firstNameValid;
+    },
     goToEventView() {
       router.push({name: 'indexRoute'})
     },
