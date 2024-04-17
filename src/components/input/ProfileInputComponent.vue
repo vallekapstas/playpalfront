@@ -69,10 +69,12 @@
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="password" class="form-label">Parool uuesti*</label>
-        <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock"
+        <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control"
+               aria-describedby="passwordHelpBlock"
                value="required">
-        <div class="valid-feedback">
-          Palun sisesta parool uuesti!
+
+        <div v-if="!matchingPassword" class="input-invalid">
+          Sisestatud paroolid on erinevad!
         </div>
       </div>
 
@@ -110,33 +112,33 @@
             </button>
           </div>
 
-            <div v-if="!validGender" class="col-md-6 input-invalid">
+          <div v-if="!validGender" class="col-md-6 input-invalid">
             Palun vali sugu!
-            </div>
-
           </div>
 
         </div>
+
       </div>
-
-      <div class="form-floating" style="margin-top: 30px;">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Lemmikmängud</label>
-      </div>
-
-      <div class="form-floating" style="margin-top: 30px;">
-        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
-        <label for="floatingTextarea">Enesetutvustus</label>
-      </div>
-
-
-      <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
-        <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
-        <button class="btn btn-primary" type="submit" @click="submitForm">Registreeri</button>
-      </div>
-
-
     </div>
+
+    <div class="form-floating" style="margin-top: 30px;">
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <label for="floatingTextarea">Lemmikmängud</label>
+    </div>
+
+    <div class="form-floating" style="margin-top: 30px;">
+      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <label for="floatingTextarea">Enesetutvustus</label>
+    </div>
+
+
+    <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
+      <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
+      <button class="btn btn-primary" type="submit" @click="submitForm">Registreeri</button>
+    </div>
+
+
+  </div>
 
 </template>
 
@@ -162,7 +164,8 @@ export default {
       selectedGender: '',
       firstName: '',
       lastName: '',
-      password: true,
+      password: '',
+      passwordRepeat: '',
       birtDate: true,
       country: 0,
       county: 0,
@@ -173,11 +176,12 @@ export default {
       validUserName: true,
       validBirtDate: true,
       validPassword: true,
+      validRepeatPassword: true,
+      matchingPassword: true,
       validCountry: true,
       validCounty: true,
       validCity: true,
       validGender: true
-
 
 
     }
@@ -226,21 +230,30 @@ export default {
       this.validUserName = this.userName.length > 0
       this.validBirtDate = this.birtDate.length > 0
       this.validPassword = this.password.length > 0
+      this.validRepeatPassword = this.passwordRepeat > 0
+      this.matchingPassword = this.passwordRepeat === this.password
       this.validCountry = this.country > 0
       this.validCounty = this.county > 0
       this.validCity = this.city > 0
       this.validGender = this.selectedGender.length > 0
 
 
-
       return this.validFirstName && this.validLastName && this.validUserName && this.validBirtDate && this.validPassword
-          && this.validCountry && this.validCounty && this.validCity && this.validGender
+          && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
 
     },
     clearErrors() {
-      this.validUserName = true
       this.validFirstName = true
       this.validLastName = true
+      this.validUserName = true
+      this.validBirtDate = true
+      this.validPassword = true
+      this.validRepeatPassword = true
+      this.matchingPassword = true
+      this.validCountry = true
+      this.validCounty = true
+      this.validCity = true
+      this.validGender = true
     },
     goToEventView() {
       router.push({name: 'indexRoute'})
