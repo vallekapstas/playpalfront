@@ -16,6 +16,11 @@
           Sobib!
         </div>
       </div>
+
+      <div class="col-md-4" >
+        <img class="img-fluid" src="../../assets/red_dice.png" alt="profile image"  style="height: 100px"/>
+      </div>
+
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
         <div class="input-group">
@@ -35,6 +40,14 @@
         </div>
       </div>
 
+      <div class="col-md-4" style="margin-top: 30px;">
+        <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
+        <input type="date" class="form-control">
+        <div class="valid-feedback">
+        </div>
+      </div>
+
+      <div class="col-md-4"></div>
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustom01" class="form-label">Parool*</label>
@@ -49,12 +62,7 @@
         <div class="valid-feedback">
         </div>
       </div>
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="validationCustom01" class="form-label">Sünnikuupäev*</label>
-        <input type="date" class="form-control">
-        <div class="valid-feedback">
-        </div>
-      </div>
+
 
       <div style="margin-top: 20px;">
         <label class="form-label">Elukoht*</label>
@@ -134,7 +142,7 @@ export default {
           setTimeout(async () => {
             const response = await this.$http.get(`/user/${trimmedUserName}`);
             this.isUserNameAvailable = !response.data;
-            this.errorMessage = this.isUserNameAvailable ? '' : 'Username is already taken';
+            this.errorMessage = this.isUserNameAvailable ? '' : 'Kasutajanimi on võetud';
             this.isCheckingUserName = false;
           }, 500);
         } catch (error) {
