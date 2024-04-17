@@ -1,10 +1,10 @@
 <template>
-  <div class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
+  <div @input="clearErrors" class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
     <div class="row col-11 mx-auto needs-validation" novalidate>
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="firstName" class="form-label">Eesnimi*</label>
         <input v-model="firstName" type="text" class="form-control" id="firstName" required>
-        <div v-if="!validFirstName" class="invalid-feedback" >
+        <div v-if="!validFirstName" class="input-invalid">
           Palun sisesta eesnimi
         </div>
       </div>
@@ -12,32 +12,39 @@
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="lastName" class="form-label">Perekonnanimi*</label>
         <input v-model="lastName" type="text" class="form-control" id="lastName" value="" required>
-        <div v-if="!validLastName" class="invalid-feedback" >
+        <div v-if="!validLastName" class="input-invalid">
           Palun sisesta perekonnanimi
         </div>
       </div>
 
-      <div class="col-md-4" >
-        <img class="img-fluid" src="../../assets/red_dice.png" alt="profile image"  style="height: 100px"/>
+      <div class="col-md-4">
+        <img class="img-fluid" src="../../assets/red_dice.png" alt="profile image" style="height: 100px"/>
       </div>
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
+
         <div class="input-group">
+
           <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName"
                  @input="validateUserName">
+
           <span class="input-group-text" id="inputGroupPrepend">
-      <span v-if="isCheckingUserName" class="status-text">Checking...</span>
-      <span v-if="userName && !isCheckingUserName && !isUserNameAvailable" class="rejection-tick">❌</span>
-      <span v-if="userName && !isCheckingUserName && isUserNameAvailable" class="approval-tick">✔️</span>
-    </span>
+            <span v-if="isCheckingUserName" class="status-text">Checking...</span>
+            <span v-if="userName.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
+            <span v-if="userName.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
+          </span>
+
         </div>
-        <div class="error-message" style="height: 10px;">
-          <div v-if="!isUserNameAvailable">{{ errorMessage }}</div>
+
+        <div v-if="!isUserNameAvailable" class="input-invalid">
+          {{ errorMessage }}
         </div>
-        <div class="invalid-feedback">
-          Palun vali kasutajanimi.
+
+        <div v-if="!validUserName" class="input-invalid">
+          Palun sisesta kasutajanimi
         </div>
+
       </div>
 
       <div class="col-md-4" style="margin-top: 30px;">
@@ -123,7 +130,6 @@ export default {
   data() {
     return {
       userName: '',
-      isCheckingUserName: false,
       isUserNameAvailable: true,
       errorMessage: '',
       selectedGender: null,
@@ -131,6 +137,7 @@ export default {
       lastName: '',
       validFirstName: true,
       validLastName: true,
+      validUserName: true,
 
     }
 
@@ -142,23 +149,18 @@ export default {
 
       // Check if the username is not empty
       if (trimmedUserName) {
-        this.isCheckingUserName = true;
         try {
           setTimeout(async () => {
             const response = await this.$http.get(`/user/${trimmedUserName}`);
             this.isUserNameAvailable = !response.data;
             this.errorMessage = this.isUserNameAvailable ? '' : 'Kasutajanimi on võetud';
-            this.isCheckingUserName = false;
           }, 500);
         } catch (error) {
           console.error('Error checking userName availability:', error);
           this.errorMessage = 'Error checking userName availability';
-          this.isCheckingUserName = false;
         }
       } else {
-        // Handle empty username case here
-        this.errorMessage = 'Username cannot be empty';
-        this.isCheckingUserName = false; // Reset the loading state
+        this.errorMessage = ''
       }
     },
     submitForm() {
@@ -169,9 +171,14 @@ export default {
     allFieldsWithCorrectInput() {
       this.validFirstName = this.firstName.length > 0
       this.validLastName = this.lastName.length > 0
+      this.validUserName = this.userName.length > 0
 
-
-      return this.validFirstName && this.validLastName
+      return this.validFirstName && this.validLastName && this.validUserName
+    },
+    clearErrors() {
+      this.validUserName = true
+      this.validFirstName = true
+      this.validLastName = true
     },
     goToEventView() {
       router.push({name: 'indexRoute'})
@@ -185,8 +192,3 @@ export default {
 
 
 </script>
-
-
-
-
-

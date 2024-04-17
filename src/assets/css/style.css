@@ -190,52 +190,9 @@ html {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-
-
-/* väljade kontrollil kuvatava stuffi css sätted */
-.approval-tick {
-    color: green;
-}
-
-.rejection-tick {
+/*Custom Alert Styling for Error Messages*/
+.input-invalid {
     color: red;
+    margin-top: 5px;
 }
 
-.input-group {
-    position: relative; /* Ensure relative positioning for absolute positioning */
-}
-
-.status-text {
-    position: absolute;
-    left: 10px; /* Adjust left position as needed */
-    top: 50%; /* Align vertically */
-    transform: translateY(-50%);
-}
-
-.rejection-tick,
-.approval-tick {
-    margin-right: 10px; /* Adjust margin as needed */
-}
-
-/* Valid feedback */
-.valid-feedback {
-    display: none; /* Initially hide valid feedback */
-    color: green; /* Color for valid feedback */
-}
-
-/* Invalid feedback */
-.invalid-feedback {
-    display: none; /* Initially hide invalid feedback */
-    color: red; /* Color for invalid feedback */
-}
-
-/* Show valid feedback when its corresponding input is valid */
-input:valid + .valid-feedback {
-    display: block;
-}
-
-/* Show invalid feedback when its corresponding input is invalid */
-input:invalid + .invalid-feedback {
-    display: block;
-}
