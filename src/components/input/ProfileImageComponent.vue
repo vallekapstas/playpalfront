@@ -32,9 +32,6 @@ export default {
     }
     reader.readAsDataURL (fileObject);
   },
-    clearImageInput() {
-      this.$refs.fileInputRef.value = '';
-  },
 }
 }
 </script>

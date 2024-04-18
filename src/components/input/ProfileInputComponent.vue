@@ -4,7 +4,7 @@
     <div class="row col-11 mx-auto needs-validation" novalidate>
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="firstName" class="form-label">Eesnimi*</label>
-        <input v-model="firstName" type="text" class="form-control" id="firstName" value="required">
+        <input v-model="firstName" type="text" class="form-control" id="firstName" required>
         <div v-if="!validFirstName" class="input-invalid">
           Palun sisesta eesnimi!
         </div>
@@ -12,14 +12,14 @@
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="lastName" class="form-label">Perekonnanimi*</label>
-        <input v-model="lastName" type="text" class="form-control" id="lastName" value="required">
+        <input v-model="lastName" type="text" class="form-control" id="lastName" required>
         <div v-if="!validLastName" class="input-invalid">
           Palun sisesta perekonnanimi!
         </div>
       </div>
 
       <div class="col-md-4">
-        <img class="img-fluid" src="../../assets/red_dice.png" alt="profile image" style="height: 100px"/>
+      <ProfileImageComponent ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
       </div>
 
       <div class="col-md-4" style="margin-top: 30px;">
@@ -50,7 +50,7 @@
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="firstName" class="form-label">Sünnikuupäev*</label>
-        <input v-model="birtDate" type="date" class="form-control" value="required">
+        <input v-model="birtDate" type="date" class="form-control" required>
         <div v-if="!validBirtDate" class="input-invalid">
           Palun sisesta sünnikuupäev!
         </div>
@@ -61,7 +61,7 @@
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="password" class="form-label">Parool*</label>
         <input v-model="password" type="password" id="inputPassword5" class="form-control"
-               aria-describedby="passwordHelpBlock" value="required">
+               aria-describedby="passwordHelpBlock" required>
         <div v-if="!validPassword" class="input-invalid">
           Palun sisesta parool!
         </div>
@@ -71,7 +71,7 @@
         <label for="password" class="form-label">Parool uuesti*</label>
         <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control"
                aria-describedby="passwordHelpBlock"
-               value="required">
+               required>
 
         <div v-if="!matchingPassword" class="input-invalid">
           Sisestatud paroolid on erinevad!
@@ -147,15 +147,21 @@
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 import router from "@/router";
 import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
+import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
 export default {
   name: "ProfileInputComponent",
   computed: {
+    profileImageComponent() {
+      return profileImageComponent
+    },
     locationDropdowns() {
       return locationDropdownsComponent
     }
   },
-  components: {LocationDropdownsComponent},
+  components: {LocationDropdownsComponent, ProfileImageComponent},
+
   data() {
     return {
       userName: '',
@@ -181,7 +187,8 @@ export default {
       validCountry: true,
       validCounty: true,
       validCity: true,
-      validGender: true
+      validGender: true,
+      imageData: ''
 
 
     }
@@ -219,9 +226,12 @@ export default {
       this.city = cityId
 
     },
+    setImageData(imageData) {
+      this.imageData = imageData
+    },
     submitForm() {
       if (this.allFieldsWithCorrectInput()) {
-        // siis saadame backile sõnumi kasutaja registreerimisekt
+        // siis saadame backile sõnumi kasutaja registreerimiseks
       }
     },
     allFieldsWithCorrectInput() {
@@ -260,6 +270,9 @@ export default {
     },
     selectGender(gender) {
       this.selectedGender = gender;
+    },
+    emitNewImageData (imageData){
+      this.$emit ('event-new-image-file-selected', imageData)
     }
   },
 
