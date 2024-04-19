@@ -19,8 +19,8 @@
       </div>
 
       <div class="col-md-4">
-        <ProfileImageComponent :image-data="imageData"/>
-<!--      <ProfileImageComponent ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>-->
+        <ProfileImageComponent :image-data="imageData" ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
+
 
       </div>
 

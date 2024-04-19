@@ -3,8 +3,8 @@
   <div>
     <input ref="fileInputRef" type="file" class="form-control" @change="handleImage"
            accept="image/jpeg,image/x-png,image/gif">
-    <img v-if="imageData=== ''" src="src/assets/profileimage.png" class="img-thumbnail" alt="Vaikimisi profiili pilt">
-    <img :src="imageData" class="img-thumbnail" alt="Profiili pilt">
+    <img v-if="imageData"  :src="imageData" class="img-thumbnail" alt="Profiili pilt">
+
   </div>
 
 </template>
@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      imageData: String
+      imageData: ''
     }
   },
   methods: {
