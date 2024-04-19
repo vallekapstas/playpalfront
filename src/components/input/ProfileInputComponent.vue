@@ -20,16 +20,16 @@
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="validationCustomUsername" class="form-label"><b>Kasutajanimi*</b></label>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName"
+                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="username"
                          @input="validateUserName">
                   <span class="input-group-text" id="inputGroupPrepend">
                 <span v-if="isCheckingUserName" class="status-text">Checking...</span>
-                <span v-if="userName.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
-                <span v-if="userName.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
+                <span v-if="username.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
+                <span v-if="username.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
               </span>
                 </div>
                 <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
-                <div v-if="!validUserName" class="input-invalid">Palun sisesta kasutajanimi!</div>
+                <div v-if="!validUsername" class="input-invalid">Palun sisesta kasutajanimi!</div>
               </div>
 
               <div class="col-md-6" style="margin-top: 30px;">
@@ -47,7 +47,7 @@
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="password" class="form-label"><b>Parool uuesti*</b></label>
-                <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control"
+                <input v-model="passwordRepeat" type="password" id="inputPassword6" class="form-control"
                        aria-describedby="passwordHelpBlock" required>
                 <div v-if="!matchingPassword" class="input-invalid">Sisestatud paroolid on erinevad!</div>
               </div>
@@ -132,7 +132,7 @@ export default {
 
   data() {
     return {
-      userName: '',
+      username: '',
       errorMessage: '',
       selectedGender: '',
       firstName: '',
@@ -151,7 +151,7 @@ export default {
       isUserNameAvailable: true,
       validFirstName: true,
       validLastName: true,
-      validUserName: true,
+      validUsername: true,
       validBirthDate: true,
       validPassword: true,
       validRepeatPassword: true,
@@ -168,13 +168,13 @@ export default {
   methods: {
 
     async validateUserName() {
-      const trimmedUserName = this.userName.trim(); // Remove leading and trailing spaces
+      const trimmedUserName = this.username.trim(); // Remove leading and trailing spaces
 
       // Check if the username is not empty
       if (trimmedUserName) {
         try {
           setTimeout(async () => {
-            const response = await this.$http.get(`/user/${trimmedUserName}`);
+            const response = await this.$http.get(`/user/name/${trimmedUserName}`);
             this.isUserNameAvailable = !response.data;
             this.errorMessage = this.isUserNameAvailable ? '' : 'Kasutajanimi on võetud';
           }, 500);
@@ -232,18 +232,18 @@ export default {
     allFieldsWithCorrectInput() {
       this.validFirstName = this.firstName.length > 0
       this.validLastName = this.lastName.length > 0
-      this.validUserName = this.userName.length > 0
+      this.validUsername = this.username.length > 0
       this.validBirthDate = this.birthDate.length > 0
       this.validPassword = this.password.length > 0
-      this.validRepeatPassword = this.passwordRepeat > 0
+      this.validRepeatPassword = this.passwordRepeat.length > 0
       this.matchingPassword = this.passwordRepeat === this.password
       this.validCountry = this.country > 0
       this.validCounty = this.county > 0
       this.validCity = this.city > 0
-      this.validGender = this.selectedGender.length > 0
+      this.validGender = this.genderId > 0
 
 
-      return this.validFirstName && this.validLastName && this.validUserName && this.validBirthDate && this.validPassword
+      return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate && this.validPassword
           && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
 
     },
@@ -251,7 +251,7 @@ export default {
     clearErrors() {
       this.validFirstName = true
       this.validLastName = true
-      this.validUserName = true
+      this.validUsername = true
       this.validBirthDate = true
       this.validPassword = true
       this.validRepeatPassword = true

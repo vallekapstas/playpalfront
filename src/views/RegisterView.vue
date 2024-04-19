@@ -61,29 +61,31 @@ export default {
       }
     },
 
+
     sendPostUserProfileRequest() {
+      console.log(this.userProfileInfo)
       this.$http.post("/user/register", this.userProfileInfo)
           .then(() => this.handlePostUserProfileInfoResponse())
           .catch(error => {
+            console.log('e',error)
             router.push({name:'errorRoute'})
           })
     },
     handlePostUserProfileInfoResponse() {
       this.goToEventView()
       this.showSuccessMessage()
-      this.resetAllInputFields()
-    },
-    showSuccessMessage() {
-      this.successMessage = 'Kasutaja "' + this.userProfileInfo.username + '"on registreeritud!'
-      setTimeout(this.resetAlertMessage, 4000)
     },
 
-    resetAlertMessage() {
-      this.successMessage = ''
+    showSuccessMessage() {
+      const alertParams = {
+        style: 'alert-success',
+        message: this.userProfileInfo.firstName + ', oled registreeritud ja võid sisse logida'
+      }
+      this.$emit('event-user-registered', alertParams)
     },
 
     getAndSetUserProfileValues() {
-      this.userProfileInfo.username = this.$refs.profileInputComponentRef.userName
+      this.userProfileInfo.username = this.$refs.profileInputComponentRef.username
       this.userProfileInfo.password = this.$refs.profileInputComponentRef.password
       this.userProfileInfo.firstName = this.$refs.profileInputComponentRef.firstName
       this.userProfileInfo.lastName = this.$refs.profileInputComponentRef.lastName
