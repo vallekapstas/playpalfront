@@ -2,7 +2,7 @@
 
   <div id="imageSelectionContainer">
     <div>
-      <img v-if="imageData" :src="imageData" class="img-thumbnail" alt="Profiili pilt" style="width: 200px; height: 200px;">
+      <img v-if="profileImage" :src="profileImage" class="img-thumbnail" alt="Profiili pilt" style="width: 200px; height: 200px;">
       <input ref="fileInputRef" type="file" class="form-control" @change="handleImage" accept="image/jpeg,image/x-png,image/gif">
     </div>
   </div>
@@ -13,23 +13,23 @@
 export default {
   name: "ProfileImageComponent",
   props:{
-    imageData: String
+    profileImage: String
   },
   data() {
     return {
-      imageData: ''
+      profileImage: ''
     }
   },
   methods: {
     handleImage(event) {
       const selectedImage = event.target.files [0];
-      this.emitNewImageData(selectedImage);
+      this.emitNewProfileImage(selectedImage);
     },
-    emitNewImageData(fileObject) {
+    emitNewProfileImage(fileObject) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.imageData = reader.result;
-        this.$emit('event-new-image-file-selected', this.imageData)
+        this.profileImage = reader.result;
+        this.$emit('event-new-image-file-selected', this.profileImage)
       }
       reader.onerror = function (error) {
         alert(error);

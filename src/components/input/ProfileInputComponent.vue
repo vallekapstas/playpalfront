@@ -1,6 +1,5 @@
 <template>
-  <div @input="clearErrors"
-       class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
+  <div @input="clearErrors">
     <div class="row col-11 mx-auto needs-validation" novalidate>
       <div>
         <div class="row">
@@ -57,8 +56,8 @@
 
           <div class="col-md-4" style="margin-top:  30px">
             <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
-            <ProfileImageComponent :image-data="imageData" id="profileImage" ref="profileImageComponentRef"
-                                   @event-new-image-file-selected="emitNewImageData"/>
+            <ProfileImageComponent :image-data="profileImage" id="profileImage" ref="profileImageComponentRef"
+                                   @event-new-image-file-selected="emitNewProfileImage"/>
           </div>
         </div>
       </div>
@@ -80,14 +79,14 @@
           <div class="col-md-4">
             <button class="btn"
                     :class="{ 'btn-outline-secondary': selectedGender !== 'female', 'btn-secondary': selectedGender === 'female' }"
-                    type="button" style="width: 100%" @click="selectGender('female')">
+                    type="button" style="width: 100%" @click="selectGenderId('female')">
               Naine
             </button>
           </div>
           <div class="col-md-4">
             <button class="btn"
                     :class="{ 'btn-outline-secondary': selectedGender !== 'male', 'btn-secondary': selectedGender === 'male' }"
-                    type="button" style="width: 100%" @click="selectGender('male')">
+                    type="button" style="width: 100%" @click="selectGenderId('male')">
               Mees
             </button>
           </div>
@@ -99,28 +98,23 @@
     </div>
 
     <div class="form-floating" style="margin-top: 30px;">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <textarea v-model="interestedIn" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
       <label for="floatingTextarea">Lemmikmängud</label>
     </div>
 
     <div class="form-floating" style="margin-top: 30px;">
-      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <textarea v-model="introduction" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
       <label for="floatingTextarea">Enesetutvustus</label>
     </div>
-
-
-    <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
-      <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
-      <button class="btn btn-primary" type="submit" @click="submitForm">Registreeri</button>
-    </div>
   </div>
+
 </template>
 
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
-import router from "@/router";
 import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import router from "@/router";
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
 import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
@@ -139,19 +133,22 @@ export default {
   data() {
     return {
       userName: '',
-      isUserNameAvailable: true,
       errorMessage: '',
       selectedGender: '',
       firstName: '',
       lastName: '',
       password: '',
       passwordRepeat: '',
-      birthDate: true,
       country: 0,
       county: 0,
       city: 0,
       gender: '',
-      imageData: '',
+      profileImage: '',
+      interestedIn:'',
+      introduction:'',
+      genderId: 0,
+      birthDate: true,
+      isUserNameAvailable: true,
       validFirstName: true,
       validLastName: true,
       validUserName: true,
@@ -202,8 +199,7 @@ export default {
     getYesterday() {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1); // Subtract 1 day
-      const formattedDate = yesterday.toISOString().split('T')[0];
-      return formattedDate;
+      return yesterday.toISOString().split('T')[0];
     },
 
     setCountryId(countryId) {
@@ -214,15 +210,24 @@ export default {
     },
     setCityId(cityId) {
       this.city = cityId
+      this.$emit('event-selected-city-change', this.city)
     },
-    setImageData(imageData) {
-      this.imageData = imageData
+    selectGenderId(gender) {
+      this.selectedGender = gender; // Set the selected gender
+      this.genderId = this.getGenderId(gender); // Map the gender to its ID
     },
-    submitForm() {
-      if (this.allFieldsWithCorrectInput()) {
-        // siis saadame backile sõnumi kasutaja registreerimiseks
+    getGenderId(gender) {
+      if (gender === 'female') {
+        return 1;
+      } else {
+        return 2;
       }
     },
+
+    setProfileImage(profileImage) {
+      this.profileImage = profileImage
+    },
+
 
     allFieldsWithCorrectInput() {
       this.validFirstName = this.firstName.length > 0
@@ -259,11 +264,11 @@ export default {
     goToEventView() {
       router.push({name: 'indexRoute'})
     },
-    selectGender(gender) {
-      this.selectedGender = gender;
-    },
-    emitNewImageData(imageData) {
-      this.$emit('event-new-image-file-selected', imageData)
+    // selectGender(gender) {
+    //   this.selectedGender = gender;
+    // },
+    emitNewProfileImage(profileImage) {
+      this.$emit('event-new-image-file-selected', profileImage)
     }
   },
 
