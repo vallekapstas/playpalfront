@@ -21,7 +21,8 @@
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="validationCustomUsername" class="form-label"><b>Kasutajanimi*</b></label>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName" @input="validateUserName">
+                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName"
+                         @input="validateUserName">
                   <span class="input-group-text" id="inputGroupPrepend">
                 <span v-if="isCheckingUserName" class="status-text">Checking...</span>
                 <span v-if="userName.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
@@ -34,26 +35,29 @@
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
-                <input v-model="birtDate" type="date" class="form-control" required>
-                <div v-if="!validBirtDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
+                <input v-model="birthDate" type="date" class="form-control" @change="validateBirthDate" required>
+                <div v-if="!validBirthDate" class="input-invalid">Sünnikuupäev peab olema minevikus!</div>
               </div>
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="password" class="form-label"><b>Parool*</b></label>
-                <input v-model="password" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <input v-model="password" type="password" id="inputPassword5" class="form-control"
+                       aria-describedby="passwordHelpBlock" required>
                 <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
               </div>
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="password" class="form-label"><b>Parool uuesti*</b></label>
-                <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control"
+                       aria-describedby="passwordHelpBlock" required>
                 <div v-if="!matchingPassword" class="input-invalid">Sisestatud paroolid on erinevad!</div>
               </div>
             </div>
           </div>
           <div class="col-md-4" style="margin-top:  30px">
             <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
-            <ProfileImageComponent :image-data="imageData" id="profileImage" ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
+            <ProfileImageComponent :image-data="imageData" id="profileImage" ref="profileImageComponentRef"
+                                   @event-new-image-file-selected="emitNewImageData"/>
           </div>
         </div>
       </div>
@@ -155,18 +159,18 @@ export default {
       county: 0,
       city: 0,
       gender: '',
+      imageData: '',
       validFirstName: true,
       validLastName: true,
       validUserName: true,
-      validBirtDate: true,
+      validBirthDate: true,
       validPassword: true,
       validRepeatPassword: true,
       matchingPassword: true,
       validCountry: true,
       validCounty: true,
       validCity: true,
-      validGender: true,
-      imageData: ''
+      validGender: true
 
 
     }
@@ -193,16 +197,25 @@ export default {
         this.errorMessage = ''
       }
     },
+
+    validateBirthDate() {
+      const enteredDate = new Date(this.birthDate);
+      const currentDate = new Date();
+      if (enteredDate > currentDate) {
+        this.validBirthDate = false;
+      } else {
+        this.validBirthDate = true;
+      }
+    },
+
     setCountryId(countryId) {
       this.country = countryId
     },
     setCountyId(countyId) {
       this.county = countyId
-
     },
     setCityId(cityId) {
       this.city = cityId
-
     },
     setImageData(imageData) {
       this.imageData = imageData
@@ -212,11 +225,12 @@ export default {
         // siis saadame backile sõnumi kasutaja registreerimiseks
       }
     },
+
     allFieldsWithCorrectInput() {
       this.validFirstName = this.firstName.length > 0
       this.validLastName = this.lastName.length > 0
       this.validUserName = this.userName.length > 0
-      this.validBirtDate = this.birtDate.length > 0
+      this.validBirthDate = this.birtDate.length > 0
       this.validPassword = this.password.length > 0
       this.validRepeatPassword = this.passwordRepeat > 0
       this.matchingPassword = this.passwordRepeat === this.password
@@ -226,15 +240,16 @@ export default {
       this.validGender = this.selectedGender.length > 0
 
 
-      return this.validFirstName && this.validLastName && this.validUserName && this.validBirtDate && this.validPassword
+      return this.validFirstName && this.validLastName && this.validUserName && this.validBirthDate && this.validPassword
           && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
 
     },
+
     clearErrors() {
       this.validFirstName = true
       this.validLastName = true
       this.validUserName = true
-      this.validBirtDate = true
+      this.validBirthDate = true
       this.validPassword = true
       this.validRepeatPassword = true
       this.matchingPassword = true
@@ -249,8 +264,8 @@ export default {
     selectGender(gender) {
       this.selectedGender = gender;
     },
-    emitNewImageData (imageData){
-      this.$emit ('event-new-image-file-selected', imageData)
+    emitNewImageData(imageData) {
+      this.$emit('event-new-image-file-selected', imageData)
     }
   },
 
