@@ -41,24 +41,30 @@ export default {
       selectedCountryId: 0,
       selectedCountyId: 0,
       selectedCityId: 0,
+
       countries: [
         {
           countryId: 0,
           countryName: ''
         }
       ],
+
       counties: [
         {
           countyId: 0,
           countyName: ''
         }
       ],
+
       cities: [
         {
           cityId: 0,
           cityName: ''
         }
-      ]
+      ],
+
+      countryChangeTimeout: null,
+      countyChangeTimeout: null
     }
 
   },
@@ -94,28 +100,35 @@ export default {
     },
 
     handleChangeCountry() {
-      this.$emit('event-selected-country-change', this.selectedCountryId)
+      clearTimeout(this.countryChangeTimeout);
+      this.countryChangeTimeout = setTimeout(() => {
+        this.$emit('event-selected-country-change', this.selectedCountryId);
 
-      if (this.selectedCountryId === 0) {
-        this.resetCounties()
-        this.resetCities()
-      } else {
-        this.resetCounties()
-        this.resetCities()
-        this.sendGetCountiesRequest();
-      }
+        if (this.selectedCountryId === 0) {
+          this.resetCounties();
+          this.resetCities();
+        } else {
+          this.resetCounties();
+          this.resetCities();
+          this.sendGetCountiesRequest();
+        }
+      }, 500); // delay
     },
 
     handleChangeCounty() {
-      this.$emit('event-selected-county-change', this.selectedCountyId)
+      clearTimeout(this.countyChangeTimeout);
+      this.countyChangeTimeout = setTimeout(() => {
+        this.$emit('event-selected-county-change', this.selectedCountyId);
 
-      if (this.selectedCountyId === 0) {
-        this.resetCities()
-      } else {
-        this.resetCities()
-        this.sendGetCitiesRequest();
-      }
+        if (this.selectedCountyId === 0) {
+          this.resetCities();
+        } else {
+          this.resetCities();
+          this.sendGetCitiesRequest();
+        }
+      }, 500); // delay
     },
+
     handleChangeCity() {
       this.$emit('event-selected-city-change', this.selectedCityId)
     },
