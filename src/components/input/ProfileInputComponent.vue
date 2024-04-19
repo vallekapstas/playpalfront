@@ -36,7 +36,7 @@
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
                 <input v-model="birthDate" type="date" class="form-control" :max="getToday()" @change="validateBirthDate" required>
-                <div v-if="!validBirthDate" class="input-invalid">Sünnikuupäev peab olema minevikus!</div>
+                <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
               </div>
 
               <div class="col-md-6" style="margin-top: 30px;">
@@ -127,8 +127,8 @@
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
-import router from "@/router";
 import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import router from "@/router";
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
 import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
@@ -210,8 +210,7 @@ export default {
     getToday() {
       const today = new Date();
       // Format today's date as YYYY-MM-DD
-      const formattedDate = today.toISOString().split('T')[0];
-      return formattedDate;
+      return today.toISOString().split('T')[0];
     },
 
     setCountryId(countryId) {
