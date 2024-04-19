@@ -2,89 +2,64 @@
   <div @input="clearErrors"
        class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
     <div class="row col-11 mx-auto needs-validation" novalidate>
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="firstName" class="form-label">Eesnimi*</label>
-        <input v-model="firstName" type="text" class="form-control" id="firstName" required>
-        <div v-if="!validFirstName" class="input-invalid">
-          Palun sisesta eesnimi!
+      <div>
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="firstName" class="form-label"><b>Eesnimi*</b></label>
+                <input v-model="firstName" type="text" class="form-control" id="firstName" required>
+                <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="lastName" class="form-label"><b>Perekonnanimi*</b></label>
+                <input v-model="lastName" type="text" class="form-control" id="lastName" required>
+                <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="validationCustomUsername" class="form-label"><b>Kasutajanimi*</b></label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName" @input="validateUserName">
+                  <span class="input-group-text" id="inputGroupPrepend">
+                <span v-if="isCheckingUserName" class="status-text">Checking...</span>
+                <span v-if="userName.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
+                <span v-if="userName.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
+              </span>
+                </div>
+                <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
+                <div v-if="!validUserName" class="input-invalid">Palun sisesta kasutajanimi!</div>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
+                <input v-model="birtDate" type="date" class="form-control" required>
+                <div v-if="!validBirtDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="password" class="form-label"><b>Parool*</b></label>
+                <input v-model="password" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
+              </div>
+
+              <div class="col-md-6" style="margin-top: 30px;">
+                <label for="password" class="form-label"><b>Parool uuesti*</b></label>
+                <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" required>
+                <div v-if="!matchingPassword" class="input-invalid">Sisestatud paroolid on erinevad!</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" style="margin-top:  30px">
+            <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
+            <ProfileImageComponent :image-data="imageData" id="profileImage" ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
+          </div>
         </div>
       </div>
-
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="lastName" class="form-label">Perekonnanimi*</label>
-        <input v-model="lastName" type="text" class="form-control" id="lastName" required>
-        <div v-if="!validLastName" class="input-invalid">
-          Palun sisesta perekonnanimi!
-        </div>
-      </div>
-
-      <div class="col-md-4"></div>
-
-
-
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
-
-        <div class="input-group">
-
-          <input type="text" class="form-control" id="validationCustomUsername" required v-model="userName"
-                 @input="validateUserName">
-
-          <span class="input-group-text" id="inputGroupPrepend">
-            <span v-if="isCheckingUserName" class="status-text">Checking...</span>
-            <span v-if="userName.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
-            <span v-if="userName.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
-          </span>
-
-        </div>
-
-        <div v-if="!isUserNameAvailable" class="input-invalid">
-          {{ errorMessage }}
-        </div>
-
-        <div v-if="!validUserName" class="input-invalid">
-          Palun sisesta kasutajanimi!
-        </div>
-
-      </div>
-
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="firstName" class="form-label">Sünnikuupäev*</label>
-        <input v-model="birtDate" type="date" class="form-control" required>
-        <div v-if="!validBirtDate" class="input-invalid">
-          Palun sisesta sünnikuupäev!
-        </div>
-      </div>
-
-      <div class="col-md-4"></div>
-
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="password" class="form-label">Parool*</label>
-        <input v-model="password" type="password" id="inputPassword5" class="form-control"
-               aria-describedby="passwordHelpBlock" required>
-        <div v-if="!validPassword" class="input-invalid">
-          Palun sisesta parool!
-        </div>
-      </div>
-
-      <div class="col-md-4" style="margin-top: 30px;">
-        <label for="password" class="form-label">Parool uuesti*</label>
-        <input v-model="passwordRepeat" type="password" id="inputPassword5" class="form-control"
-               aria-describedby="passwordHelpBlock"
-               required>
-
-        <div v-if="!matchingPassword" class="input-invalid">
-          Sisestatud paroolid on erinevad!
-        </div>
-      </div>
-
-      <div class="col-md-4" style="margin-top: 62px" >
-        <ProfileImageComponent :image-data="imageData" ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
-      </div>
-
 
       <div style="margin-top: 20px;">
-        <label class="form-label">Elukoht*</label>
+        <label class="form-label"><b>Elukoht*</b></label>
         <LocationDropdownsComponent @event-selected-country-change="setCountryId"
                                     @event-selected-county-change="setCountyId"
                                     @event-selected-city-change="setCityId"/>
@@ -96,7 +71,7 @@
 
 
       <div class="col-md-12 text-center" style="margin-top: 30px;">
-        <label for="firstName" class="form-label">Sugu*</label>
+        <label for="firstName" class="form-label"><b>Sugu*</b></label>
 
 
         <div class="row justify-content-center">
