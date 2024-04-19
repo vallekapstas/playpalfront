@@ -154,7 +154,7 @@ export default {
       lastName: '',
       password: '',
       passwordRepeat: '',
-      birtDate: true,
+      birthDate: true,
       country: 0,
       county: 0,
       city: 0,
@@ -230,7 +230,7 @@ export default {
       this.validFirstName = this.firstName.length > 0
       this.validLastName = this.lastName.length > 0
       this.validUserName = this.userName.length > 0
-      this.validBirthDate = this.birtDate.length > 0
+      this.validBirthDate = this.birthDate.length > 0
       this.validPassword = this.password.length > 0
       this.validRepeatPassword = this.passwordRepeat > 0
       this.matchingPassword = this.passwordRepeat === this.password
