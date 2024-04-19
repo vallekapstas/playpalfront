@@ -18,11 +18,9 @@
         </div>
       </div>
 
-      <div class="col-md-4">
-        <ProfileImageComponent :image-data="imageData"/>
-<!--      <ProfileImageComponent ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>-->
+      <div class="col-md-4"></div>
 
-      </div>
+
 
       <div class="col-md-4" style="margin-top: 30px;">
         <label for="validationCustomUsername" class="form-label">Kasutajanimi*</label>
@@ -80,6 +78,10 @@
         </div>
       </div>
 
+      <div class="col-md-4" style="margin-top: 62px" >
+        <ProfileImageComponent :image-data="imageData" ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
+      </div>
+
 
       <div style="margin-top: 20px;">
         <label class="form-label">Elukoht*</label>
@@ -90,7 +92,6 @@
         <div v-if="!validCountry || !validCounty || !validCity" class="col-md-4 input-invalid">
           Palun sisesta elukoht!
         </div>
-
       </div>
 
 

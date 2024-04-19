@@ -1,12 +1,11 @@
 <template>
 
-  <div>
-    <input ref="fileInputRef" type="file" class="form-control" @change="handleImage"
-           accept="image/jpeg,image/x-png,image/gif">
-    <img v-if="imageData=== ''" src="src/assets/profileimage.png" class="img-thumbnail" alt="Vaikimisi profiili pilt">
-    <img :src="imageData" class="img-thumbnail" alt="Profiili pilt">
+  <div id="imageSelectionContainer">
+    <div>
+      <img v-if="imageData" :src="imageData" class="img-thumbnail" alt="Profiili pilt" style="width: 200px; height: 200px;">
+      <input ref="fileInputRef" type="file" class="form-control" @change="handleImage" accept="image/jpeg,image/x-png,image/gif">
+    </div>
   </div>
-
 </template>
 
 
@@ -18,7 +17,7 @@ export default {
   },
   data() {
     return {
-      imageData: String
+      imageData: ''
     }
   },
   methods: {
