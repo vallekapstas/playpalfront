@@ -35,7 +35,7 @@
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
-                <input v-model="birthDate" type="date" class="form-control" :max="getToday()" @change="validateBirthDate" required>
+                <input v-model="birthDate" type="date" class="form-control" :max="getYesterday()" @change="validateBirthDate" required>
                 <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
               </div>
 
@@ -54,6 +54,7 @@
               </div>
             </div>
           </div>
+
           <div class="col-md-4" style="margin-top:  30px">
             <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
             <ProfileImageComponent :image-data="imageData" id="profileImage" ref="profileImageComponentRef"
@@ -67,7 +68,6 @@
         <LocationDropdownsComponent @event-selected-country-change="setCountryId"
                                     @event-selected-county-change="setCountyId"
                                     @event-selected-city-change="setCityId"/>
-
         <div v-if="!validCountry || !validCounty || !validCity" class="col-md-4 input-invalid">
           Palun sisesta elukoht!
         </div>
@@ -76,8 +76,6 @@
 
       <div class="col-md-12 text-center" style="margin-top: 30px;">
         <label for="firstName" class="form-label"><b>Sugu*</b></label>
-
-
         <div class="row justify-content-center">
           <div class="col-md-4">
             <button class="btn"
@@ -93,13 +91,10 @@
               Mees
             </button>
           </div>
-
           <div v-if="!validGender" class="col-md-6 input-invalid">
             Palun vali sugu!
           </div>
-
         </div>
-
       </div>
     </div>
 
@@ -118,17 +113,14 @@
       <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
       <button class="btn btn-primary" type="submit" @click="submitForm">Registreeri</button>
     </div>
-
-
   </div>
-
 </template>
 
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
-import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 import router from "@/router";
+import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
 import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
@@ -207,10 +199,11 @@ export default {
         this.validBirthDate = true;
       }
     },
-    getToday() {
-      const today = new Date();
-      // Format today's date as YYYY-MM-DD
-      return today.toISOString().split('T')[0];
+    getYesterday() {
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1); // Subtract 1 day
+      const formattedDate = yesterday.toISOString().split('T')[0];
+      return formattedDate;
     },
 
     setCountryId(countryId) {
