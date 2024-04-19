@@ -35,7 +35,7 @@
 
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
-                <input v-model="birthDate" type="date" class="form-control" @change="validateBirthDate" required>
+                <input v-model="birthDate" type="date" class="form-control" :max="getToday()" @change="validateBirthDate" required>
                 <div v-if="!validBirthDate" class="input-invalid">Sünnikuupäev peab olema minevikus!</div>
               </div>
 
@@ -206,6 +206,12 @@ export default {
       } else {
         this.validBirthDate = true;
       }
+    },
+    getToday() {
+      const today = new Date();
+      // Format today's date as YYYY-MM-DD
+      const formattedDate = today.toISOString().split('T')[0];
+      return formattedDate;
     },
 
     setCountryId(countryId) {
