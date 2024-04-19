@@ -19,7 +19,9 @@
       </div>
 
       <div class="col-md-4">
-      <ProfileImageComponent ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>
+        <ProfileImageComponent :image-data="imageData"/>
+<!--      <ProfileImageComponent ref="profileImageComponentRef" @event-new-image-file-selected="emitNewImageData"/>-->
+
       </div>
 
       <div class="col-md-4" style="margin-top: 30px;">
