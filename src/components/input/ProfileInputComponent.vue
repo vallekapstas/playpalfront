@@ -10,13 +10,11 @@
                 <input v-model="firstName" type="text" class="form-control" id="firstName" required>
                 <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
               </div>
-
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="lastName" class="form-label"><b>Perekonnanimi*</b></label>
                 <input v-model="lastName" type="text" class="form-control" id="lastName" required>
                 <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
               </div>
-
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="validationCustomUsername" class="form-label"><b>Kasutajanimi*</b></label>
                 <div class="input-group">
@@ -31,20 +29,18 @@
                 <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
                 <div v-if="!validUsername" class="input-invalid">Palun sisesta kasutajanimi!</div>
               </div>
-
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
-                <input v-model="birthDate" type="date" class="form-control" :max="getYesterday()" @change="validateBirthDate" required>
+                <input v-model="birthDate" type="date" class="form-control" :max="getYesterday()"
+                       @change="validateBirthDate" required>
                 <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
               </div>
-
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="password" class="form-label"><b>Parool*</b></label>
                 <input v-model="password" type="password" id="inputPassword5" class="form-control"
                        aria-describedby="passwordHelpBlock" required>
                 <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
               </div>
-
               <div class="col-md-6" style="margin-top: 30px;">
                 <label for="password" class="form-label"><b>Parool uuesti*</b></label>
                 <input v-model="passwordRepeat" type="password" id="inputPassword6" class="form-control"
@@ -53,7 +49,6 @@
               </div>
             </div>
           </div>
-
           <div class="col-md-4" style="margin-top:  30px">
             <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
             <ProfileImageComponent :image-data="profileImage" id="profileImage" ref="profileImageComponentRef"
@@ -61,7 +56,6 @@
           </div>
         </div>
       </div>
-
       <div style="margin-top: 20px;">
         <label class="form-label"><b>Elukoht*</b></label>
         <LocationDropdownsComponent @event-selected-country-change="setCountryId"
@@ -71,8 +65,6 @@
           Palun sisesta elukoht!
         </div>
       </div>
-
-
       <div class="col-md-12 text-center" style="margin-top: 30px;">
         <label for="firstName" class="form-label"><b>Sugu*</b></label>
         <div class="row justify-content-center">
@@ -96,18 +88,17 @@
         </div>
       </div>
     </div>
-
     <div class="form-floating" style="margin-top: 30px;">
-      <textarea v-model="interestedIn" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <textarea v-model="interestedIn" class="form-control" placeholder="Leave a comment here"
+                id="floatingTextarea"></textarea>
       <label for="floatingTextarea">Lemmikmängud</label>
     </div>
-
     <div class="form-floating" style="margin-top: 30px;">
-      <textarea v-model="introduction" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+      <textarea v-model="introduction" class="form-control" placeholder="Leave a comment here"
+                id="floatingTextarea"></textarea>
       <label for="floatingTextarea">Enesetutvustus</label>
     </div>
   </div>
-
 </template>
 
 
@@ -144,8 +135,8 @@ export default {
       city: 0,
       gender: '',
       profileImage: '',
-      interestedIn:'',
-      introduction:'',
+      interestedIn: '',
+      introduction: '',
       genderId: 0,
       birthDate: true,
       isUserNameAvailable: true,
@@ -160,16 +151,12 @@ export default {
       validCounty: true,
       validCity: true,
       validGender: true
-
-
     }
-
   },
   methods: {
 
     async validateUserName() {
       const trimmedUserName = this.username.trim(); // Remove leading and trailing spaces
-
       // Check if the username is not empty
       if (trimmedUserName) {
         try {
@@ -213,8 +200,8 @@ export default {
       this.$emit('event-selected-city-change', this.city)
     },
     selectGenderId(gender) {
-      this.selectedGender = gender; // Set the selected gender
-      this.genderId = this.getGenderId(gender); // Map the gender to its ID
+      this.selectedGender = gender;
+      this.genderId = this.getGenderId(gender);
     },
     getGenderId(gender) {
       if (gender === 'female') {
@@ -223,11 +210,6 @@ export default {
         return 2;
       }
     },
-
-    setProfileImage(profileImage) {
-      this.profileImage = profileImage
-    },
-
 
     allFieldsWithCorrectInput() {
       this.validFirstName = this.firstName.length > 0
@@ -242,12 +224,9 @@ export default {
       this.validCity = this.city > 0
       this.validGender = this.genderId > 0
 
-
       return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate && this.validPassword
           && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
-
     },
-
     clearErrors() {
       this.validFirstName = true
       this.validLastName = true
@@ -261,17 +240,10 @@ export default {
       this.validCity = true
       this.validGender = true
     },
-    goToEventView() {
-      router.push({name: 'indexRoute'})
-    },
-    // selectGender(gender) {
-    //   this.selectedGender = gender;
-    // },
     emitNewProfileImage(profileImage) {
       this.$emit('event-new-image-file-selected', profileImage)
     }
   },
-
 };
 
 

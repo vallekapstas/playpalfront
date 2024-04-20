@@ -10,7 +10,7 @@
         </div>
         <div class="row">
           <div class="col">
-            <ProfileInputComponent ref="profileInputComponentRef" @event-selected-city-change="setCityId"/>
+            <ProfileInputComponent ref="profileInputComponentRef" @event-new-image-file-selected="setProfileImage"/>
           </div>
         </div>
       </div>
@@ -34,7 +34,7 @@ export default {
 
   data() {
     return {
-      successMessage:'',
+      successMessage: '',
       userProfileInfo: {
         username: '',
         firstName: '',
@@ -55,9 +55,6 @@ export default {
       this.getAndSetUserProfileValues()
       if (this.$refs.profileInputComponentRef.allFieldsWithCorrectInput()) {
         this.sendPostUserProfileRequest()
-      }else {
-        this.errorMessage = 'Täida kõik väljad'
-        setTimeout(this.resetAlertMessage, 4000)
       }
     },
 
@@ -67,8 +64,8 @@ export default {
       this.$http.post("/user/register", this.userProfileInfo)
           .then(() => this.handlePostUserProfileInfoResponse())
           .catch(error => {
-            console.log('e',error)
-            router.push({name:'errorRoute'})
+            console.log('e', error)
+            router.push({name: 'errorRoute'})
           })
     },
     handlePostUserProfileInfoResponse() {
@@ -83,7 +80,9 @@ export default {
       }
       this.$emit('event-user-registered', alertParams)
     },
-
+    setProfileImage(profileImage) {
+      this.userProfileInfo.profileImage = profileImage
+    },
     getAndSetUserProfileValues() {
       this.userProfileInfo.username = this.$refs.profileInputComponentRef.username
       this.userProfileInfo.password = this.$refs.profileInputComponentRef.password
@@ -94,10 +93,6 @@ export default {
       this.userProfileInfo.genderId = this.$refs.profileInputComponentRef.genderId
       this.userProfileInfo.interestedIn = this.$refs.profileInputComponentRef.interestedIn
       this.userProfileInfo.introduction = this.$refs.profileInputComponentRef.introduction
-      this.userProfileInfo.profileImage = this.$refs.profileInputComponentRef.profileImage
-    },
-    setCityId(city) {
-      this.userProfileInfo.cityId = city
     },
     goToEventView() {
       router.push({name: 'indexRoute'})
