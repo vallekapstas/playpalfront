@@ -6,8 +6,13 @@
 
 
 <script>
+
+import userProfileComponent from "@/components/user/UserProfileComponent.vue";
+
 export default {
-  name: "ProfileView"
+  name: "ProfileView",
+  components: userProfileComponent
+
 }
 </script>
 
