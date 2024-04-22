@@ -44,7 +44,8 @@
 
     </div>
   </nav>
-  <router-view @event-update-nav-menu="handleUserStatusUpdates"/>
+  <router-view @event-update-nav-menu="handleUserStatusUpdates"
+               @event-user-registered="handleUserRegistered"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
@@ -117,6 +118,11 @@ export default {
         const roleId = sessionStorage.getItem('roleId')
         this.isAdmin = roleId === '1'
       }
+    },
+
+    async handleUserRegistered(alertParams) {
+      await this.openLogInModal()
+      this.displayAlert(alertParams)
     },
 
     displayAlert(alertParams) {
