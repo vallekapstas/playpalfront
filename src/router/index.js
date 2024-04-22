@@ -4,7 +4,8 @@ import ErrorView from "@/views/ErrorView.vue";
 import logOutModal from "@/components/modal/LogOutModal.vue";
 import logInModal from "@/components/modal/LogInModal.vue";
 import RegisterView from "@/views/RegisterView.vue";
-import UserProfileComponent from "@/components/user/UserProfileComponent.vue";
+
+import ProfileView from "@/views/ProfileView.vue";
 
 
 const routes = [
@@ -37,6 +38,16 @@ const routes = [
         path: '/register',
         name: 'registerRoute',
         component: RegisterView
+    },
+    {
+        path: '/profile',
+        name: 'profileRoute',
+        component: ProfileView
+    },
+    {
+        path: '/profile',
+        name: 'profileRoute',
+        component: ProfileView
     },
 
 

@@ -147,7 +147,7 @@ import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue"
 import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
 export default {
-  name: "ProfileInputComponent",
+  name: 'ProfileInputComponent',
   computed: {
     profileImageComponent() {
       return profileImageComponent

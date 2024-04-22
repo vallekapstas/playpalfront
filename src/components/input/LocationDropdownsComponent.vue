@@ -36,7 +36,7 @@
 import router from "@/router";
 
 export default {
-  name: "LocationDropdownsComponent",
+  name: 'LocationDropdownsComponent',
   data() {
     return {
       selectedCountryId: 0,

@@ -29,7 +29,7 @@ import ProfileInputComponent from "@/components/input/ProfileInputComponent.vue"
 import router from "@/router";
 
 export default {
-  name: "RegisterView",
+  name: 'RegisterView',
   components: {ProfileInputComponent, LocationDropdownsComponent},
 
   data() {

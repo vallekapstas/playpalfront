@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: "ProfileImageComponent",
+  name: 'ProfileImageComponent',
   props: {
     profileImage: String
   },
