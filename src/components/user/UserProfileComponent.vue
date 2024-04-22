@@ -1,19 +1,17 @@
 <template>
-<Modal>
-  <div class="modal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<Modal ref="modalRef" >
+  <div class="container text-center">
 
-
-        <div class="modal-header">
-          <h5 class="modal-title">Profiil</h5>
+        <div class="">
+          <h1>Profiil</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
 
 
-        <div class="modal-body">
+        <div class="">
           <div class="row">
-            Nimi:
+            Eesnimi:
+            <input>
           </div>
 
           <div class="row">
@@ -28,15 +26,15 @@
         </div>
 
 
-        <div class="modal-footer">
+        <div class="">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tagasi</button>
           <button type="button" class="btn btn-primary">Salvesta muudatused</button>
         </div>
 
 
-      </div>
+
     </div>
-  </div>
+
 
 </Modal>
 </template>
@@ -51,6 +49,36 @@ import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue"
 export default {
   name: "UserProfileComponent",
   components: {Modal, ProfileImageComponent},
+  data() {
+    return{
+      userProfileInfo: [
+        {
+          firstName: '',
+          countryId: 0,
+          countryName:'',
+          cityId: 0,
+          cityName: '',
+          birthDate: true,
+          genderId: 0,
+          genderName:''
+        }
+      ],
+
+
+
+    }
+  },
+  methods:{
+
+    getUserProfileInfosRequest () {
+      this.this.$http.get('/profile')
+
+    },
+
+
+
+
+  }
 
 }
 </script>
