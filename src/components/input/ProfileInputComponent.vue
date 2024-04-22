@@ -204,7 +204,6 @@ export default {
             this.errorMessage = this.isUserNameAvailable ? '' : 'Kasutajanimi on võetud';
           }, 500);
         } catch (error) {
-          console.error('Error checking userName availability:', error);
           this.errorMessage = 'Error checking userName availability';
         }
       } else {
