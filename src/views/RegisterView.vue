@@ -1,26 +1,26 @@
 <template>
-  <div
-      class="text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
-    <div class="row col-11 mx-auto needs-validation" novalidate>
-      <div class="container text-center">
-        <div class="row">
-          <div class="col-12" style="margin-bottom: 30px;">
-            <h1>Registreeri kasutajaks</h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <ProfileInputComponent ref="profileInputComponentRef" @event-new-image-file-selected="setProfileImage"/>
-          </div>
-        </div>
-      </div>
-      <div class="col" style="margin-top: 80px; display: flex; justify-content: space-evenly;">
-        <button class="btn btn-primary" type="submit" @click="goToEventView">tagasi</button>
-        <button class="btn btn-primary" type="button" @click="addUserProfile">Registreeri</button>
+  <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
+
+    <div class="row text-center">
+      <div class="col mb-4">
+        <h1>Registreeri kasutajaks</h1>
       </div>
     </div>
-  </div>
 
+    <div class="row">
+      <div class="col">
+        <ProfileInputComponent ref="profileInputComponentRef" @event-new-image-file-selected="setProfileImage"/>
+      </div>
+    </div>
+
+    <div class="row d-grid justify-content-center">
+      <div class="col d-flex gap-3 mt-5 mb-2">
+        <button class="btn btn-dark shadow-sm" type="submit" @click="goToEventView">Tagasi</button>
+        <button class="btn btn-primary shadow-sm" type="button" @click="addUserProfile">Registreeri</button>
+      </div>
+    </div>
+
+  </div>
 </template>
 
 <script>
@@ -58,16 +58,14 @@ export default {
       }
     },
 
-
     sendPostUserProfileRequest() {
-      console.log(this.userProfileInfo)
       this.$http.post("/user/register", this.userProfileInfo)
           .then(() => this.handlePostUserProfileInfoResponse())
-          .catch(error => {
-            console.log('e', error)
+          .catch(() => {
             router.push({name: 'errorRoute'})
           })
     },
+
     handlePostUserProfileInfoResponse() {
       this.goToEventView()
       this.showSuccessMessage()
@@ -80,9 +78,11 @@ export default {
       }
       this.$emit('event-user-registered', alertParams)
     },
+
     setProfileImage(profileImage) {
       this.userProfileInfo.profileImage = profileImage
     },
+
     getAndSetUserProfileValues() {
       this.userProfileInfo.username = this.$refs.profileInputComponentRef.username
       this.userProfileInfo.password = this.$refs.profileInputComponentRef.password

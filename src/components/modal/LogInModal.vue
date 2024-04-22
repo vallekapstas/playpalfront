@@ -11,12 +11,12 @@
           <div class="col">
             <div class="mb-3">
               <label for="username" class="form-label">Kasutajanimi</label>
-              <input ref="usernameInput" v-model="username" type="text" class="input-focus form-control border border-danger-subtle shadow-sm" id="username">
+              <input ref="usernameInput" v-model="username" type="text" class="input-focus form-control border border-danger-subtle shadow-sm font-monospace" id="username">
             </div>
 
             <div>
               <label for="password" class="form-label">Parool</label>
-              <input v-model="password" type="password" class="form-control border border-danger-subtle shadow-sm" id="password">
+              <input v-model="password" type="password" class="form-control border border-danger-subtle shadow-sm font-monospace" id="password">
             </div>
           </div>
         </div>

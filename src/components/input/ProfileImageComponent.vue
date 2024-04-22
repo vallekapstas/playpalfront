@@ -2,10 +2,12 @@
 
   <div id="imageSelectionContainer">
     <div>
-      <img v-if="profileImage" :src="profileImage" class="img-thumbnail" alt="Profiili pilt" style="width: 200px; height: 200px;">
-      <input ref="fileInputRef" type="file" class="form-control" @change="handleImage" accept="image/jpeg,image/x-png,image/gif">
+      <img v-if="profileImage" :src="profileImage" class="img-thumbnail" alt="Profiili pilt">
+
     </div>
-    <button v-if="profileImage" class="btn btn-outline-primary shadow-sm text-nowrap m-1" @click="clearImage">eemalda pilt</button>
+    <button v-if="profileImage" class="btn btn-outline-primary shadow-sm text-nowrap m-1" @click="clearImage">Eemalda
+      pilt
+    </button>
   </div>
 </template>
 
@@ -13,7 +15,7 @@
 <script>
 export default {
   name: "ProfileImageComponent",
-  props:{
+  props: {
     profileImage: String
   },
   data() {
@@ -41,8 +43,7 @@ export default {
     },
     clearImage() {
       this.profileImage = ''; // Clear the profile image
-      this.$refs.fileInputRef.value = ''; // Clear the file input value
-      this.$emit('event-new-image-file-selected', ''); // Emit event with empty string to clear image on parent component
+      this.$emit('event-clear-image-file', ''); // Emit event with empty string to clear image on parent component
     },
   }
 }

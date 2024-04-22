@@ -1,24 +1,25 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-md-4">
-        <select v-model="selectedCountryId" @change="handleChangeCountry" class="form-select">
+      <div class="col-xl">
+        <select v-model="selectedCountryId" @change="handleChangeCountry" class="form-select border-primary-subtle font-monospace">
           <option selected :value="0">Vali Riik</option>
-          <option v-for="country in countries" :value="country.countryId" :key="country.countryId" class="dropdown-item">
+          <option v-for="country in countries" :value="country.countryId" :key="country.countryId"
+                  class="dropdown-item">
             {{ country.countryName }}
           </option>
         </select>
       </div>
-      <div class="col-md-4">
-        <select v-model="selectedCountyId" @change="handleChangeCounty" class="form-select">
+      <div class="col-xl">
+        <select v-model="selectedCountyId" @change="handleChangeCounty" class="form-select border-primary-subtle font-monospace">
           <option selected :value="0">Vali Maakond</option>
           <option v-for="county in counties" :value="county.countyId" :key="county.countyId" class="dropdown-item">
             {{ county.countyName }}
           </option>
         </select>
       </div>
-      <div class="col-md-4">
-        <select v-model="selectedCityId" @change="handleChangeCity" class="form-select">
+      <div class="col-xl">
+        <select v-model="selectedCityId" @change="handleChangeCity" class="form-select border-primary-subtle font-monospace">
           <option selected :value="0">Vali Linn</option>
           <option v-for="city in cities" :value="city.cityId" :key="city.cityId" class="dropdown-item">
             {{ city.cityName }}
@@ -75,7 +76,7 @@ export default {
           .then(response => {
             this.countries = response.data
           })
-          .catch(error => {
+          .catch(() => {
             router.push({name: 'errorRoute'})
           })
     },
@@ -85,7 +86,7 @@ export default {
           .then(response => {
             this.counties = response.data
           })
-          .catch(error => {
+          .catch(() => {
             router.push({name: 'errorRoute'})
           })
     },
@@ -94,7 +95,7 @@ export default {
           .then(response => {
             this.cities = response.data
           })
-          .catch(error => {
+          .catch(() => {
             router.push({name: 'errorRoute'})
           })
     },

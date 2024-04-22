@@ -1,103 +1,141 @@
 <template>
-  <div @input="clearErrors">
-    <div class="row col-11 mx-auto needs-validation" novalidate>
-      <div>
-        <div class="row">
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="firstName" class="form-label"><b>Eesnimi*</b></label>
-                <input v-model="firstName" type="text" class="form-control" id="firstName" required>
-                <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
-              </div>
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="lastName" class="form-label"><b>Perekonnanimi*</b></label>
-                <input v-model="lastName" type="text" class="form-control" id="lastName" required>
-                <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
-              </div>
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="validationCustomUsername" class="form-label"><b>Kasutajanimi*</b></label>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="validationCustomUsername" required v-model="username"
-                         @input="validateUserName">
-                  <span class="input-group-text" id="inputGroupPrepend">
+  <div class="container text-center" @input="clearErrors">
+
+    <div class="row">
+
+      <div class="col-lg">
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="firstName" class="form-label text-primary fw-lighter"><b>Eesnimi*</b></label>
+            <input v-model="firstName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+                   id="firstName" required>
+            <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
+          </div>
+          <div class="col">
+            <label for="lastName" class="form-label text-primary fw-lighter"><b>Perekonnanimi*</b></label>
+            <input v-model="lastName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+                   id="lastName" required>
+            <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="validationCustomUsername"
+                   class="form-label text-primary fw-lighter"><b>Kasutajanimi*</b></label>
+            <div class="input-group">
+              <input type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+                     id="validationCustomUsername" required v-model="username"
+                     @input="validateUserName">
+              <span class="input-group-text" id="inputGroupPrepend">
                 <span v-if="isCheckingUserName" class="status-text">Checking...</span>
                 <span v-if="username.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
                 <span v-if="username.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
               </span>
-                </div>
-                <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
-                <div v-if="!validUsername" class="input-invalid">Palun sisesta kasutajanimi!</div>
+            </div>
+            <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
+            <div v-if="!validUsername" class="input-invalid">Palun sisesta kasutajanimi!</div>
+          </div>
+          <div class="col">
+            <label for="firstName" class="form-label text-primary fw-lighter"><b>Sünnikuupäev*</b></label>
+            <input v-model="birthDate" type="date" class="form-control border-primary-subtle font-monospace shadow-sm"
+                   :max="getYesterday()"
+                   @change="validateBirthDate" required>
+            <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="password" class="form-label text-primary fw-lighter"><b>Parool*</b></label>
+            <input v-model="password" type="password" id="inputPassword5"
+                   class="form-control border-primary-subtle font-monospace shadow-sm"
+                   aria-describedby="passwordHelpBlock" required>
+            <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
+          </div>
+          <div class="col">
+            <label for="password" class="form-label text-primary fw-lighter"><b>Parool uuesti*</b></label>
+            <input v-model="passwordRepeat" type="password" id="inputPassword6"
+                   class="form-control border-primary-subtle font-monospace shadow-sm"
+                   aria-describedby="passwordHelpBlock" required>
+            <div v-if="!matchingPassword" class="input-invalid">Sisestatud paroolid on erinevad!</div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="form-label text-primary fw-lighter"><b>Elukoht*</b></label>
+            <LocationDropdownsComponent @event-selected-country-change="setCountryId"
+                                        @event-selected-county-change="setCountyId"
+                                        @event-selected-city-change="setCityId"/>
+            <div v-if="!validCountry || !validCounty || !validCity" class="col-md-4 input-invalid">
+              Palun sisesta elukoht!
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label for="firstName" class="form-label text-primary fw-lighter"><b>Sugu*</b></label>
+            <div class="row justify-content-center">
+              <div class="col">
+                <button class="btn w-100 font-monospace shadow-sm"
+                        :class="{ 'btn-outline-secondary': selectedGender !== 'female', 'btn-secondary': selectedGender === 'female' }"
+                        type="button" @click="selectGenderId('female')">
+                  Naine
+                </button>
               </div>
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="firstName" class="form-label"><b>Sünnikuupäev*</b></label>
-                <input v-model="birthDate" type="date" class="form-control" :max="getYesterday()"
-                       @change="validateBirthDate" required>
-                <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
+              <div class="col">
+                <button class="btn w-100"
+                        :class="{ 'btn-outline-secondary font-monospace': selectedGender !== 'male', 'btn-secondary font-monospace': selectedGender === 'male' }"
+                        type="button" @click="selectGenderId('male')">
+                  Mees
+                </button>
               </div>
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="password" class="form-label"><b>Parool*</b></label>
-                <input v-model="password" type="password" id="inputPassword5" class="form-control"
-                       aria-describedby="passwordHelpBlock" required>
-                <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
-              </div>
-              <div class="col-md-6" style="margin-top: 30px;">
-                <label for="password" class="form-label"><b>Parool uuesti*</b></label>
-                <input v-model="passwordRepeat" type="password" id="inputPassword6" class="form-control"
-                       aria-describedby="passwordHelpBlock" required>
-                <div v-if="!matchingPassword" class="input-invalid">Sisestatud paroolid on erinevad!</div>
+              <div v-if="!validGender" class="col input-invalid">
+                Palun vali sugu!
               </div>
             </div>
           </div>
-          <div class="col-md-4" style="margin-top:  30px">
-            <label for="profileImage" class="form-label"><b>Profiilipilt</b></label>
-            <ProfileImageComponent :image-data="profileImage" id="profileImage" ref="profileImageComponentRef"
-                                   @event-new-image-file-selected="emitNewProfileImage"/>
+          <div class="col">
+            <label for="profileImage" class="form-label text-primary fw-lighter"><b>Profiilipilt</b></label>
+            <input ref="fileInputRef" type="file" class="form-control border-primary-subtle font-monospace shadow-sm"
+                   @change="this.$refs.profileImageComponentRef.handleImage" accept="image/jpeg,image/x-png,image/gif">
           </div>
         </div>
-      </div>
-      <div style="margin-top: 20px;">
-        <label class="form-label"><b>Elukoht*</b></label>
-        <LocationDropdownsComponent @event-selected-country-change="setCountryId"
-                                    @event-selected-county-change="setCountyId"
-                                    @event-selected-city-change="setCityId"/>
-        <div v-if="!validCountry || !validCounty || !validCity" class="col-md-4 input-invalid">
-          Palun sisesta elukoht!
-        </div>
-      </div>
-      <div class="col-md-12 text-center" style="margin-top: 30px;">
-        <label for="firstName" class="form-label"><b>Sugu*</b></label>
-        <div class="row justify-content-center">
-          <div class="col-md-4">
-            <button class="btn"
-                    :class="{ 'btn-outline-secondary': selectedGender !== 'female', 'btn-secondary': selectedGender === 'female' }"
-                    type="button" style="width: 100%" @click="selectGenderId('female')">
-              Naine
-            </button>
-          </div>
-          <div class="col-md-4">
-            <button class="btn"
-                    :class="{ 'btn-outline-secondary': selectedGender !== 'male', 'btn-secondary': selectedGender === 'male' }"
-                    type="button" style="width: 100%" @click="selectGenderId('male')">
-              Mees
-            </button>
-          </div>
-          <div v-if="!validGender" class="col-md-6 input-invalid">
-            Palun vali sugu!
+
+
+        <div class="row mb-3">
+          <div class="col form-floating">
+              <textarea v-model="interestedIn" class="form-control border-primary-subtle font-monospace shadow-sm"
+                        id="floatingTextareaInterests"></textarea>
+            <label for="floatingTextareaInterests" class="text-primary fw-lighter">Lemmikmängud</label>
           </div>
         </div>
+
+
+        <div class="row mb-3">
+          <div class="col form-floating">
+              <textarea v-model="introduction" class="form-control border-primary-subtle font-monospace"
+                        id="floatingTextareaIntroduction"></textarea>
+            <label for="floatingTextareaIntroduction" class="text-primary fw-lighter">Enesetutvustus</label>
+          </div>
+        </div>
+
+
       </div>
+
+
+      <div class="col-lg-4">
+        <ProfileImageComponent :image-data="profileImage" id="profileImage" ref="profileImageComponentRef"
+                               @event-new-image-file-selected="emitNewProfileImage"
+                               @event-clear-image-file="clearProfileImage"/>
+      </div>
+
     </div>
-    <div class="form-floating" style="margin-top: 30px;">
-      <textarea v-model="interestedIn" class="form-control" placeholder="Leave a comment here"
-                id="floatingTextarea"></textarea>
-      <label for="floatingTextarea">Lemmikmängud</label>
-    </div>
-    <div class="form-floating" style="margin-top: 30px;">
-      <textarea v-model="introduction" class="form-control" placeholder="Leave a comment here"
-                id="floatingTextarea"></textarea>
-      <label for="floatingTextarea">Enesetutvustus</label>
-    </div>
+
+
   </div>
 </template>
 
@@ -105,7 +143,6 @@
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
-import router from "@/router";
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
 import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
@@ -117,7 +154,7 @@ export default {
     },
     locationDropdowns() {
       return locationDropdownsComponent
-    }
+    },
   },
   components: {LocationDropdownsComponent, ProfileImageComponent},
 
@@ -139,6 +176,7 @@ export default {
       introduction: '',
       genderId: 0,
       birthDate: true,
+
       isUserNameAvailable: true,
       validFirstName: true,
       validLastName: true,
@@ -183,6 +221,7 @@ export default {
         this.validBirthDate = true;
       }
     },
+
     getYesterday() {
       const yesterday = new Date();
       yesterday.setDate(yesterday.getDate() - 1); // Subtract 1 day
@@ -192,17 +231,21 @@ export default {
     setCountryId(countryId) {
       this.country = countryId
     },
+
     setCountyId(countyId) {
       this.county = countyId
     },
+
     setCityId(cityId) {
       this.city = cityId
       this.$emit('event-selected-city-change', this.city)
     },
+
     selectGenderId(gender) {
       this.selectedGender = gender;
       this.genderId = this.getGenderId(gender);
     },
+
     getGenderId(gender) {
       if (gender === 'female') {
         return 1;
@@ -227,6 +270,7 @@ export default {
       return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate && this.validPassword
           && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
     },
+
     clearErrors() {
       this.validFirstName = true
       this.validLastName = true
@@ -240,8 +284,13 @@ export default {
       this.validCity = true
       this.validGender = true
     },
+
     emitNewProfileImage(profileImage) {
       this.$emit('event-new-image-file-selected', profileImage)
+    },
+
+    clearProfileImage() {
+      this.$refs.fileInputRef.value = ''
     }
   },
 };
