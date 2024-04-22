@@ -133,12 +133,12 @@ export default {
       if (this.eventData.startDate === this.eventData.endDate) {
         eventDateAndTimeResult =
             this.formatDate(this.eventData.startDate) + ' ' +
-            this.formatTime(this.eventData.startTime) + ' - ' +
+            this.formatTime(this.eventData.startTime) + '-' +
             this.formatTime(this.eventData.endTime);
       } else {
         eventDateAndTimeResult =
             this.formatDate(this.eventData.startDate) + ' ' +
-            this.formatTime(this.eventData.startTime) + ' - ' +
+            this.formatTime(this.eventData.startTime) + '-' +
             this.formatDate(this.eventData.endDate) + ' ' +
             this.formatTime(this.eventData.endTime);
       }
@@ -148,9 +148,8 @@ export default {
 
     assembleMinMaxPlayersString() {
       let minMaxPlayersString = ''
-
       if (this.eventData.minPlayers === 0 && this.eventData.maxPlayers === 0) {
-        minMaxPlayersString = '-'
+        minMaxPlayersString = 'Pole seatud'
       } else if (this.eventData.minPlayers === 0) {
         minMaxPlayersString = 'Kuni ' + this.eventData.maxPlayers
       } else if (this.eventData.maxPlayers === 0) {
