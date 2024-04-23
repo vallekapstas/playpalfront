@@ -93,7 +93,8 @@ export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
 
-  props: ,
+
+
   computed: {
     fullName() {
       return this.profileData.firstName + ' ' + this.profileData.lastName

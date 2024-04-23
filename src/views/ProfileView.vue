@@ -33,21 +33,42 @@ import ProfileInputComponent from "@/components/input/ProfileInputComponent.vue"
 export default {
   name: 'ProfileView',
   components: {ProfileInputComponent, UserProfileComponent},
+  computed: {UserProfileComponent},
+
   data() {
     return {
-      UserProfileComponent,
-      userId: ''
+
+      roleId: '',
+      userId: '',
+      roleName: ''
     }
   },
-  methods:{
+  methods: {
     goToIndexRoute() {
       router.push({name: 'indexRoute'})
 
     },
     editUserProfile() {
-      const userId = this.userId
-      this.$router.push({ name: 'editProfileView', params: { userId: userId } })
+      this.saveDataToSessionStorage()
+      router.push({ name: 'editProfileView', params: { userId: this.userId } })
     },
+
+
+    saveDataToSessionStorage() {
+      sessionStorage.setItem('roleId', this.roleId)
+      sessionStorage.setItem('userId', this.userId)
+      sessionStorage.setItem('roleName', this.roleName)
+    }
+
+  },
+  mounted() {
+    const userData = JSON.parse(sessionStorage.getItem('userData'))
+    if (userData) {
+      this.roleId = userData.roleId;
+      this.userId = userData.userId;
+      this.roleName = userData.roleName
+    }
+
   }
 }
 </script>
