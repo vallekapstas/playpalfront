@@ -26,18 +26,19 @@
         </div>
 
         <div class="col-lg">
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-calendar-week-fill"></i> {{ eventDateAndTime }}</div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-geo-alt-fill"></i>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-calendar-week-fill"></i> {{ eventDateAndTime }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-geo-alt-fill"></i>
             {{ this.eventData.cityName }},
             {{ this.eventData.countyName }},
             {{ this.eventData.countryName }}
           </div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} <span class="text-primary small">{{ participationCountDisplay }}</span></div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-cake2-fill"></i> vanus <!-- todo: create age computing and show it here --></div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} <span class="text-primary small">{{ participationCountDisplay }}</span></div>
         </div>
         <div class="col-lg">
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-building-fill"></i> {{ eventData.venueName }}</div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-star-fill"></i> {{ eventData.skillName }}</div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-currency-exchange"></i> {{ eventData.fee }} €</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-building-fill"></i> {{ eventData.venueName }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-star-fill"></i> {{ eventData.skillName }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-currency-exchange"></i> {{ eventData.fee }} €</div>
         </div>
       </div>
 
@@ -166,20 +167,22 @@ export default {
       let minMaxPlayersString = ''
       let minPlayers = this.eventData.minPlayers
       let maxPlayers = this.eventData.maxPlayers
-      let stringStart = 'Mängijaid '
-      let notSet = 'pole seatud'
-      let maxPlayersText = 'kuni'
-      let minPlayersText = 'vähemalt'
+      let notSet = 'Pole seatud'
+      let maxPlayersText = 'Max'
+      let minPlayersText = 'Min'
       let toFrom = '-'
 
+      minPlayers = 0
+      maxPlayers = 0
+
       if (minPlayers === 0 && maxPlayers === 0) {
-        minMaxPlayersString = stringStart + notSet
+        minMaxPlayersString = notSet
       } else if (minPlayers === 0) {
-        minMaxPlayersString = stringStart + maxPlayersText + ' ' + maxPlayers
+        minMaxPlayersString = maxPlayersText + ' ' + maxPlayers
       } else if (maxPlayers === 0) {
-        minMaxPlayersString = stringStart + minPlayersText + ' ' + minPlayers
+        minMaxPlayersString = minPlayersText + ' ' + minPlayers
       } else {
-        minMaxPlayersString = stringStart + minPlayers + toFrom + maxPlayers
+        minMaxPlayersString = minPlayers + toFrom + maxPlayers
       }
 
       return minMaxPlayersString
