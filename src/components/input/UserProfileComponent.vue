@@ -1,49 +1,94 @@
 <template>
 
-  <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Profiil</h5>
-
-        </div>
-        <div class="modal-body">
-          <p>Nimi</p>
-        </div>
-
-        <div class="modal-body">
-          <p>Riik</p>
-        </div>
-
-        <div class="modal-body">
-          <p>Sünnikuupäev</p>
-        </div>
-
-        <div class="modal-body">
-          <p>Sugu</p>
-        </div>
-
-        <div class="modal-body">
-          <p>Lemmikmängud</p>
-        </div>
-
-        <div class="modal-body">
-          <p>Enesetutvustus</p>
-        </div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col">
 
 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulge</button>
-          <button type="button" class="btn btn-primary">Salvesta</button>
+        <div class="row">
+          <div class="col text-end">
+            Kasutajanimi
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.username }}
+          </div>
         </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Nimi:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ fullName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Riik:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.countryName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Linn:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.cityName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Sünnikuupäev:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.birthDate }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Sugu:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.genderName }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Lemmikmängud:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.interestedIn }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col text-end">
+            Enesetutvustus:
+          </div>
+          <div class="col text-start font-monospace">
+            {{ this.profileData.introduction }}
+          </div>
+        </div>
+
       </div>
+
+      <div class="col">
+        {{ this.profileData.imageData }}
+      </div>
+
+
     </div>
   </div>
 
 
 </template>
-
-
 
 
 <script>
@@ -53,28 +98,27 @@ import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue"
 export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
+
+  computed: {
+    fullName() {
+      return ''
+    },
+  },
+
   data() {
-    return{
-      userProfileInfo: [
-        {
-          firstName: '',
-          countryId: 0,
-          countryName:'',
-          cityId: 0,
-          cityName: '',
-          birthDate: true,
-          genderId: 0,
-          genderName:''
-        }
-      ],
-
-
+    return {
+      profileData: {
+        username: '',
+        countryName: '',
+        cityName: '',
+        birthDate: true,
+        genderName: '',
+        interestedIn: '',
+        introduction: '',
+        imageData: ''
+      }
 
     }
-  },
-  methods:{
-
-
   }
 
 }

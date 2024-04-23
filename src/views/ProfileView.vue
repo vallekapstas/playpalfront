@@ -8,16 +8,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col">
-<!--        <ProfileInputComponent ref="profileInputComponentRef" @event-new-image-file-selected="setProfileImage"/>-->
-      </div>
-    </div>
 
     <div class="row d-grid justify-content-center">
       <div class="col d-flex gap-3 mt-5 mb-2">
-        <button class="btn btn-dark shadow-sm" type="submit" @click="goToEventView">Tagasi</button>
-        <button class="btn btn-primary shadow-sm" type="button" @click="addUserProfile">Registreeri</button>
+        <button class="btn btn-dark shadow-sm" type="submit" @click="goToIndexRoute">Tagasi</button>
+        <button class="btn btn-primary shadow-sm" type="button" @click="editUserProfile">Muuda</button>
+<!--        todo: push to edit and provide userid-->
       </div>
     </div>
 
