@@ -133,13 +133,14 @@ export default {
       let startTime = this.formatTime(this.eventData.startTime)
       let endDate = this.formatDate(this.eventData.endDate)
       let endTime = this.formatTime(this.eventData.endTime)
+      let toFrom = '-'
 
       if (startDate === endDate) {
         eventDateAndTimeResult =
-            startDate + ' ' + startTime + '-' + endTime;
+            startDate + ' ' + startTime + toFrom + endTime;
       } else {
         eventDateAndTimeResult =
-            startDate + ' ' + startTime + '-' + endDate + ' ' +  endTime;
+            startDate + ' ' + startTime + toFrom + endDate + ' ' +  endTime;
       }
 
       return eventDateAndTimeResult
@@ -149,15 +150,19 @@ export default {
       let minMaxPlayersString = ''
       let minPlayers = this.eventData.minPlayers
       let maxPlayers = this.eventData.maxPlayers
+      let notSet = 'Pole seatud'
+      let maxPlayersText = 'Kuni'
+      let minPlayersText = 'Vähemalt'
+      let toFrom = '-'
       
       if (minPlayers === 0 && maxPlayers === 0) {
-        minMaxPlayersString = 'Pole seatud'
+        minMaxPlayersString = notSet
       } else if (minPlayers === 0) {
-        minMaxPlayersString = 'Kuni ' + maxPlayers
+        minMaxPlayersString = maxPlayersText + ' ' + maxPlayers
       } else if (maxPlayers === 0) {
-        minMaxPlayersString = 'Vähemalt ' + minPlayers
+        minMaxPlayersString = minPlayersText + ' ' + minPlayers
       } else {
-        minMaxPlayersString = minPlayers + '-' + maxPlayers
+        minMaxPlayersString = minPlayers + toFrom + maxPlayers
       }
 
       return minMaxPlayersString
