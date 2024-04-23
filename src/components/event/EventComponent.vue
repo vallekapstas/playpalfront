@@ -32,7 +32,7 @@
             {{ this.eventData.countyName }},
             {{ this.eventData.countryName }}
           </div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }}</div>
+          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} {{ participantCount }}</div>
         </div>
         <div class="col-lg">
           <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-building-fill"></i> {{ eventData.venueName }}</div>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   name: 'EventComponent',
 
@@ -62,7 +64,8 @@ export default {
 
     minMaxPlayers() {
       return this.assembleMinMaxPlayersString()
-    }
+    },
+
   },
 
   data() {
@@ -106,18 +109,22 @@ export default {
   },
 
   mounted() {
-    this.getEventDataRequest(this.eventId)
+    this.handleComponentLoad()
   },
 
   methods: {
 
-    getEventDataRequest(eventId) {
-      this.$http.get(`/event/${eventId}`)
+    handleComponentLoad() {
+      this.getEventDataRequest()
+    },
+
+    getEventDataRequest() {
+      this.$http.get(`/event/${this.eventId}`)
           .then(response => {
             this.eventData = response.data
           })
-          .catch(error => {
-            const errorResponseJSON = error.response.data
+          .catch(() => {
+            router.push({name: 'errorRoute'})
           })
     },
 
@@ -150,19 +157,20 @@ export default {
       let minMaxPlayersString = ''
       let minPlayers = this.eventData.minPlayers
       let maxPlayers = this.eventData.maxPlayers
-      let notSet = 'Pole seatud'
-      let maxPlayersText = 'Kuni'
-      let minPlayersText = 'Vähemalt'
+      let stringStart = 'Mängijaid '
+      let notSet = 'pole seatud'
+      let maxPlayersText = 'kuni'
+      let minPlayersText = 'vähemalt'
       let toFrom = '-'
       
       if (minPlayers === 0 && maxPlayers === 0) {
-        minMaxPlayersString = notSet
+        minMaxPlayersString = stringStart + notSet
       } else if (minPlayers === 0) {
-        minMaxPlayersString = maxPlayersText + ' ' + maxPlayers
+        minMaxPlayersString = stringStart + maxPlayersText + ' ' + maxPlayers
       } else if (maxPlayers === 0) {
-        minMaxPlayersString = minPlayersText + ' ' + minPlayers
+        minMaxPlayersString = stringStart + minPlayersText + ' ' + minPlayers
       } else {
-        minMaxPlayersString = minPlayers + toFrom + maxPlayers
+        minMaxPlayersString = stringStart + minPlayers + toFrom + maxPlayers
       }
 
       return minMaxPlayersString

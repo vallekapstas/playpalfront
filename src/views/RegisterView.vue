@@ -1,12 +1,12 @@
 <template>
-  <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
 
-    <div class="row text-center">
-      <div class="col mb-4">
-        <h1>Registreeri kasutajaks</h1>
-        <!-- todo: move the header inside the container -->
-      </div>
+  <div class="row text-center">
+    <div class="col mb-4">
+      <h1>Registreeri kasutajaks</h1>
     </div>
+  </div>
+
+  <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
 
     <div class="row">
       <div class="col">
