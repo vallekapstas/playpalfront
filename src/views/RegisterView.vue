@@ -4,6 +4,7 @@
     <div class="row text-center">
       <div class="col mb-4">
         <h1>Registreeri kasutajaks</h1>
+        <!-- todo: move the header inside the container -->
       </div>
     </div>
 
