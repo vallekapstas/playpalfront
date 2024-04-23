@@ -7,7 +7,7 @@
 
         <div class="row">
           <div class="col text-end">
-            Kasutajanimi
+            Kasutajanimi:
           </div>
           <div class="col text-start font-monospace">
             {{ this.profileData.username }}
@@ -32,21 +32,13 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col text-end">
-            Linn:
-          </div>
-          <div class="col text-start font-monospace">
-            {{ this.profileData.cityName }}
-          </div>
-        </div>
 
         <div class="row">
           <div class="col text-end">
             Sünnikuupäev:
           </div>
           <div class="col text-start font-monospace">
-            {{ this.profileData.formatDate }}
+            {{ birthDateFormatted }}
           </div>
         </div>
 
@@ -101,13 +93,16 @@ export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
 
-
+  props: ,
   computed: {
     fullName() {
-      return this.profileData.firstName + '' + this.profileData.lastName
+      return this.profileData.firstName + ' ' + this.profileData.lastName
     },
     location() {
-      return this.profileData.countryName + ',' + this.profileData.countyName + ',' + this.profileData.cityName + ','
+      return this.profileData.countryName + ', ' + this.profileData.countyName + ', ' + this.profileData.cityName + ''
+    },
+    birthDateFormatted() {
+      return this.formatDate(this.profileData.birthDate)
     },
   },
 
@@ -121,7 +116,6 @@ export default {
         countyName:'',
         cityName: '',
         birthDate: '',
-        formatDate:'',
         genderName: '',
         interestedIn: '',
         introduction: '',
