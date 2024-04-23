@@ -6,6 +6,7 @@ import logInModal from "@/components/modal/LogInModal.vue";
 import RegisterView from "@/views/RegisterView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
+import EditProfileView from "@/views/EditProfileView.vue";
 
 
 const routes = [
@@ -48,6 +49,11 @@ const routes = [
         path: '/profile',
         name: 'profileRoute',
         component: ProfileView
+    },
+    {
+        path: '/editprofile',
+        name: 'editProfileView',
+        component: EditProfileView
     },
 
 

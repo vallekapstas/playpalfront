@@ -80,7 +80,8 @@
       </div>
 
       <div class="col">
-        {{ this.profileData.formatDate }}
+        Profiili pilt:
+        <ProfileImageComponent profile-image="Profile Image Component" />
       </div>
 
 
@@ -95,9 +96,11 @@
 
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
 
+
 export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
+
 
   computed: {
     fullName() {

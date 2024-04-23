@@ -1,5 +1,5 @@
 <template>
-  <div class="container text-center">
+  <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
 
     <div class="row">
       <div class="col">
@@ -35,16 +35,18 @@ export default {
   components: {ProfileInputComponent, UserProfileComponent},
   data() {
     return {
-      UserProfileComponent
+      UserProfileComponent,
+      userId: ''
     }
   },
   methods:{
     goToIndexRoute() {
-      router.push({name: '/indexRoute'})
+      router.push({name: 'indexRoute'})
 
     },
     editUserProfile() {
-
+      const userId = this.userId
+      this.$router.push({ name: 'editProfileView', params: { userId: userId } })
     },
   }
 }
