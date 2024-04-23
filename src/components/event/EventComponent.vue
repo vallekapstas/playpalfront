@@ -32,7 +32,7 @@
             {{ this.eventData.countyName }},
             {{ this.eventData.countryName }}
           </div>
-          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} {{ participantCount }}</div>
+          <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} <span class="text-primary small">{{ participationCountDisplay }}</span></div>
         </div>
         <div class="col-lg">
           <div class="p-1 mx-1 my-4 w-100"><i class="bi bi-building-fill"></i> {{ eventData.venueName }}</div>
@@ -65,6 +65,14 @@ export default {
     minMaxPlayers() {
       return this.assembleMinMaxPlayersString()
     },
+
+    participationCountDisplay() {
+      if (this.eventData.participantCount === 1) {
+        return `(${this.eventData.participantCount} osaleja)`;
+      } else {
+        return `(${this.eventData.participantCount} osalejat)`;
+      }
+    }
 
   },
 
@@ -103,7 +111,8 @@ export default {
         countyName: '',
         countryName: '',
         eventImage: '',
-        eventStatus: ''
+        eventStatus: '',
+        participantCount: 0
       }
     }
   },
@@ -162,7 +171,7 @@ export default {
       let maxPlayersText = 'kuni'
       let minPlayersText = 'vähemalt'
       let toFrom = '-'
-      
+
       if (minPlayers === 0 && maxPlayers === 0) {
         minMaxPlayersString = stringStart + notSet
       } else if (minPlayers === 0) {
