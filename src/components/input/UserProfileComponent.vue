@@ -46,7 +46,7 @@
             Sünnikuupäev:
           </div>
           <div class="col text-start font-monospace">
-            {{ this.profileData.birthDate }}
+            {{ this.profileData.formatDate }}
           </div>
         </div>
 
@@ -80,7 +80,7 @@
       </div>
 
       <div class="col">
-        {{ this.profileData.imageData }}
+        {{ this.profileData.formatDate }}
       </div>
 
 
@@ -112,6 +112,7 @@ export default {
         countryName: '',
         cityName: '',
         birthDate: '',
+        formatDate:'',
         genderName: '',
         interestedIn: '',
         introduction: '',
@@ -119,8 +120,27 @@ export default {
       }
 
     }
-  }
+  },
+methods:{
+  formatDate(inputDate) {
+    // Parse the input date string
+    const parts = inputDate.split('-');
+    const year = parts[0];
+    const month = parts[1];
+    const day = parts[2];
 
+    // Create a new Date object
+    const date = new Date(year, month - 1, day);
+
+    // Get the day, month, and year components from the Date object
+    const formattedDay = String(date.getDate()).padStart(2, '0');
+    const formattedMonth = String(date.getMonth() + 1).padStart(2, '0');
+    const formattedYear = date.getFullYear();
+
+    // Return the reformatted date string
+    return `${formattedDay}.${formattedMonth}.${formattedYear}`;
+  },
+}
 }
 </script>
 
