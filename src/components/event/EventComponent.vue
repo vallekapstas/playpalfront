@@ -129,18 +129,17 @@ export default {
 
     assembleDateAndTimeString() {
       let eventDateAndTimeResult = ''
+      let startDate = this.formatDate(this.eventData.startDate)
+      let startTime = this.formatTime(this.eventData.startTime)
+      let endDate = this.formatDate(this.eventData.endDate)
+      let endTime = this.formatTime(this.eventData.endTime)
 
-      if (this.eventData.startDate === this.eventData.endDate) {
+      if (startDate === endDate) {
         eventDateAndTimeResult =
-            this.formatDate(this.eventData.startDate) + ' ' +
-            this.formatTime(this.eventData.startTime) + '-' +
-            this.formatTime(this.eventData.endTime);
+            startDate + ' ' + startTime + '-' + endTime;
       } else {
         eventDateAndTimeResult =
-            this.formatDate(this.eventData.startDate) + ' ' +
-            this.formatTime(this.eventData.startTime) + '-' +
-            this.formatDate(this.eventData.endDate) + ' ' +
-            this.formatTime(this.eventData.endTime);
+            startDate + ' ' + startTime + '-' + endDate + ' ' +  endTime;
       }
 
       return eventDateAndTimeResult
@@ -148,14 +147,17 @@ export default {
 
     assembleMinMaxPlayersString() {
       let minMaxPlayersString = ''
-      if (this.eventData.minPlayers === 0 && this.eventData.maxPlayers === 0) {
+      let minPlayers = this.eventData.minPlayers
+      let maxPlayers = this.eventData.maxPlayers
+      
+      if (minPlayers === 0 && maxPlayers === 0) {
         minMaxPlayersString = 'Pole seatud'
-      } else if (this.eventData.minPlayers === 0) {
-        minMaxPlayersString = 'Kuni ' + this.eventData.maxPlayers
-      } else if (this.eventData.maxPlayers === 0) {
-        minMaxPlayersString = 'Vähemalt ' + this.eventData.minPlayers
+      } else if (minPlayers === 0) {
+        minMaxPlayersString = 'Kuni ' + maxPlayers
+      } else if (maxPlayers === 0) {
+        minMaxPlayersString = 'Vähemalt ' + minPlayers
       } else {
-        minMaxPlayersString = this.eventData.minPlayers + '-' + this.eventData.maxPlayers
+        minMaxPlayersString = minPlayers + '-' + maxPlayers
       }
 
       return minMaxPlayersString
