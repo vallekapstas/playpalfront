@@ -111,7 +111,7 @@ export default {
         username: '',
         countryName: '',
         cityName: '',
-        birthDate: true,
+        birthDate: '',
         genderName: '',
         interestedIn: '',
         introduction: '',

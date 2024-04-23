@@ -13,13 +13,11 @@
       <div class="col d-flex gap-3 mt-5 mb-2">
         <button class="btn btn-dark shadow-sm" type="submit" @click="goToIndexRoute">Tagasi</button>
         <button class="btn btn-primary shadow-sm" type="button" @click="editUserProfile">Muuda</button>
-<!--        todo: push to edit and provide userid-->
+        <!--        todo: push to edit and provide userid-->
       </div>
     </div>
 
   </div>
-
-
 
 
 </template>
@@ -36,16 +34,19 @@ export default {
   name: 'ProfileView',
   components: {ProfileInputComponent, UserProfileComponent},
   data() {
-    return{
+    return {
       UserProfileComponent
     }
   },
+  methods:{
+    goToIndexRoute() {
+      router.push({name: '/indexRoute'})
 
-methods: {
-  setProfileImage(profileImage) {
-    this.userProfileInfo.profileImage = profileImage
-  },
-}
+    },
+    editUserProfile() {
+
+    },
+  }
 }
 </script>
 
