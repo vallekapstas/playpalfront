@@ -40,7 +40,8 @@ export default {
 
       roleId: '',
       userId: '',
-      roleName: ''
+      roleName: '',
+      birthDate: ''
     }
   },
   methods: {
@@ -58,15 +59,17 @@ export default {
       sessionStorage.setItem('roleId', this.roleId)
       sessionStorage.setItem('userId', this.userId)
       sessionStorage.setItem('roleName', this.roleName)
+      sessionStorage.setItem('birtDate', this.birthDate)
     }
 
   },
   mounted() {
     const userData = JSON.parse(sessionStorage.getItem('userData'))
     if (userData) {
-      this.roleId = userData.roleId;
-      this.userId = userData.userId;
+      this.roleId = userData.roleId
+      this.userId = userData.userId
       this.roleName = userData.roleName
+      this.birthDate = userData.birthDate
     }
 
   }
