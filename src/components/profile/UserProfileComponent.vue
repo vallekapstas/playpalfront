@@ -93,7 +93,9 @@ export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
 
-
+  props: {
+    userId: 0
+  },
 
   computed: {
     fullName() {
@@ -126,6 +128,17 @@ export default {
     }
   },
 methods:{
+
+  getUserProfile() {
+    this.$http.get(`/user/${this.userId}`)
+        .then(response => {
+          this.profileData = response.data
+        })
+        .catch(error => {
+          const errorResponseJSON = error.response.data
+        })
+  },
+
   formatDate(inputDate) {
     // Parse the input date string
     const parts = inputDate.split('-');
@@ -144,6 +157,9 @@ methods:{
     // Return the reformatted date string
     return `${formattedDay}.${formattedMonth}.${formattedYear}`;
   },
+},
+mounted() {
+    this.getUserProfile()
 }
 }
 </script>
