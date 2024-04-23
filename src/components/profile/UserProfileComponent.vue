@@ -25,10 +25,10 @@
 
         <div class="row">
           <div class="col text-end">
-            Riik:
+            Asukoht:
           </div>
           <div class="col text-start font-monospace">
-            {{ this.profileData.countryName }}
+            {{ location }}
           </div>
         </div>
 
@@ -104,7 +104,10 @@ export default {
 
   computed: {
     fullName() {
-      return ''
+      return this.profileData.firstName + '' + this.profileData.lastName
+    },
+    location() {
+      return this.profileData.countryName + ',' + this.profileData.countyName + ',' + this.profileData.cityName + ','
     },
   },
 
@@ -112,7 +115,10 @@ export default {
     return {
       profileData: {
         username: '',
+        firstName: '',
+        lastName:'',
         countryName: '',
+        countyName:'',
         cityName: '',
         birthDate: '',
         formatDate:'',

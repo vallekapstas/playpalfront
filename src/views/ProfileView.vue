@@ -27,7 +27,7 @@
 
 
 import router from "@/router";
-import UserProfileComponent from "@/components/input/UserProfileComponent.vue";
+import UserProfileComponent from "@/components/profile/UserProfileComponent.vue";
 import ProfileInputComponent from "@/components/input/ProfileInputComponent.vue";
 
 export default {
