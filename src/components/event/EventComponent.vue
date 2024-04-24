@@ -18,10 +18,7 @@
       <div class="row fs-5">
         <div class="col-lg">
 
-          <!-- todo: create EventImageComponent to show this here -->
-          <!-- todo: make sure the image works as well... eventId:1 has one -->
-          <img v-if="eventData.eventImage" class="img-fluid" :src="eventData.eventImage" alt="event-image"/>
-          <img v-else class="img-fluid" src="../../assets/red_dice.png" alt="event-image"/>
+          <EventImageComponent :event-image="eventData.eventImage"/>
 
         </div>
 
@@ -41,7 +38,7 @@
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-house-fill"></i>{{ eventData.venueName }}</div>
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-gem"></i>{{ eventData.skillName }}</div>
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-person-bounding-box"></i>{{ hostName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-currency-exchange"></i>{{ eventData.fee }} €</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-currency-exchange"></i>{{ eventFee }}</div>
         </div>
       </div>
 
@@ -53,9 +50,11 @@
 
 <script>
 import router from "@/router";
+import EventImageComponent from "@/components/event/EventImageComponent.vue";
 
 export default {
   name: 'EventComponent',
+  components: {EventImageComponent},
 
   props: {
     eventId: 0
@@ -80,7 +79,15 @@ export default {
 
     hostName() {
       return this.assembleHostNameString()
-    }
+    },
+
+    eventFee() {
+      if (this.eventData.fee > 0) {
+        return this.eventData.fee + ' €';
+      } else {
+        return 'Tasuta'
+      }
+    },
 
   },
 

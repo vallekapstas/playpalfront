@@ -7,7 +7,9 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-10">
+        <EventFilterComponent/>
         <EventComponent :eventId="1"/>
+        <EventComponent :eventId="2"/>
       </div>
     </div>
   </div>
@@ -16,10 +18,12 @@
 <script>
 // @ is an alias to /src
 import EventComponent from '@/components/event/EventComponent.vue'
+import EventFilterComponent from "@/components/event/EventFilterComponent.vue";
 
 export default {
   name: 'HomeView',
   components: {
+    EventFilterComponent,
     EventComponent
   }
 }

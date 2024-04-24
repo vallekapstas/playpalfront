@@ -166,6 +166,10 @@ html {
     background-color: #fff6f8 !important;
 }
 
+.event-filter:hover {
+    background-color: #fff6f8 !important;
+}
+
 .playpal-bg {
     background-color: #fff6f8;
 }
