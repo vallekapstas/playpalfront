@@ -30,7 +30,7 @@ import ProfileInputComponent from "@/components/input/ProfileInputComponent.vue"
 import router from "@/router";
 
 export default {
-  name: "RegisterView",
+  name: 'RegisterView',
   components: {ProfileInputComponent, LocationDropdownsComponent},
 
   data() {
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     addUserProfile() {
-      this.getAndSetUserProfileValues()
+      this.getAndSetUserProfileInfo()
       if (this.$refs.profileInputComponentRef.allFieldsWithCorrectInput()) {
         this.sendPostUserProfileRequest()
       }
@@ -84,16 +84,8 @@ export default {
       this.userProfileInfo.profileImage = profileImage
     },
 
-    getAndSetUserProfileValues() {
-      this.userProfileInfo.username = this.$refs.profileInputComponentRef.username
-      this.userProfileInfo.password = this.$refs.profileInputComponentRef.password
-      this.userProfileInfo.firstName = this.$refs.profileInputComponentRef.firstName
-      this.userProfileInfo.lastName = this.$refs.profileInputComponentRef.lastName
-      this.userProfileInfo.birthDate = this.$refs.profileInputComponentRef.birthDate
-      this.userProfileInfo.cityId = this.$refs.profileInputComponentRef.city
-      this.userProfileInfo.genderId = this.$refs.profileInputComponentRef.genderId
-      this.userProfileInfo.interestedIn = this.$refs.profileInputComponentRef.interestedIn
-      this.userProfileInfo.introduction = this.$refs.profileInputComponentRef.introduction
+    getAndSetUserProfileInfo() {
+      this.userProfileInfo = this.$refs.profileInputComponentRef.userProfileInfo
     },
     goToEventView() {
       router.push({name: 'indexRoute'})

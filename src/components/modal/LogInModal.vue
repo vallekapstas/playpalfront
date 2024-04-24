@@ -35,7 +35,7 @@ import Modal from "@/components/modal/Modal.vue";
 import router from "@/router";
 
 export default {
-  name: "LogInModal",
+  name: 'LogInModal',
   components: {Modal},
   data() {
     return {

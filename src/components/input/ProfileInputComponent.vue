@@ -8,13 +8,13 @@
         <div class="row mb-3">
           <div class="col">
             <label for="firstName" class="form-label text-primary fw-lighter"><b>Eesnimi*</b></label>
-            <input v-model="firstName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.firstName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
                    id="firstName" required>
             <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
           </div>
           <div class="col">
             <label for="lastName" class="form-label text-primary fw-lighter"><b>Perekonnanimi*</b></label>
-            <input v-model="lastName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.lastName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
                    id="lastName" required>
             <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
           </div>
@@ -26,12 +26,12 @@
                    class="form-label text-primary fw-lighter"><b>Kasutajanimi*</b></label>
             <div class="input-group">
               <input type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
-                     id="validationCustomUsername" required v-model="username"
+                     id="validationCustomUsername" required v-model="userProfileInfo.username"
                      @input="validateUserName">
               <span class="input-group-text" id="inputGroupPrepend">
                 <span v-if="isCheckingUserName" class="status-text">Checking...</span>
-                <span v-if="username.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
-                <span v-if="username.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
+                <span v-if="userProfileInfo.username.length > 0 && !isUserNameAvailable" class="rejection-tick">❌</span>
+                <span v-if="userProfileInfo.username.length > 0 && isUserNameAvailable" class="approval-tick">✔️</span>
               </span>
             </div>
             <div v-if="!isUserNameAvailable" class="input-invalid">{{ errorMessage }}</div>
@@ -39,7 +39,7 @@
           </div>
           <div class="col">
             <label for="firstName" class="form-label text-primary fw-lighter"><b>Sünnikuupäev*</b></label>
-            <input v-model="birthDate" type="date" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.birthDate" type="date" class="form-control border-primary-subtle font-monospace shadow-sm"
                    :max="getYesterday()"
                    @change="validateBirthDate" required>
             <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
@@ -49,7 +49,7 @@
         <div class="row mb-3">
           <div class="col">
             <label for="password" class="form-label text-primary fw-lighter"><b>Parool*</b></label>
-            <input v-model="password" type="password" id="inputPassword5"
+            <input v-model="userProfileInfo.password" type="password" id="inputPassword5"
                    class="form-control border-primary-subtle font-monospace shadow-sm"
                    aria-describedby="passwordHelpBlock" required>
             <div v-if="!validPassword" class="input-invalid">Palun sisesta parool!</div>
@@ -100,15 +100,14 @@
           </div>
           <div class="col">
             <label for="profileImage" class="form-label text-primary fw-lighter"><b>Profiilipilt</b></label>
-            <input ref="fileInputRef" type="file" class="form-control border-primary-subtle font-monospace shadow-sm"
-                   @change="this.$refs.profileImageComponentRef.handleImage" accept="image/jpeg,image/x-png,image/gif">
+            <ImageInput @event-new-image-file-selected="setProfileImage"/>
           </div>
         </div>
 
 
         <div class="row mb-3">
           <div class="col form-floating">
-              <textarea v-model="interestedIn" class="form-control border-primary-subtle font-monospace shadow-sm"
+              <textarea v-model="userProfileInfo.interestedIn" class="form-control border-primary-subtle font-monospace shadow-sm"
                         id="floatingTextareaInterests"></textarea>
             <label for="floatingTextareaInterests" class="text-primary fw-lighter">Lemmikmängud</label>
           </div>
@@ -117,7 +116,7 @@
 
         <div class="row mb-3">
           <div class="col form-floating">
-              <textarea v-model="introduction" class="form-control border-primary-subtle font-monospace"
+              <textarea v-model="userProfileInfo.introduction" class="form-control border-primary-subtle font-monospace"
                         id="floatingTextareaIntroduction"></textarea>
             <label for="floatingTextareaIntroduction" class="text-primary fw-lighter">Enesetutvustus</label>
           </div>
@@ -128,9 +127,9 @@
 
 
       <div class="col-lg-4">
-        <ProfileImageComponent :image-data="profileImage" id="profileImage" ref="profileImageComponentRef"
-                               @event-new-image-file-selected="emitNewProfileImage"
-                               @event-clear-image-file="clearProfileImage"/>
+        <ProfileImageComponent :profile-image="userProfileInfo.profileImage" id="profileImage"/>
+        <RemoveImageComponent @event-clear-image-file="userProfileInfo.profileImage = ''  "/>
+
       </div>
 
     </div>
@@ -142,40 +141,37 @@
 
 <script>
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
-import locationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 import ProfileImageComponent from "@/components/input/ProfileImageComponent.vue";
-import profileImageComponent from "@/components/input/ProfileImageComponent.vue";
+import RemoveImageComponent from "@/components/input/RemoveImageComponent.vue";
+import ImageInput from "@/components/image/ImageInput.vue";
 
 export default {
-  name: "ProfileInputComponent",
-  computed: {
-    profileImageComponent() {
-      return profileImageComponent
-    },
-    locationDropdowns() {
-      return locationDropdownsComponent
-    },
-  },
-  components: {LocationDropdownsComponent, ProfileImageComponent},
+  name: 'ProfileInputComponent',
+  components: {ImageInput, RemoveImageComponent, LocationDropdownsComponent, ProfileImageComponent},
 
   data() {
     return {
-      username: '',
+
+      userProfileInfo: {
+        username: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+        cityId: 0,
+        genderId: 0,
+        birthDate: 0,
+        interestedIn: '',
+        introduction: '',
+        profileImage: ''
+      },
+
+      isCheckingUserName: false,
       errorMessage: '',
       selectedGender: '',
-      firstName: '',
-      lastName: '',
-      password: '',
       passwordRepeat: '',
       country: 0,
       county: 0,
-      city: 0,
       gender: '',
-      profileImage: '',
-      interestedIn: '',
-      introduction: '',
-      genderId: 0,
-      birthDate: true,
 
       isUserNameAvailable: true,
       validFirstName: true,
@@ -193,8 +189,12 @@ export default {
   },
   methods: {
 
+    setProfileImage(imageData) {
+      this.userProfileInfo.profileImage = imageData
+    },
+
     async validateUserName() {
-      const trimmedUserName = this.username.trim(); // Remove leading and trailing spaces
+      const trimmedUserName = this.userProfileInfo.username.trim(); // Remove leading and trailing spaces
       // Check if the username is not empty
       if (trimmedUserName) {
         try {
@@ -212,7 +212,7 @@ export default {
     },
 
     validateBirthDate() {
-      const enteredDate = new Date(this.birthDate);
+      const enteredDate = new Date(this.userProfileInfo.birthDate);
       const currentDate = new Date();
       if (enteredDate > currentDate) {
         this.validBirthDate = false;
@@ -236,13 +236,12 @@ export default {
     },
 
     setCityId(cityId) {
-      this.city = cityId
-      this.$emit('event-selected-city-change', this.city)
+      this.userProfileInfo.cityId = cityId
     },
 
     selectGenderId(gender) {
       this.selectedGender = gender;
-      this.genderId = this.getGenderId(gender);
+      this.userProfileInfo.genderId = this.getGenderId(gender);
     },
 
     getGenderId(gender) {
@@ -254,17 +253,17 @@ export default {
     },
 
     allFieldsWithCorrectInput() {
-      this.validFirstName = this.firstName.length > 0
-      this.validLastName = this.lastName.length > 0
-      this.validUsername = this.username.length > 0
-      this.validBirthDate = this.birthDate.length > 0
-      this.validPassword = this.password.length > 0
+      this.validFirstName = this.userProfileInfo.firstName.length > 0
+      this.validLastName = this.userProfileInfo.lastName.length > 0
+      this.validUsername = this.userProfileInfo.username.length > 0
+      this.validBirthDate = this.userProfileInfo.birthDate.length > 0
+      this.validPassword = this.userProfileInfo.password.length > 0
       this.validRepeatPassword = this.passwordRepeat.length > 0
-      this.matchingPassword = this.passwordRepeat === this.password
+      this.matchingPassword = this.passwordRepeat === this.userProfileInfo.password
       this.validCountry = this.country > 0
       this.validCounty = this.county > 0
-      this.validCity = this.city > 0
-      this.validGender = this.genderId > 0
+      this.validCity = this.userProfileInfo.cityId > 0
+      this.validGender = this.userProfileInfo.genderId > 0
 
       return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate && this.validPassword
           && this.validRepeatPassword && this.matchingPassword && this.validCountry && this.validCounty && this.validCity && this.validGender
@@ -284,13 +283,6 @@ export default {
       this.validGender = true
     },
 
-    emitNewProfileImage(profileImage) {
-      this.$emit('event-new-image-file-selected', profileImage)
-    },
-
-    clearProfileImage() {
-      this.$refs.fileInputRef.value = ''
-    }
   },
 };
 

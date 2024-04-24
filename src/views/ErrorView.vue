@@ -10,6 +10,6 @@
 
 <script>
 export default {
-  name: "ErrorView"
+  name: 'ErrorView'
 }
 </script>
