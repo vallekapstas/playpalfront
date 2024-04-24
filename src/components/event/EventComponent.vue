@@ -26,19 +26,22 @@
         </div>
 
         <div class="col-lg">
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-calendar-week-fill"></i> {{ eventDateAndTime }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-geo-alt-fill"></i>
-            {{ this.eventData.cityName }},
-            {{ this.eventData.countyName }},
-            {{ this.eventData.countryName }}
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-clock-fill"></i>{{ eventDateAndTime }}
           </div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-cake2-fill"></i> vanus <!-- todo: create age computing and show it here --></div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-people-fill"></i> {{ minMaxPlayers }} <span class="text-primary small">{{ participationCountDisplay }}</span></div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-signpost-2-fill"></i>{{ this.eventData.cityName }},
+            {{ this.eventData.countyName }}, {{ this.eventData.countryName }}
+          </div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-cake2-fill"></i>{{ minMaxAge }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-people-fill"></i><span
+              class="text-primary">{{ participationCountDisplay }}</span> / {{ minMaxPlayers }}
+          </div>
         </div>
+
         <div class="col-lg">
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-building-fill"></i> {{ eventData.venueName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-star-fill"></i> {{ eventData.skillName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="bi bi-currency-exchange"></i> {{ eventData.fee }} €</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-house-fill"></i>{{ eventData.venueName }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-gem"></i>{{ eventData.skillName }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-person-bounding-box"></i>{{ hostName }}</div>
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-currency-exchange"></i>{{ eventData.fee }} €</div>
         </div>
       </div>
 
@@ -68,11 +71,15 @@ export default {
     },
 
     participationCountDisplay() {
-      if (this.eventData.participantCount === 1) {
-        return `(${this.eventData.participantCount} osaleja)`;
-      } else {
-        return `(${this.eventData.participantCount} osalejat)`;
-      }
+      return this.eventData.participantCount
+    },
+
+    minMaxAge() {
+      return this.assembleMinMaxAgeString()
+    },
+
+    hostName() {
+      return this.assembleHostNameString()
     }
 
   },
@@ -157,7 +164,7 @@ export default {
             startDate + ' ' + startTime + toFrom + endTime;
       } else {
         eventDateAndTimeResult =
-            startDate + ' ' + startTime + toFrom + endDate + ' ' +  endTime;
+            startDate + ' ' + startTime + toFrom + endDate + ' ' + endTime;
       }
 
       return eventDateAndTimeResult
@@ -168,12 +175,9 @@ export default {
       let minPlayers = this.eventData.minPlayers
       let maxPlayers = this.eventData.maxPlayers
       let notSet = 'Pole seatud'
-      let maxPlayersText = 'Max'
-      let minPlayersText = 'Min'
+      let maxPlayersText = 'Kuni'
+      let minPlayersText = 'Vähemalt'
       let toFrom = '-'
-
-      minPlayers = 0
-      maxPlayers = 0
 
       if (minPlayers === 0 && maxPlayers === 0) {
         minMaxPlayersString = notSet
@@ -186,6 +190,33 @@ export default {
       }
 
       return minMaxPlayersString
+    },
+
+    assembleMinMaxAgeString() {
+      let minMaxAgesString = ''
+      let minAge = this.eventData.minAge
+      let maxAge = this.eventData.maxAge
+      let notSet = 'Kõik vanused'
+      let maxAgeText = 'Kuni'
+      let minAgeText = 'Vähemalt'
+      let toFrom = '-'
+      let ageUnit = 'a'
+
+      if ((minAge === 0 || minAge === null) && (maxAge === 0 || maxAge === null)) {
+        minMaxAgesString = notSet
+      } else if (minAge === 0) {
+        minMaxAgesString = maxAgeText + ' ' + maxAge + ' ' + ageUnit
+      } else if (maxAge === 0) {
+        minMaxAgesString = minAgeText + ' ' + minAge + ' ' + ageUnit
+      } else {
+        minMaxAgesString = minAge + toFrom + maxAge + ' ' + ageUnit
+      }
+
+      return minMaxAgesString
+    },
+
+    assembleHostNameString() {
+      return this.eventData.hostFirstName + ' ' + this.eventData.hostLastName
     },
 
     formatDate(inputDate) {

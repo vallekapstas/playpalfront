@@ -301,3 +301,12 @@ html {
     margin-top: 5px;
 }
 
+/* Custom Icon Styling */
+.icon {
+    color: #666666;
+}
+
+.icon:hover {
+    color: #fc4c69;
+}
+

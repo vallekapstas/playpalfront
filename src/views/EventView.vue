@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-10">
-        <EventComponent :eventId="2"/>
+        <EventComponent :eventId="1"/>
       </div>
     </div>
   </div>
