@@ -1,4 +1,5 @@
 <template>
+  <ParticipationLabelComponent ref="participationLabelComponentRef" style="display: none;"/>
   <AlertComponent ref="alertComponentRef"/>
   <LogInModal ref="logInModalRef"
               @event-user-logged-in="handleUserLoggedIn"
@@ -55,9 +56,10 @@ import LogInModal from "@/components/modal/LogInModal.vue";
 import AlertComponent from "@/components/alert/AlertComponent.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 import router from "@/router";
+import ParticipationLabelComponent from "@/components/event/ParticipationLabelComponent.vue";
 
 export default {
-  components: {LogOutModal, AlertComponent, LogInModal},
+  components: {ParticipationLabelComponent, LogOutModal, AlertComponent, LogInModal},
   data() {
     return {
       showMobileMenu: false,
@@ -105,7 +107,6 @@ export default {
     handleUserStatusUpdates() {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()
-      this.triggerReload()
     },
 
     resetUserStatuses() {
@@ -116,6 +117,8 @@ export default {
     updateIsLoggedInValue() {
       const userId = sessionStorage.getItem('userId')
       this.isLoggedIn = userId !== null
+      this.$refs.participationLabelComponentRef.show = this.isLoggedIn;
+      // todo: this does not trigger a reload!
     },
 
     updateIsAdminValue() {
