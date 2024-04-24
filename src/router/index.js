@@ -57,9 +57,6 @@ const routes = [
     },
 
 
-
-
-
     // {
     //   path: '/about',
     //   name: 'about',

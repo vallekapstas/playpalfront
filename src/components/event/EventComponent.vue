@@ -11,7 +11,8 @@
           <h2>{{ eventData.eventName }}</h2>
         </div>
         <div class="col col-2 text-end position-relative">
-          <ParticipationLabelComponent/>
+          <ParticipationLabelComponent ref="participationLabelComponentRef" :user-logged-in="userLoggedIn" :user-id="0"
+                                       :user-status="''"/>
         </div>
       </div>
 
@@ -90,6 +91,10 @@ export default {
       }
     },
 
+    userLoggedIn() {
+      return this.getUserLoggedInFromSession()
+    },
+
   },
 
   data() {
@@ -136,11 +141,12 @@ export default {
   },
 
   beforeMount() {
-    this.handleComponentLoad()
+    this.handleComponentLoading()
   },
 
   methods: {
-    handleComponentLoad() {
+
+    handleComponentLoading() {
       this.getEventDataRequest()
     },
 
@@ -152,6 +158,10 @@ export default {
           .catch(() => {
             router.push({name: 'errorRoute'})
           })
+    },
+
+    getUserLoggedInFromSession() {
+      return !!sessionStorage.getItem('userId');
     },
 
     openEventPreviewModal(id) {

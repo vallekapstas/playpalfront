@@ -73,6 +73,7 @@ export default {
     }
   },
   methods: {
+
     openLogInModal() {
       this.$refs.logInModalRef.$refs.modalRef.openModal()
     },
@@ -104,6 +105,7 @@ export default {
     handleUserStatusUpdates() {
       this.updateIsLoggedInValue()
       this.updateIsAdminValue()
+      this.triggerReload()
     },
 
     resetUserStatuses() {
