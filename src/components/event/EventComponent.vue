@@ -11,7 +11,7 @@
           <h2>{{ eventData.eventName }}</h2>
         </div>
         <div class="col col-2 text-end position-relative">
-          <span class="position-absolute top-0 start-100 translate-middle badge text-bg-danger fs-6 shadow">Ootel</span>
+          <ParticipationLabelComponent/>
         </div>
       </div>
 
@@ -25,8 +25,8 @@
         <div class="col-lg">
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-clock-fill"></i>{{ eventDateAndTime }}
           </div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-signpost-2-fill"></i>{{ this.eventData.cityName }},
-            {{ this.eventData.countyName }}, {{ this.eventData.countryName }}
+          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-signpost-2-fill"></i>{{ eventData.cityName }},
+            {{ eventData.countyName }}, {{ eventData.countryName }}
           </div>
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-cake2-fill"></i>{{ minMaxAge }}</div>
           <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-people-fill"></i><span
@@ -50,12 +50,12 @@
 
 <script>
 import router from "@/router";
-import { onMounted, onUnmounted, ref } from 'vue';
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
+import ParticipationLabelComponent from "@/components/event/ParticipationLabelComponent.vue";
 
 export default {
   name: 'EventComponent',
-  components: {EventImageComponent},
+  components: {ParticipationLabelComponent, EventImageComponent},
 
   props: {
     eventId: 0
