@@ -8,8 +8,8 @@
     <div class="row justify-content-center">
       <div class="col col-10">
         <EventFilterComponent/>
-        <EventComponent :eventId="1"/>
-        <EventComponent :eventId="2"/>
+        <EventComponent ref="eventComponentRef" :eventId="1"/>
+        <EventComponent ref="eventComponentRef" :eventId="2"/>
       </div>
     </div>
   </div>

@@ -50,6 +50,7 @@
 
 <script>
 import router from "@/router";
+import { onMounted, onUnmounted, ref } from 'vue';
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
 
 export default {
@@ -93,6 +94,7 @@ export default {
 
   data() {
     return {
+
       eventData: {
         eventId: 0,
         hostId: 0,
@@ -129,15 +131,15 @@ export default {
         eventStatus: '',
         participantCount: 0
       }
+
     }
   },
 
-  mounted() {
+  beforeMount() {
     this.handleComponentLoad()
   },
 
   methods: {
-
     handleComponentLoad() {
       this.getEventDataRequest()
     },
@@ -151,8 +153,6 @@ export default {
             router.push({name: 'errorRoute'})
           })
     },
-
-    // todo: get participants from event per current user id to check what the participation status is with this event
 
     openEventPreviewModal(id) {
       alert('test: open event preview modal ID: ' + id)

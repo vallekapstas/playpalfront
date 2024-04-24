@@ -16,7 +16,8 @@
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-4" id="navMenu">
         <template v-if="isLoggedIn">
-          <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused</router-link>
+          <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused
+          </router-link>
           <router-link to="/profile" @click="handleRouteClick('/profile')" class="nav-link">Profiil</router-link>
         </template>
         <template v-if="isAdmin">
@@ -31,14 +32,16 @@
           </button>
         </template>
         <template v-else>
-          <button @click="goToRegisterView" class="btn btn-outline-primary shadow-sm text-nowrap m-1">Registreeri</button>
+          <button @click="goToRegisterView" class="btn btn-outline-primary shadow-sm text-nowrap m-1">Registreeri
+          </button>
           <button @click="openLogInModal" class="btn btn-outline-primary shadow-sm text-nowrap m-1">
             Logi sisse
           </button>
         </template>
       </div>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+              aria-controls="navMenu" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
