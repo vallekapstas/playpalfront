@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col">
         <h1>Profiil</h1>
-        <UserProfileComponent :propName="UserProfileComponent"/>
+        <UserProfileComponent :user-id="1"/>
       </div>
     </div>
 

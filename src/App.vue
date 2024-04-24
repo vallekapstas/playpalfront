@@ -10,7 +10,7 @@
     <div class="container-fluid">
       <div class="col-2 justify-content-start">
         <router-link to="/" @click="handleRouteClick('/')" class="navbar-brand">
-          <img src="../src/assets/Playpal%20logo%20transparent.png" style="height: 4.5rem"/>
+          <img src="../src/assets/playpal_logo_transparent.png" style="height: 4.5rem"/>
         </router-link>
       </div>
 
