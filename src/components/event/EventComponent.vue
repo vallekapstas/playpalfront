@@ -11,8 +11,8 @@
           <h2>{{ eventData.eventName }}</h2>
         </div>
         <div v-if="userIsLoggedIn" class="col col-2 text-end position-relative">
-          <ParticipationLabelComponent ref="participationLabelComponentRef" :user-logged-in="userLoggedIn" :user-id="0"
-                                       :user-status="''"/>
+          <ParticipationLabelComponent ref="participationLabelComponentRef" :user-id="userId" :is-host="userIsHost"
+                                       :user-status="userStatus"/>
         </div>
       </div>
 
@@ -95,6 +95,9 @@ export default {
     return {
 
       userIsLoggedIn: false,
+      userId: 0,
+      userIsHost: false,
+      userStatus: '',
 
       eventData: {
         eventId: 0,
@@ -137,18 +140,27 @@ export default {
   },
 
   beforeMount() {
-    this.getUserIsLoggedInFromSession()
     this.handleComponentLoading()
   },
 
   methods: {
 
+    async handleComponentLoading() {
+      await this.getUserIsLoggedInFromSession()
+      await this.getLoggedInUserId()
+      await this.getEventDataRequest()
+      await this.getUserEventParticipationDataRequest()
+      this.getIsLoggedInUserHost()
+    },
+
     getUserIsLoggedInFromSession() {
       this.userIsLoggedIn = !!sessionStorage.getItem('userId')
     },
 
-    handleComponentLoading() {
-      this.getEventDataRequest()
+    getLoggedInUserId() {
+      if (this.userIsLoggedIn) {
+        this.userId = parseInt(sessionStorage.getItem('userId'))
+      }
     },
 
     getEventDataRequest() {
@@ -159,6 +171,20 @@ export default {
           .catch(() => {
             router.push({name: 'errorRoute'})
           })
+    },
+
+    getUserEventParticipationDataRequest() {
+      this.$http.get(`/participant/event/${this.eventId}/user/${this.userId}`)
+          .then(response => {
+            this.userStatus = response.data.status
+          })
+          .catch(() => {
+            // 404 Participation not found, do nothing
+          })
+    },
+
+    getIsLoggedInUserHost() {
+      this.userIsHost = this.userId.value === this.eventData.hostId.value
     },
 
     openEventPreviewModal(id) {
