@@ -87,20 +87,32 @@ export default {
       router.push({name: 'registerRoute'})
     },
 
-    handleUserLoggedIn() {
-      this.handleUserStatusUpdates()
+    async handleUserLoggedIn() {
+      await this.handleUserStatusUpdates()
+      await this.displayLogInSuccessAlert()
+      setTimeout(this.reloadApp, 100)
+    },
 
+    async handleUserLoggedOut() {
+      await this.resetUserStatuses()
+      await this.displayLogOutWarningAlert()
+      setTimeout(this.reloadApp, 100)
+    },
+
+    displayLogInSuccessAlert() {
       this.alertParams.style = 'alert-success'
       this.alertParams.message = 'Oled sisse logitud'
       this.displayAlert(this.alertParams)
     },
 
-    handleUserLoggedOut() {
-      this.resetUserStatuses()
-
+    displayLogOutWarningAlert() {
       this.alertParams.style = 'alert-warning'
       this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
+    },
+
+    reloadApp() {
+      window.location.reload();
     },
 
     handleUserStatusUpdates() {

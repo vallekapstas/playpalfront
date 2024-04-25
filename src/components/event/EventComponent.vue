@@ -10,7 +10,7 @@
         <div class="col col-10">
           <h2>{{ eventData.eventName }}</h2>
         </div>
-        <div class="col col-2 text-end position-relative">
+        <div v-if="userIsLoggedIn" class="col col-2 text-end position-relative">
           <ParticipationLabelComponent ref="participationLabelComponentRef" :user-logged-in="userLoggedIn" :user-id="0"
                                        :user-status="''"/>
         </div>
@@ -18,9 +18,7 @@
 
       <div class="row fs-5">
         <div class="col-lg">
-
           <EventImageComponent :event-image="eventData.eventImage"/>
-
         </div>
 
         <div class="col-lg">
@@ -96,6 +94,8 @@ export default {
   data() {
     return {
 
+      userIsLoggedIn: false,
+
       eventData: {
         eventId: 0,
         hostId: 0,
@@ -137,10 +137,15 @@ export default {
   },
 
   beforeMount() {
+    this.getUserIsLoggedInFromSession()
     this.handleComponentLoading()
   },
 
   methods: {
+
+    getUserIsLoggedInFromSession() {
+      this.userIsLoggedIn = !!sessionStorage.getItem('userId')
+    },
 
     handleComponentLoading() {
       this.getEventDataRequest()
