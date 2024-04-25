@@ -10,6 +10,11 @@
         <EventFilterComponent/>
         <EventComponent ref="eventComponentRef" :eventId="1"/>
         <EventComponent ref="eventComponentRef" :eventId="2"/>
+        <EventComponent ref="eventComponentRef" :eventId="3"/>
+        <EventComponent ref="eventComponentRef" :eventId="4"/>
+        <EventComponent ref="eventComponentRef" :eventId="5"/>
+        <EventComponent ref="eventComponentRef" :eventId="6"/>
+        <EventComponent ref="eventComponentRef" :eventId="7"/>
       </div>
     </div>
   </div>

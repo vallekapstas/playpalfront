@@ -91,10 +91,6 @@ export default {
       }
     },
 
-    userLoggedIn() {
-      return this.getUserLoggedInFromSession()
-    },
-
   },
 
   data() {
@@ -158,10 +154,6 @@ export default {
           .catch(() => {
             router.push({name: 'errorRoute'})
           })
-    },
-
-    getUserLoggedInFromSession() {
-      return !!sessionStorage.getItem('userId');
     },
 
     openEventPreviewModal(id) {
