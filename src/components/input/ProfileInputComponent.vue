@@ -173,7 +173,7 @@ export default {
       county: 0,
       gender: '',
 
-      isUserNameAvailable: true,
+
       validFirstName: true,
       validLastName: true,
       validUsername: true,

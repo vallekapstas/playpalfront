@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col">
         <h1>Muuda profiil</h1>
-        <ProfileInputComponent ref="ProfileInputComponentRef"/>
+        <ProfileInputComponent ref="profileInfo" :user-id="1"/>
       </div>
     </div>
 
@@ -76,7 +76,20 @@ export default {
         interestedIn: '',
         introduction: '',
         profileImage: ''
-      }
+      },
+
+
+
+      validFirstName: true,
+      validLastName: true,
+      validUsername: true,
+      validBirthDate: true,
+      validCountry: true,
+      validCounty: true,
+      validCity: true,
+      validGender: true
+
+
     }
 
   },
@@ -87,7 +100,7 @@ export default {
       router.push({name: 'profileRoute'})
     },
     getUserProfileInfo() {
-      this.$http.get(`/user/${this.userProfileInfo.userId}`)
+      this.$http.get(`/user/${this.userId}`)
           .then(response => {
             this.userProfileInfo = response.data
           })
@@ -97,22 +110,38 @@ export default {
     },
 
     updateUserProfile() {
-      this.$refs.ProfileInputComponentRef.userProfileInfo
+
       this.saveDataToSessionStorage()
-      if (this.$refs.ProfileInputComponentRef.allFieldsWithCorrectInput())
+      if (this.allFieldsWithCorrectInput())
         this.saveUserIdInfo()
 
       router.push({name: 'profileRoute'})
 
 
     },
+
+    allFieldsWithCorrectInput() {
+      this.validFirstName = this.userProfileInfo.firstName.length > 0
+      this.validLastName = this.userProfileInfo.lastName.length > 0
+      this.validUsername = this.userProfileInfo.username.length > 0
+      this.validBirthDate = this.userProfileInfo.birthDate.length > 0
+      this.validCountry = this.country > 0
+      this.validCounty = this.county > 0
+      this.validCity = this.userProfileInfo.cityId > 0
+      this.validGender = this.userProfileInfo.genderId > 0
+
+      return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate
+          && this.validCountry && this.validCounty && this.validCity && this.validGender
+    },
+
+
     saveDataToSessionStorage() {
-      sessionStorage.setItem('userProfileInfo', this.userProfileInfo)
+      sessionStorage.setItem('userProfileInfo', this.userProfileInfo.userId)
 
     },
 
     saveUserIdInfo() {
-      this.$http.put(`/editprofile/${this.userIdInfo}`, this.somePayloadDtoObject
+      this.$http.put(`/user/${this.userIdInfo.userId}`, this.userIdInfo
       ).then(response => {
         this.userIdInfo = response.data
       }).catch(error => {
