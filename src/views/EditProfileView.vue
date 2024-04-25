@@ -8,10 +8,10 @@
     <div class="row">
       <div class="col">
         <h1>Muuda profiil</h1>
-        <ProfileInputComponent ref="profileInfo" :user-id="1"/>
+        <ProfileInputComponent ref="profileInputComponentRef"/>
       </div>
-    </div>
 
+    </div>
 
     <div class="row d-grid justify-content-center">
       <div class="col d-flex gap-3 mt-5 mb-2">
@@ -48,13 +48,14 @@ export default {
 
   data() {
     return {
-
+      userId: sessionStorage.getItem('userId'),
       userProfileInfo: {
-        userId: 0,
         username: '',
         roleId: 0,
         genderId: 0,
         genderName: '',
+        countryId: 0,
+        countyId: 0,
         cityId: 0,
         cityName: '',
         countyName: '',
@@ -66,7 +67,7 @@ export default {
         introduction: '',
         imageData: ''
       },
-      userIdInfo: {
+      userInfoUpdateRequest: {
         username: '',
         firstName: '',
         lastName: '',
@@ -77,7 +78,6 @@ export default {
         introduction: '',
         profileImage: ''
       },
-
 
 
       validFirstName: true,
@@ -103,47 +103,62 @@ export default {
       this.$http.get(`/user/${this.userId}`)
           .then(response => {
             this.userProfileInfo = response.data
+            this.setProfileInputComponentValues()
           })
           .catch(error => {
             const errorResponseJSON = error.response.data
           })
     },
 
+    setProfileInputComponentValues() {
+      this.$refs.profileInputComponentRef.isRegister = false
+      this.$refs.profileInputComponentRef.userProfileInfo.firstName = this.userProfileInfo.firstName
+      this.$refs.profileInputComponentRef.userProfileInfo.lastName = this.userProfileInfo.lastName
+      this.$refs.profileInputComponentRef.userProfileInfo.username = this.userProfileInfo.username
+      this.$refs.profileInputComponentRef.userProfileInfo.birthDate = this.userProfileInfo.birthDate
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCountryId = this.userProfileInfo.countryId
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCountyId = this.userProfileInfo.countyId
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCityId = this.userProfileInfo.cityId
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.sendGetCountriesRequest()
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.sendGetCountiesRequest()
+      this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.sendGetCitiesRequest()
+
+      let gender = 'male'
+      if (this.userProfileInfo.genderId === 1) {
+        gender = 'female'
+      }
+      this.$refs.profileInputComponentRef.selectGenderId(gender)
+
+
+      this.$refs.profileInputComponentRef.userProfileInfo.interestedIn = this.userProfileInfo.interestedIn
+      this.$refs.profileInputComponentRef.userProfileInfo.introduction = this.userProfileInfo.introduction
+      this.$refs.profileInputComponentRef.userProfileInfo.profileImage = this.userProfileInfo.imageData
+
+    },
+
     updateUserProfile() {
 
-      this.saveDataToSessionStorage()
-      if (this.allFieldsWithCorrectInput())
-        this.saveUserIdInfo()
 
-      router.push({name: 'profileRoute'})
-
-
-    },
-
-    allFieldsWithCorrectInput() {
-      this.validFirstName = this.userProfileInfo.firstName.length > 0
-      this.validLastName = this.userProfileInfo.lastName.length > 0
-      this.validUsername = this.userProfileInfo.username.length > 0
-      this.validBirthDate = this.userProfileInfo.birthDate.length > 0
-      this.validCountry = this.country > 0
-      this.validCounty = this.county > 0
-      this.validCity = this.userProfileInfo.cityId > 0
-      this.validGender = this.userProfileInfo.genderId > 0
-
-      return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate
-          && this.validCountry && this.validCounty && this.validCity && this.validGender
-    },
+      if (this.$refs.profileInputComponentRef.allEditFieldsWithCorrectInput()) {
+        this.saveUserIdInfo();
+        router.push({name: 'profileRoute'})
+      }
 
 
-    saveDataToSessionStorage() {
-      sessionStorage.setItem('userProfileInfo', this.userProfileInfo.userId)
+
+
 
     },
+
+
+
+
+
 
     saveUserIdInfo() {
-      this.$http.put(`/user/${this.userIdInfo.userId}`, this.userIdInfo
+      this.$http.put(`/user/${this.userInfoUpdateRequest.userId}`, this.userInfoUpdateRequest
       ).then(response => {
-        this.userIdInfo = response.data
+        this.userInfoUpdateRequest = response.data
       }).catch(error => {
         const errorResponseJSON = error.response.data
       })
@@ -154,7 +169,7 @@ export default {
 
   mounted() {
     this.getUserProfileInfo()
-    this.saveUserIdInfo()
+
   }
 
 }

@@ -8,13 +8,15 @@
         <div class="row mb-3">
           <div class="col">
             <label for="firstName" class="form-label text-primary fw-lighter"><b>Eesnimi*</b></label>
-            <input v-model="userProfileInfo.firstName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.firstName" type="text"
+                   class="form-control border-primary-subtle font-monospace shadow-sm"
                    id="firstName" required>
             <div v-if="!validFirstName" class="input-invalid">Palun sisesta eesnimi!</div>
           </div>
           <div class="col">
             <label for="lastName" class="form-label text-primary fw-lighter"><b>Perekonnanimi*</b></label>
-            <input v-model="userProfileInfo.lastName" type="text" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.lastName" type="text"
+                   class="form-control border-primary-subtle font-monospace shadow-sm"
                    id="lastName" required>
             <div v-if="!validLastName" class="input-invalid">Palun sisesta perekonnanimi!</div>
           </div>
@@ -39,14 +41,15 @@
           </div>
           <div class="col">
             <label for="firstName" class="form-label text-primary fw-lighter"><b>Sünnikuupäev*</b></label>
-            <input v-model="userProfileInfo.birthDate" type="date" class="form-control border-primary-subtle font-monospace shadow-sm"
+            <input v-model="userProfileInfo.birthDate" type="date"
+                   class="form-control border-primary-subtle font-monospace shadow-sm"
                    :max="getYesterday()"
                    @change="validateBirthDate" required>
             <div v-if="!validBirthDate" class="input-invalid">Palun sisesta sünnikuupäev!</div>
           </div>
         </div>
 
-        <div class="row mb-3">
+        <div v-if="isRegister" class="row mb-3">
           <div class="col">
             <label for="password" class="form-label text-primary fw-lighter"><b>Parool*</b></label>
             <input v-model="userProfileInfo.password" type="password" id="inputPassword5"
@@ -66,9 +69,11 @@
         <div class="row mb-3">
           <div class="col">
             <label class="form-label text-primary fw-lighter"><b>Elukoht*</b></label>
-            <LocationDropdownsComponent @event-selected-country-change="setCountryId"
+            <LocationDropdownsComponent ref="locationDropdownsComponentRef"
+                                        @event-selected-country-change="setCountryId"
                                         @event-selected-county-change="setCountyId"
-                                        @event-selected-city-change="setCityId"/>
+                                        @event-selected-city-change="setCityId"
+            />
             <div v-if="!validCountry || !validCounty || !validCity" class="col-md-4 input-invalid">
               Palun sisesta elukoht!
             </div>
@@ -107,7 +112,8 @@
 
         <div class="row mb-3">
           <div class="col form-floating">
-              <textarea v-model="userProfileInfo.interestedIn" class="form-control border-primary-subtle font-monospace shadow-sm"
+              <textarea v-model="userProfileInfo.interestedIn"
+                        class="form-control border-primary-subtle font-monospace shadow-sm"
                         id="floatingTextareaInterests"></textarea>
             <label for="floatingTextareaInterests" class="text-primary fw-lighter">Lemmikmängud</label>
           </div>
@@ -151,7 +157,7 @@ export default {
 
   data() {
     return {
-
+      isRegister: true,
       userProfileInfo: {
         username: '',
         firstName: '',
@@ -250,6 +256,19 @@ export default {
       } else {
         return 2;
       }
+    },
+
+    allEditFieldsWithCorrectInput() {
+      this.validFirstName = this.userProfileInfo.firstName.length > 0
+      this.validLastName = this.userProfileInfo.lastName.length > 0
+      this.validUsername = this.userProfileInfo.username.length > 0
+      this.validBirthDate = this.userProfileInfo.birthDate.length > 0
+      this.validCountry = this.country > 0
+      this.validCounty = this.county > 0
+      this.validCity = this.userProfileInfo.cityId > 0
+      this.validGender = this.userProfileInfo.genderId > 0
+
+      return this.validFirstName && this.validLastName && this.validUsername && this.validBirthDate && this.validCountry && this.validCounty && this.validCity && this.validGender
     },
 
     allFieldsWithCorrectInput() {
