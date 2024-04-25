@@ -4,15 +4,18 @@
   <div class="container">
 
     <div @click="openEventPreviewModal(eventId)"
-         class="event-wrapper text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
+         class="event-wrapper pointer text-start bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm">
 
       <div class="row mb-3">
         <div class="col col-10">
           <h2>{{ eventData.eventName }}</h2>
         </div>
         <div v-if="userIsLoggedIn" class="col col-2 text-end position-relative">
-          <ParticipationLabelComponent ref="participationLabelComponentRef" :user-id="userId" :is-host="userIsHost"
-                                       :user-status="userStatus"/>
+          <ParticipationLabelComponent ref="participationLabelComponentRef" :event-id="eventId" :user-id="userId"
+                                       :is-host="userIsHost"
+                                       :user-status="userStatus" :participant-id="participantId"
+                                       @event-user-joined-event="this.$emit('event-user-joined-event')"
+                                       @event-user-left-event="this.$emit('event-user-left-event')"/>
         </div>
       </div>
 
@@ -22,22 +25,22 @@
         </div>
 
         <div class="col-lg">
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-clock-fill"></i>{{ eventDateAndTime }}
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-clock-fill"></i>{{ eventDateAndTime }}
           </div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-signpost-2-fill"></i>{{ eventData.cityName }},
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-signpost-2-fill"></i>{{ eventData.cityName }},
             {{ eventData.countyName }}, {{ eventData.countryName }}
           </div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-cake2-fill"></i>{{ minMaxAge }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-people-fill"></i><span
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-cake2-fill"></i>{{ minMaxAge }}</div>
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-people-fill"></i><span
               class="text-primary">{{ participationCountDisplay }}</span> / {{ minMaxPlayers }}
           </div>
         </div>
 
         <div class="col-lg">
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-house-fill"></i>{{ eventData.venueName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-gem"></i>{{ eventData.skillName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-person-bounding-box"></i>{{ hostName }}</div>
-          <div class="p-1 mx-1 my-3 w-100"><i class="icon me-3 bi bi-currency-exchange"></i>{{ eventFee }}</div>
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-house-fill"></i>{{ eventData.venueName }}</div>
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-gem"></i>{{ eventData.skillName }}</div>
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-person-bounding-box"></i>{{ hostName }}</div>
+          <div class="p-1 mx-1 my-2 w-100"><i class="icon me-3 bi bi-currency-exchange"></i>{{ eventFee }}</div>
         </div>
       </div>
 
@@ -98,6 +101,7 @@ export default {
       userId: 0,
       userIsHost: false,
       userStatus: '',
+      participantId: 0,
 
       eventData: {
         eventId: 0,
@@ -145,12 +149,17 @@ export default {
 
   methods: {
 
+    reloadLabel() {
+      this.$refs.participationLabelComponentRef.reloadLabelFunction()
+    },
+
     handleComponentLoading() {
       this.getUserIsLoggedInFromSession()
       this.getLoggedInUserId()
       this.getEventDataRequest()
       this.getUserEventParticipationDataRequest()
-      this.getIsLoggedInUserHost()
+      setTimeout(this.getIsLoggedInUserHost, 1000)
+
     },
 
     getUserIsLoggedInFromSession() {
@@ -167,8 +176,6 @@ export default {
       this.$http.get(`/event/${this.eventId}`)
           .then(response => {
             this.eventData = response.data
-            console.log('--- getEvent ---')
-            console.log(this.eventData)
           })
           .catch(() => {
             router.push({name: 'errorRoute'})
@@ -179,6 +186,7 @@ export default {
       this.$http.get(`/participant/event/${this.eventId}/user/${this.userId}`)
           .then(response => {
             this.userStatus = response.data.status
+            this.participantId = response.data.participantId
           })
           .catch(() => {
             // 404 Participation not found, do nothing
@@ -187,10 +195,6 @@ export default {
 
     getIsLoggedInUserHost() {
       this.userIsHost = this.userId === this.eventData.hostId
-      console.log('--- isHost ---')
-      console.log('eventId: ' + this.eventId)
-      console.log('userId ' + this.userId + ' === hostId ' + this.eventData.hostId)
-      console.log(this.eventData)
     },
 
     openEventPreviewModal(id) {

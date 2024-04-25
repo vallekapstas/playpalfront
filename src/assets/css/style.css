@@ -162,8 +162,11 @@ html {
     animation-name: tilt-n-move-shaking;
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
-    cursor: pointer;
     background-color: #fff6f8 !important;
+}
+
+.pointer {
+    cursor: pointer;
 }
 
 .event-filter:hover {
@@ -172,6 +175,16 @@ html {
 
 .playpal-bg {
     background-color: #fff6f8;
+}
+
+.host-icon {
+    color: #ffe193;
+    background-color: #4d0028;
+}
+
+.host-icon:hover {
+    color: #4d0028;
+    background-color: #ffe193;
 }
 
 
@@ -312,5 +325,14 @@ html {
 
 .icon:hover {
     color: #fc4c69;
+}
+
+.event-image-control {
+    max-height: 13rem;
+}
+
+.leave-event {
+    color: #ffd600;
+    background-color: #000000;
 }
 

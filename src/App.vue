@@ -49,16 +49,19 @@
     </div>
   </nav>
   <router-view @event-update-nav-menu="handleUserStatusUpdates"
-               @event-user-registered="handleUserRegistered"/>
+               @event-user-registered="handleUserRegistered"
+               @event-user-joined-event="handleUserJoinedEvent"
+               @event-user-left-event="handleUserLeftEvent"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
 import AlertComponent from "@/components/alert/AlertComponent.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 import router from "@/router";
+import ParticipationLabelComponent from "@/components/event/ParticipationLabelComponent.vue";
 
 export default {
-  components: {LogOutModal, AlertComponent, LogInModal},
+  components: {ParticipationLabelComponent, LogOutModal, AlertComponent, LogInModal},
   data() {
     return {
       showMobileMenu: false,
@@ -99,6 +102,16 @@ export default {
       setTimeout(this.reloadApp, 100)
     },
 
+    async handleUserJoinedEvent() {
+      await this.displayUserJoinedEventAlert()
+      // setTimeout(this.reloadApp, 100)
+    },
+
+    async handleUserLeftEvent() {
+      await this.displayUserLeftEventAlert()
+      // setTimeout(this.reloadApp, 100)
+    },
+
     displayLogInSuccessAlert() {
       this.alertParams.style = 'alert-success'
       this.alertParams.message = 'Oled sisse logitud'
@@ -108,6 +121,18 @@ export default {
     displayLogOutWarningAlert() {
       this.alertParams.style = 'alert-warning'
       this.alertParams.message = 'Oled välja logitud'
+      this.displayAlert(this.alertParams)
+    },
+
+    displayUserJoinedEventAlert() {
+      this.alertParams.style = 'alert-success'
+      this.alertParams.message = 'Sinu soov üritusega liituda on edastatud'
+      this.displayAlert(this.alertParams)
+    },
+
+    displayUserLeftEventAlert() {
+      this.alertParams.style = 'alert-warning'
+      this.alertParams.message = 'Oled ürituse nimekirjast eemaldatud'
       this.displayAlert(this.alertParams)
     },
 
