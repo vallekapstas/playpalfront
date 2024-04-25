@@ -145,11 +145,11 @@ export default {
 
   methods: {
 
-    async handleComponentLoading() {
-      await this.getUserIsLoggedInFromSession()
-      await this.getLoggedInUserId()
-      await this.getEventDataRequest()
-      await this.getUserEventParticipationDataRequest()
+    handleComponentLoading() {
+      this.getUserIsLoggedInFromSession()
+      this.getLoggedInUserId()
+      this.getEventDataRequest()
+      this.getUserEventParticipationDataRequest()
       this.getIsLoggedInUserHost()
     },
 
@@ -167,6 +167,8 @@ export default {
       this.$http.get(`/event/${this.eventId}`)
           .then(response => {
             this.eventData = response.data
+            console.log('--- getEvent ---')
+            console.log(this.eventData)
           })
           .catch(() => {
             router.push({name: 'errorRoute'})
@@ -184,7 +186,11 @@ export default {
     },
 
     getIsLoggedInUserHost() {
-      this.userIsHost = this.userId.value === this.eventData.hostId.value
+      this.userIsHost = this.userId === this.eventData.hostId
+      console.log('--- isHost ---')
+      console.log('eventId: ' + this.eventId)
+      console.log('userId ' + this.userId + ' === hostId ' + this.eventData.hostId)
+      console.log(this.eventData)
     },
 
     openEventPreviewModal(id) {

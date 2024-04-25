@@ -1,7 +1,9 @@
 <template>
-  <span :class="'position-absolute top-0 start-100 translate-middle badge fs-6 shadow ' + labelClass">{{
-      labelText
-    }}</span>
+  <div class="position-absolute top-0 start-100 translate-middle d-flex gap-1">
+    <span v-if="showHostLabel" class="badge text-bg-warning shadow text-dark fs-6 shadow"><i class="bi bi-star-fill"></i></span>
+    <span :class="'badge fs-6 shadow ' + labelClass">{{ labelText }}</span>
+  </div >
+
 </template>
 
 <script>
@@ -22,6 +24,11 @@ export default {
     labelClass() {
       return this.assembleLabelClass()
     },
+
+    showHostLabel() {
+      return this.getHostLabelStatus()
+    },
+
   },
 
   beforeMount() {
@@ -29,12 +36,37 @@ export default {
   },
 
   methods: {
+
+    getHostLabelStatus() {
+      return this.isHost
+    },
+
     assembleLabelText() {
-      return 'Ootel'
+      if (this.userStatus === 'A') {
+        return 'Osaled';
+      }
+
+      if (this.userStatus === 'P') {
+        return 'Ootel';
+      }
+
+      if (this.userStatus === 'R') {
+        return 'Keeldutud';
+      }
     },
 
     assembleLabelClass() {
-      return 'badge-bg-danger'
+      if (this.userStatus === 'A') {
+        return 'text-bg-success'
+      }
+
+      if (this.userStatus === 'P') {
+        return 'text-bg-warning'
+      }
+
+      if (this.userStatus === 'R') {
+        return 'text-bg-danger'
+      }
     },
   }
 
