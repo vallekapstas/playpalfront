@@ -6,8 +6,9 @@
       <span v-else :class="'badge fs-5 shadow ' + labelClass">{{ labelText }}</span>
     </div>
 
-    <span v-if="userId !== 0 && userStatus === ''" class="badge btn-primary px-3 text-nowrap fw-bold fs-5" @click="postJoinEventRequest">Liitu</span>
-  </div >
+    <span v-if="userId !== 0 && userStatus === ''" class="badge btn-primary px-3 text-nowrap fw-bold fs-5"
+          @click="postJoinEventRequest">Liitu</span>
+  </div>
 
 </template>
 
