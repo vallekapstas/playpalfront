@@ -1,4 +1,5 @@
 <template>
+
   <AlertComponent ref="alertComponentRef"/>
   <LogInModal ref="logInModalRef"
               @event-user-logged-in="handleUserLoggedIn"
@@ -16,7 +17,8 @@
 
       <div class="collapse navbar-collapse justify-content-center col-8 fs-4" id="navMenu">
         <template v-if="isLoggedIn">
-          <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused</router-link>
+          <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused
+          </router-link>
           <router-link to="/profile" @click="handleRouteClick('/profile')" class="nav-link">Profiil</router-link>
         </template>
         <template v-if="isAdmin">
@@ -31,30 +33,35 @@
           </button>
         </template>
         <template v-else>
-          <button @click="goToRegisterView" class="btn btn-outline-primary shadow-sm text-nowrap m-1">Registreeri</button>
+          <button @click="goToRegisterView" class="btn btn-outline-primary shadow-sm text-nowrap m-1">Registreeri
+          </button>
           <button @click="openLogInModal" class="btn btn-outline-primary shadow-sm text-nowrap m-1">
             Logi sisse
           </button>
         </template>
       </div>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+              aria-controls="navMenu" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
     </div>
   </nav>
   <router-view @event-update-nav-menu="handleUserStatusUpdates"
-               @event-user-registered="handleUserRegistered"/>
+               @event-user-registered="handleUserRegistered"
+               @event-user-joined-event="handleUserJoinedEvent"
+               @event-user-left-event="handleUserLeftEvent"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
 import AlertComponent from "@/components/alert/AlertComponent.vue";
 import LogOutModal from "@/components/modal/LogOutModal.vue";
 import router from "@/router";
+import ParticipationLabelComponent from "@/components/event/ParticipationLabelComponent.vue";
 
 export default {
-  components: {LogOutModal, AlertComponent, LogInModal},
+  components: {ParticipationLabelComponent, LogOutModal, AlertComponent, LogInModal},
   data() {
     return {
       showMobileMenu: false,
@@ -70,6 +77,7 @@ export default {
     }
   },
   methods: {
+
     openLogInModal() {
       this.$refs.logInModalRef.$refs.modalRef.openModal()
     },
@@ -82,20 +90,54 @@ export default {
       router.push({name: 'registerRoute'})
     },
 
-    handleUserLoggedIn() {
-      this.handleUserStatusUpdates()
+    async handleUserLoggedIn() {
+      await this.handleUserStatusUpdates()
+      await this.displayLogInSuccessAlert()
+      setTimeout(this.reloadApp, 100)
+    },
 
+    async handleUserLoggedOut() {
+      await this.resetUserStatuses()
+      await this.displayLogOutWarningAlert()
+      setTimeout(this.reloadApp, 100)
+    },
+
+    async handleUserJoinedEvent() {
+      await this.displayUserJoinedEventAlert()
+      // setTimeout(this.reloadApp, 100)
+    },
+
+    async handleUserLeftEvent() {
+      await this.displayUserLeftEventAlert()
+      // setTimeout(this.reloadApp, 100)
+    },
+
+    displayLogInSuccessAlert() {
       this.alertParams.style = 'alert-success'
       this.alertParams.message = 'Oled sisse logitud'
       this.displayAlert(this.alertParams)
     },
 
-    handleUserLoggedOut() {
-      this.resetUserStatuses()
-
+    displayLogOutWarningAlert() {
       this.alertParams.style = 'alert-warning'
       this.alertParams.message = 'Oled välja logitud'
       this.displayAlert(this.alertParams)
+    },
+
+    displayUserJoinedEventAlert() {
+      this.alertParams.style = 'alert-success'
+      this.alertParams.message = 'Sinu soov üritusega liituda on edastatud'
+      this.displayAlert(this.alertParams)
+    },
+
+    displayUserLeftEventAlert() {
+      this.alertParams.style = 'alert-warning'
+      this.alertParams.message = 'Oled ürituse nimekirjast eemaldatud'
+      this.displayAlert(this.alertParams)
+    },
+
+    reloadApp() {
+      window.location.reload();
     },
 
     handleUserStatusUpdates() {
