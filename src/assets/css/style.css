@@ -286,6 +286,21 @@ html {
     cursor:default;
 }
 
+input.form-check-input:checked {
+    background-color: #fc7b4c;
+    border: 0px;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor: default;
+}
+
+input.form-check-input:checked:hover {
+    background-color: #ff4300;
+    border: 0px;
+}
+
 
 /* SECONDARY OVERRIDE */
 
