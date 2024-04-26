@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     getUserInfo() {
-      this.$http.get('/user/${this.userId}')
+      this.$http.get(`/user/${this.userId}`)
           .then(response => {
             this.profileData = response.data
           })
