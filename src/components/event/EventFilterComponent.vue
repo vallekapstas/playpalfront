@@ -6,7 +6,7 @@
     <div
         class="event-filter text-start bg-transparent border border-2 border-secondary rounded-2 py-3 px-4 m-4 shadow-sm">
 
-      <div class="row mb-3 align-items-center d-flex mx-auto border-bottom border-secondary pb-3">
+      <div class="row mb-3 align-items-center d-flex mx-auto">
 
         <div class="col-6">
 
@@ -53,121 +53,152 @@
 
       </div><!-- main row -->
 
-      <div class="row mb-3 align-items-center mx-auto border-bottom border-secondary pb-3">
 
-        <div class="col-6">
-
-          <div class="row input-group gy-1" aria-describedby="playersLimitDescription">
-            <div class="col-lg align-content-center text-secondary text-center">Osalejate piir</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="minPlayers" placeholder="0" step="1">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="maxPlayers" placeholder="0" step="1">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row form-text justify-content-center filter-helper-text" id="playersLimitDescription">Mängul osalejatele seatud osalejate arvu piir. 0 = ei otsi.<br>Sisesta üks või mõlemad.Mõlema numbri sisestamise puhul otsitakse vahemikku.</div>
-
-        </div>
-
-        <div class="col-6">
-
-          <div class="row input-group gy-1" aria-describedby="ageLimitDescription">
-            <div class="col-lg align-content-center text-secondary text-center">Vanusepiir</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="minAge" placeholder="0" step="1">
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="maxAge" placeholder="0" step="1">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row form-text justify-content-center filter-helper-text" id="ageLimitDescription">Mängul osalejatele seatud vanusepiir. 0 = ei otsi. Sisesta üks või mõlemad.<br>Mõlema numbri sisestamise puhul otsitakse vahemikku.</div>
-
-        </div>
-
+      <div class="row mb-3 align-items-center mx-auto justify-content-center">
+        <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse" href="#extendedSearch">Täpsem otsing</span>
       </div><!-- main row -->
 
-      <div class="row mb-3 align-items-center mx-auto">
 
-        <div class="col-6">
+      <!-- EXTENDED SEARCH STARTS HERE (WITHIN COLLAPSIBLE DIV) -->
 
-          <div class="row input-group gy-1" aria-describedby="feeDescription">
-            <div class="col-lg align-content-center text-secondary text-center">Osalustasu</div>
 
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="minFee" placeholder="0" step="1">
+      <div class="collapse" id="extendedSearch">
+
+
+        <div class="row mb-3 align-items-center mx-auto border-top pt-3 border-bottom border-secondary pb-3">
+
+          <div class="col-6">
+
+            <div class="row input-group gy-1" aria-describedby="playersLimitDescription">
+              <div class="col-lg align-content-center text-secondary text-center">Osalejate piir</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="minPlayers" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="maxPlayers" placeholder="-" step="1">
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="maxFee" placeholder="0" step="1">
-                </div>
-              </div>
+            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+                 id="playersLimitDescription">Mängul osalejatele seatud osalejate arvu piir. Sisesta üks või
+              mõlemad.Mõlema numbri sisestamise puhul otsitakse vahemikku.
             </div>
+
           </div>
-          <div class="row form-text justify-content-center filter-helper-text" id="feeDescription">Mängu osavõtutasu. 0 = ei otsi. Sisesta üks või mõlemad.<br>Mõlema numbri sisestamise puhul otsitakse vahemikku.</div>
 
-        </div>
+          <div class="col-6">
 
-        <div class="col-6">
+            <div class="row input-group gy-1" aria-describedby="ageLimitDescription">
+              <div class="col-lg align-content-center text-secondary text-center">Vanusepiir</div>
 
-          <div class="row input-group gy-1" aria-describedby="playersJoinedDescription">
-            <div class="col-lg align-content-center text-secondary text-center">Mängijate arv</div>
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="minAge" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
 
-            <div class="col-lg">
-              <div class="row align-items-center">
-                <div class="col">
-                  <input type="number" class="form-control" id="minPlayersJoined" placeholder="0" step="1">
+              <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="maxAge" placeholder="-" step="1">
+                  </div>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
-
-            <div class="col-lg">
-              <div class="row">
-                <div class="col">
-                  <input type="number" class="form-control" id="maxPlayersJoined" placeholder="0" step="1">
-                </div>
-              </div>
+            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+                 id="ageLimitDescription">Mängul osalejatele seatud vanusepiir. Sisesta üks või mõlemad. Mõlema numbri
+              sisestamise puhul otsitakse vahemikku.
             </div>
+
           </div>
-          <div class="row form-text justify-content-center filter-helper-text" id="playersJoinedDescription">Mänguga liitunud mängijate arv. 0 = ei otsi. Sisesta üks või mõlemad.<br>Mõlema numbri sisestamise puhul otsitakse vahemikku.</div>
 
-        </div>
+        </div><!-- main row -->
 
-      </div><!-- main row -->
+        <div class="row mb-3 align-items-center mx-auto">
+
+          <div class="col-6">
+
+            <div class="row input-group gy-1" aria-describedby="feeDescription">
+              <div class="col-lg align-content-center text-secondary text-center">Osalustasu</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="minFee" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="maxFee" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row form-text justify-content-center text-center filter-helper-text mx-2" id="feeDescription">
+              Mängu osavõtutasu. Sisesta üks või mõlemad. Mõlema numbri sisestamise puhul otsitakse vahemikku.
+            </div>
+
+          </div>
+
+          <div class="col-6">
+
+            <div class="row input-group gy-1" aria-describedby="playersJoinedDescription">
+              <div class="col-lg align-content-center text-secondary text-center">Mängijate arv</div>
+
+              <div class="col-lg">
+                <div class="row align-items-center">
+                  <div class="col">
+                    <input type="number" class="form-control" id="minPlayersJoined" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-1 align-content-center text-secondary text-center me-2">kuni</div>
+
+              <div class="col-lg">
+                <div class="row">
+                  <div class="col">
+                    <input type="number" class="form-control" id="maxPlayersJoined" placeholder="-" step="1">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+                 id="playersJoinedDescription">Mänguga liitunud mängijate arv. Sisesta üks või mõlemad. Mõlema numbri
+              sisestamise puhul otsitakse vahemikku.
+            </div>
+
+          </div>
+
+        </div><!-- main row -->
+
+        <div class="row mb-3 align-items-center mx-auto justify-content-center">
+          <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse" href="#extendedSearch">Sulge täpsem otsing</span>
+        </div><!-- main row -->
+
+
+      </div><!-- collapsible div -->
+
 
     </div><!-- master styling wrapper -->
 

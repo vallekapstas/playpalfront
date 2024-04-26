@@ -242,6 +242,31 @@ html {
 }
 
 
+/* LINKS */
+
+.link-primary {
+    color: #fc4c69 !important;
+}
+
+.link-primary:hover {
+    color: #ff0026 !important;
+}
+
+.link-secondary {
+    color: #fc7b4c !important;
+}
+
+.link-secondary:hover {
+    color: #ff4300 !important;
+}
+
+.animate-link:hover {
+    animation-name: skew-y-shakeing;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+
 /* SECONDARY OVERRIDE */
 
 .text-secondary {
@@ -339,9 +364,13 @@ html {
 .filter-helper-text {
     font-size: 0.75em;
     color: #adadad;
+    transition: 0.5s;
 }
 
 .filter-helper-text:hover {
+    font-size: 0.9em;
     color: #000000;
+    cursor: help;
+    transition: 0.5s;
 }
 
