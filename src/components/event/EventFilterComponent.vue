@@ -14,9 +14,9 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
             <div class="col-lg-3">
-              <select v-model="filterAndSortRequestParameters.stscond"
+              <select v-model="params.stscond"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="statusCondition in this.filterAndSortRequestParameters.statusConditions"
+                <option v-for="statusCondition in this.statusConditions"
                         :value="statusCondition.key"
                         :key="statusCondition.key">{{ statusCondition.value }}
                 </option>
@@ -24,9 +24,9 @@
             </div>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequestParameters.status"
+              <select v-model="params.status"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="status in this.filterAndSortRequestParameters.statuses" :value="status.key" :key="status.key">
+                <option v-for="status in this.statuses" :value="status.key" :key="status.key">
                   {{ status.value }}
                 </option>
               </select>
@@ -41,18 +41,18 @@
             <label class="col-lg-2 col-form-label text-secondary text-end fw-bold">Sorteeri</label>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequestParameters.sortparam"
+              <select v-model="params.sortparam"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="sortParameter in this.filterAndSortRequestParameters.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
+                <option v-for="sortParameter in this.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
                   {{ sortParameter.value }}
                 </option>
               </select>
             </div>
 
             <div class="col-lg-4">
-              <select v-model="filterAndSortRequestParameters.sortdir"
+              <select v-model="params.sortdir"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="sortDirection in this.filterAndSortRequestParameters.sortDirections"
+                <option v-for="sortDirection in this.sortDirections"
                         :value="sortDirection.key"
                         :key="sortDirection.key">{{ sortDirection.value }}
                 </option>
@@ -72,7 +72,7 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Tase</label>
 
             <div class="col-lg-9">
-              <select v-model="filterAndSortRequestParameters.skillid"
+              <select v-model="params.skillid"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option value="0">Kõik tasemed</option>
                 <option v-for="skill in this.skills"
@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequestParameters.participant"
+                <input v-model="params.participant"
                        class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
                        id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Osalen</label>
@@ -100,7 +100,7 @@
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequestParameters.host" class="form-check-input input-transparent shadow-sm"
+                <input v-model="params.host" class="form-check-input input-transparent shadow-sm"
                        type="checkbox" role="switch"
                        id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Korraldan</label>
@@ -137,7 +137,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.minplayers" type="number"
+                    <input v-model="params.minplayers" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -149,7 +149,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.maxplayers" type="number"
+                    <input v-model="params.maxplayers" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -171,7 +171,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.minage" type="number"
+                    <input v-model="params.minage" type="number"
                            class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
                            step="1">
                   </div>
@@ -183,7 +183,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.maxage" type="number"
+                    <input v-model="params.maxage" type="number"
                            class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
                            step="1">
                   </div>
@@ -209,7 +209,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.minfee" type="number"
+                    <input v-model="params.minfee" type="number"
                            class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
                            step="1">
                   </div>
@@ -221,7 +221,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.maxfee" type="number"
+                    <input v-model="params.maxfee" type="number"
                            class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
                            step="1">
                   </div>
@@ -242,7 +242,7 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.minjoined" type="number"
+                    <input v-model="params.minjoined" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -254,7 +254,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.maxjoined" type="number"
+                    <input v-model="params.maxjoined" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -314,56 +314,50 @@ export default {
   data() {
     return {
 
-      filterAndSortRequestParameters: {
-        status: 'A', // Status
-        statuses: [
-          {key: 'A', value: 'aktiivne'},
-          {key: 'P', value: 'ootel'},
-          {key: 'C', value: 'tühistatud'},
-        ],
-
-        stscond: 'is', // Status Condition
-        statusConditions: [
-          {key: 'is', value: 'on'},
-          {key: 'isnot', value: 'ei ole'}
-        ],
-
-        sortdir: 'asc', // Sorting Direction
-        sortDirections: [
-          {key: 'asc', value: 'kahanevalt'},
-          {key: 'desc', value: 'kasvavalt'}
-        ],
-
-        sortparam: 'startDate', // Sorting parameter
-        sortParameters: [
-          {key: 'startDate', value: 'alguskuupäeva järgi'},
-          {key: 'endDate', value: 'lõpukuupäeva järgi'},
-          {key: 'fee', value: 'tasu järgi'},
-          {key: 'joinedPlayers', value: 'osalejate arvu järgi'}
-        ],
-
-        participant: false, // User Is Participant
-        host: false, // User Is Host
+      params: {
+        status: 'A',
+        stscond: 'is',
+        sortdir: 'asc',
+        sortparam: 'startDate',
+        participant: false,
+        host: false,
         userid: 0,
-
-        minplayers: '', // Minimum Players Limit
-        maxplayers: '', // Maximum Players Limit
-
-        minage: '', // Minimum Age Limit
-        maxage: '', // Maximum Age Limit
-
-        minfee: '', // Minimum Fee
-        maxfee: '', // Maximum Fee
-
-        minjoined: '', // Minimum Joined Players
-        maxjoined: '', // Maximum Joined Players
-
-        countryid: 0, // Selected Country ID
-        countyid: 0, // Selected County ID
-        cityid: 0, // Selected City ID
-        
-        skillid: 0 // Selected Skill ID
+        minplayers: '',
+        maxplayers: '',
+        minage: '',
+        maxage: '',
+        minfee: '',
+        maxfee: '',
+        minjoined: '',
+        maxjoined: '',
+        countryid: 0,
+        countyid: 0,
+        cityid: 0,
+        skillid: 0
       },
+
+      statuses: [
+        {key: 'A', value: 'aktiivne'},
+        {key: 'P', value: 'ootel'},
+        {key: 'C', value: 'tühistatud'},
+      ],
+
+      statusConditions: [
+        {key: 'is', value: 'on'},
+        {key: 'isnot', value: 'ei ole'}
+      ],
+
+      sortDirections: [
+        {key: 'asc', value: 'kahanevalt'},
+        {key: 'desc', value: 'kasvavalt'}
+      ],
+
+      sortParameters: [
+        {key: 'startDate', value: 'alguskuupäeva järgi'},
+        {key: 'endDate', value: 'lõpukuupäeva järgi'},
+        {key: 'fee', value: 'tasu järgi'},
+        {key: 'joinedPlayers', value: 'osalejate arvu järgi'}
+      ],
 
       skills: [
         {
@@ -378,7 +372,7 @@ export default {
   methods: {
 
     sendGetSortedAndFilteredEventsRequest() {
-      this.$emit('event-get-sorted-and-filtered-events', this.filterAndSortRequestParameters)
+      this.$emit('event-get-sorted-and-filtered-events', this.params)
     },
 
     getSkillsRequest() {

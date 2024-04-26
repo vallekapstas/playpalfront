@@ -40,9 +40,21 @@ export default {
   methods: {
     handleGetRequest(filterAndSortRequestParameters) {
       filterAndSortRequestParameters.userid = sessionStorage.getItem('userId')
-      // make the GET request
-      alert('GET request')
-    }
+      this.sendGetEventsRequest(filterAndSortRequestParameters)
+    },
+    sendGetEventsRequest(params) {
+      this.$http.get('/events', {
+            params: {
+              params.
+            }
+          }
+      ).then(response => {
+        const responseJSON = response.data
+      }).catch(error => {
+        const errorResponseJSON = error.response.data
+      })
+    },
+
   }
 }
 </script>
