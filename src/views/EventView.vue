@@ -38,10 +38,11 @@ export default {
   },
 
   methods: {
-    handleGetRequest(filterAndSortRequestParameters) {
-      filterAndSortRequestParameters.userid = sessionStorage.getItem('userId')
-      this.sendGetEventsRequest(filterAndSortRequestParameters)
+    handleGetRequest(params) {
+      const filteredParams = this.filterEmptyParams(params)
+      this.sendGetEventsRequest(filteredParams)
     },
+
     sendGetEventsRequest(params) {
       this.$http.get('/events', {
             params: {
@@ -72,6 +73,18 @@ export default {
         const errorResponseJSON = error.response.data
       })
     },
+
+    filterEmptyParams(params) {
+      const filteredParams = {};
+
+      for (const key in params) {
+        if (params.hasOwnProperty(key) && params[key] !== '') {
+          filteredParams[key] = params[key];
+        }
+      }
+
+      return filteredParams;
+    }
 
   }
 }

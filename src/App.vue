@@ -104,12 +104,12 @@ export default {
 
     async handleUserJoinedEvent() {
       await this.displayUserJoinedEventAlert()
-      // setTimeout(this.reloadApp, 100)
+      setTimeout(this.reloadApp, 100)
     },
 
     async handleUserLeftEvent() {
       await this.displayUserLeftEventAlert()
-      // setTimeout(this.reloadApp, 100)
+      setTimeout(this.reloadApp, 100)
     },
 
     displayLogInSuccessAlert() {

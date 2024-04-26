@@ -74,7 +74,7 @@
             <div class="col-lg-9">
               <select v-model="params.skillid"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option value="0">Kõik tasemed</option>
+                <option value="">Kõik tasemed</option>
                 <option v-for="skill in this.skills"
                         :value="skill.id"
                         :key="skill.id">{{ skill.name }}
@@ -319,9 +319,9 @@ export default {
         stscond: 'is',
         sortdir: 'asc',
         sortparam: 'startDate',
-        participant: false,
-        host: false,
-        userid: 0,
+        participant: '',
+        host: '',
+        userid: '',
         minplayers: '',
         maxplayers: '',
         minage: '',
@@ -330,10 +330,10 @@ export default {
         maxfee: '',
         minjoined: '',
         maxjoined: '',
-        countryid: 0,
-        countyid: 0,
-        cityid: 0,
-        skillid: 0
+        countryid: '',
+        countyid: '',
+        cityid: '',
+        skillid: ''
       },
 
       statuses: [
@@ -384,23 +384,28 @@ export default {
             router.push({name: 'errorRoute'})
           })
     },
-    
+
     handleCountrySelect(countryId) {
-      this.selectedCountryId = countryId
+      this.params.countryid = countryId
     },
 
     handleCountySelect(countyId) {
-      this.selectedCountyId = countyId
+      this.params.countyid = countyId
     },
 
     handleCitySelect(cityId) {
-      this.selectedCityId = cityId
+      this.params.cityid = cityId
+    },
+
+    getUserIdFromSession() {
+      this.params.userid = sessionStorage.getItem('userId')
     },
   },
 
   mounted() {
     this.getSkillsRequest()
+    this.getUserIdFromSession()
   }
 
-}
+};
 </script>
