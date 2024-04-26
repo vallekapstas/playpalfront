@@ -14,14 +14,14 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
             <div class="col-lg-4">
-              <select class="form-select border border-secondary-subtle input-transparent">
+              <select class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option value="1">on</option>
                 <option value="2">ei ole</option>
               </select>
             </div>
 
             <div class="col-lg-5">
-              <select class="form-select border border-secondary-subtle input-transparent">
+              <select class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option value="1">aktiivne</option>
                 <option value="2">ootel</option>
                 <option value="2">tühistatud</option>
@@ -36,14 +36,16 @@
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input input-transparent" type="checkbox" role="switch" id="participant">
+                <input class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
+                       id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Olen osaleja</label>
               </div>
             </div>
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input input-transparent" type="checkbox" role="switch" id="eventhost">
+                <input class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
+                       id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Olen korraldaja</label>
               </div>
             </div>
@@ -54,7 +56,7 @@
       </div><!-- main row -->
 
 
-      <div class="row mb-3 align-items-center mx-auto justify-content-center">
+      <div class="row align-items-center mx-auto justify-content-center mb-3">
         <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse" href="#extendedSearch">Täpsem otsing</span>
       </div><!-- main row -->
 
@@ -65,7 +67,7 @@
       <div class="collapse" id="extendedSearch">
 
 
-        <div class="row mb-3 align-items-center mx-auto border-top pt-3 border-bottom border-secondary pb-3">
+        <div class="row align-items-center mx-auto border-top pt-4 border-bottom border-secondary mb-4 pb-2">
 
           <div class="col-6">
 
@@ -75,7 +77,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="minPlayers" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="minPlayers"
+                           placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -85,12 +88,13 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="maxPlayers" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="maxPlayers"
+                           placeholder="-" step="1">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+            <div class="row form-text justify-content-center text-center input-helper-text m-2"
                  id="playersLimitDescription">Mängul osalejatele seatud osalejate arvu piir. Sisesta üks või
               mõlemad.Mõlema numbri sisestamise puhul otsitakse vahemikku.
             </div>
@@ -105,7 +109,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="minAge" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
+                           step="1">
                   </div>
                 </div>
               </div>
@@ -115,12 +120,13 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="maxAge" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
+                           step="1">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+            <div class="row form-text justify-content-center text-center input-helper-text m-2"
                  id="ageLimitDescription">Mängul osalejatele seatud vanusepiir. Sisesta üks või mõlemad. Mõlema numbri
               sisestamise puhul otsitakse vahemikku.
             </div>
@@ -129,7 +135,7 @@
 
         </div><!-- main row -->
 
-        <div class="row mb-3 align-items-center mx-auto">
+        <div class="row align-items-center mx-auto border-bottom border-secondary mb-4 pb-2">
 
           <div class="col-6">
 
@@ -139,7 +145,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="minFee" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
+                           step="1">
                   </div>
                 </div>
               </div>
@@ -149,12 +156,13 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="maxFee" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
+                           step="1">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row form-text justify-content-center text-center filter-helper-text mx-2" id="feeDescription">
+            <div class="row form-text justify-content-center text-center input-helper-text m-2" id="feeDescription">
               Mängu osavõtutasu. Sisesta üks või mõlemad. Mõlema numbri sisestamise puhul otsitakse vahemikku.
             </div>
 
@@ -168,7 +176,8 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="minPlayersJoined" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="minPlayersJoined"
+                           placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -178,12 +187,13 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent" id="maxPlayersJoined" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
+                           placeholder="-" step="1">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row form-text justify-content-center text-center filter-helper-text mx-2"
+            <div class="row form-text justify-content-center text-center input-helper-text m-2"
                  id="playersJoinedDescription">Mänguga liitunud mängijate arv. Sisesta üks või mõlemad. Mõlema numbri
               sisestamise puhul otsitakse vahemikku.
             </div>
@@ -192,8 +202,20 @@
 
         </div><!-- main row -->
 
+        <div class="row align-items-center mx-auto justify-content-center mb-3" aria-describedby="locationDescription">
+          <LocationDropdownsComponent class="filter-input"
+                                      @event-selected-country-change="handleCountrySelect"
+                                      @event-selected-county-change="handleCountySelect"
+                                      @event-selected-city-change="handleCitySelect"/>
+          <div class="row form-text justify-content-center text-center input-helper-text m-2"
+               id="locationDescription">Kõigepealt vali riik. Seejärel laetakse nimekiri maakondadest. Siis vali maakond
+            ja selle peale laetakse nimekirja selle maakonna linnadest. Vali linn.
+          </div>
+        </div><!-- main row -->
+
         <div class="row mb-3 align-items-center mx-auto justify-content-center">
-          <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse" href="#extendedSearch">Sulge täpsem otsing</span>
+          <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse"
+                href="#extendedSearch">Sulge täpsem otsing</span>
         </div><!-- main row -->
 
 
@@ -208,10 +230,11 @@
 
 <script>
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
+import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
 
 export default {
   name: "EventFilterComponent",
-  components: {EventImageComponent},
+  components: {LocationDropdownsComponent, EventImageComponent},
 
   data() {
     return {
@@ -226,9 +249,27 @@ export default {
       statusConditions: [
         {key: 'is', value: 'on'},
         {key: 'isnot', value: 'ei ole'}
-      ]
+      ],
+
+      selectedCountryId: 0,
+      selectedCountyId: 0,
+      selectedCityId: 0
 
     }
+  },
+
+  methods: {
+    handleCountrySelect(countryId) {
+      this.selectedCountryId = countryId
+    },
+
+    handleCountySelect(countyId) {
+      this.selectedCountyId = countyId
+    },
+
+    handleCitySelect(cityId) {
+      this.selectedCityId = cityId
+    },
   }
 }
 </script>

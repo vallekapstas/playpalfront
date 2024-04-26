@@ -279,6 +279,8 @@ html {
 
 .input-transparent {
     background-color: transparent;
+    border: 1;
+    border-color: #fc7b4c !important;
     outline: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -286,9 +288,27 @@ html {
     cursor:default;
 }
 
+.filter-input {
+    select {
+        background-color: transparent;
+        border: 1;
+        border-color: #fc7b4c !important;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        cursor:default;
+         /* override the font */
+        font-family: Avenir, Helvetica, Arial, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: #2c3e50;
+    }
+}
+
 input.form-check-input:checked {
     background-color: #fc7b4c;
-    border: 0px;
+    border: 1px #fc7b4c !important;
     outline: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
@@ -298,7 +318,9 @@ input.form-check-input:checked {
 
 input.form-check-input:checked:hover {
     background-color: #ff4300;
-    border: 0px;
+    border: 1px;
+    border-color: #fc7b4c;
+
 }
 
 
@@ -396,13 +418,13 @@ input.form-check-input:checked:hover {
     background-color: #000000;
 }
 
-.filter-helper-text {
+.input-helper-text {
     font-size: 0.75em;
     color: #adadad;
     transition: 0.5s;
 }
 
-.filter-helper-text:hover {
+.input-helper-text:hover {
     font-size: 0.85em;
     font-weight: bold;
     color: #ff0026;

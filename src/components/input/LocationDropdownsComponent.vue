@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row gy-2">
       <div class="col-xl">
-        <select v-model="selectedCountryId" @change="handleChangeCountry" class="form-select border-primary-subtle font-monospace">
+        <select v-model="selectedCountryId" @change="handleChangeCountry"
+                class="form-select border-primary-subtle font-monospace shadow-sm">
           <option selected :value="0">Vali Riik</option>
           <option v-for="country in countries" :value="country.countryId" :key="country.countryId"
                   class="dropdown-item">
@@ -11,7 +12,8 @@
         </select>
       </div>
       <div class="col-xl">
-        <select v-model="selectedCountyId" @change="handleChangeCounty" class="form-select border-primary-subtle font-monospace">
+        <select v-model="selectedCountyId" @change="handleChangeCounty"
+                class="form-select border-primary-subtle font-monospace shadow-sm">
           <option selected :value="0">Vali Maakond</option>
           <option v-for="county in counties" :value="county.countyId" :key="county.countyId" class="dropdown-item">
             {{ county.countyName }}
@@ -19,7 +21,8 @@
         </select>
       </div>
       <div class="col-xl">
-        <select v-model="selectedCityId" @change="handleChangeCity" class="form-select border-primary-subtle font-monospace">
+        <select v-model="selectedCityId" @change="handleChangeCity"
+                class="form-select border-primary-subtle font-monospace shadow-sm">
           <option selected :value="0">Vali Linn</option>
           <option v-for="city in cities" :value="city.cityId" :key="city.cityId" class="dropdown-item">
             {{ city.cityName }}
