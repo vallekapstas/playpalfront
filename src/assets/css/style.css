@@ -388,8 +388,9 @@ html {
 }
 
 .filter-helper-text:hover {
-    font-size: 0.9em;
-    color: #000000;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: #ff0026;
     cursor: help;
     transition: 0.5s;
 }
