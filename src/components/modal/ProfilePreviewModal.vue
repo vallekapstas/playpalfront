@@ -2,7 +2,7 @@
 
   <Modal ref="modalRef">
 
-    <ProfileView/>
+    <ProfileView :user-id="userId"/>
 
   </Modal>
 
@@ -23,12 +23,44 @@ export default {
   },
 
   data() {
-    return{
+    return {
+      profileData: {
+        username: '',
+        roleId: 0,
+        genderId: 0,
+        genderName: '',
+        countryId: 0,
+        countyId: 0,
+        cityId: 0,
+        cityName: '',
+        countyName: '',
+        countryName: '',
+        firstName: '',
+        lastName: '',
+        birthDate: '',
+        interestedIn: '',
+        introduction: '',
+        imageData: ''
 
+      }
 
     }
   },
+  methods: {
+    getUserInfo() {
+      this.$http.get('/user/${this.userId}')
+          .then(response => {
+            this.profileData = response.data
+          })
+          .catch(error => {
+            const errorResponseJSON = error.response.data
+          })
+    },
 
+  },
+  mounted() {
+    this.getUserInfo()
+  }
 }
 </script>
 
