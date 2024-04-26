@@ -67,6 +67,24 @@
 
       <div class="row mb-3 align-items-center d-flex mx-auto px-5">
 
+        <div class="col-lg-5">
+          <div class="row input-group gy-2">
+            <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Tase</label>
+
+            <div class="col-lg-9">
+              <select v-model="filterAndSortRequest.selectedSkill"
+                      class="form-select border border-secondary-subtle input-transparent shadow-sm">
+                <option value="0">Kõik tasemed</option>
+                <option v-for="skill in this.skills"
+                        :value="skill.id"
+                        :key="skill.id">{{ skill.name }}
+                </option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
 
         <div class="col-lg">
 
@@ -76,7 +94,7 @@
                 <input v-model="filterAndSortRequest.isParticipant"
                        class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
                        id="participant">
-                <label class="form-check-label fw-bold text-secondary" for="participant">Olen osaleja</label>
+                <label class="form-check-label fw-bold text-secondary" for="participant">Osalen</label>
               </div>
             </div>
 
@@ -85,7 +103,7 @@
                 <input v-model="filterAndSortRequest.isHost" class="form-check-input input-transparent shadow-sm"
                        type="checkbox" role="switch"
                        id="eventhost">
-                <label class="form-check-label fw-bold text-secondary" for="eventhost">Olen korraldaja</label>
+                <label class="form-check-label fw-bold text-secondary" for="eventhost">Korraldan</label>
               </div>
             </div>
           </div>
@@ -287,6 +305,7 @@
 <script>
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
 import LocationDropdownsComponent from "@/components/input/LocationDropdownsComponent.vue";
+import router from "@/router";
 
 export default {
   name: "EventFilterComponent",
@@ -340,13 +359,33 @@ export default {
 
         selectedCountryId: 0,
         selectedCountyId: 0,
-        selectedCityId: 0
-      }
+        selectedCityId: 0,
+        
+        selectedSkill: 0
+      },
+
+      skills: [
+        {
+          id: 0,
+          name: ''
+        }
+      ]
 
     }
   },
 
   methods: {
+
+    getSkillsRequest() {
+      this.$http.get('/skills')
+          .then(response => {
+            this.skills = response.data
+          })
+          .catch(() => {
+            router.push({name: 'errorRoute'})
+          })
+    },
+    
     handleCountrySelect(countryId) {
       this.selectedCountryId = countryId
     },
@@ -358,6 +397,11 @@ export default {
     handleCitySelect(cityId) {
       this.selectedCityId = cityId
     },
+  },
+
+  mounted() {
+    this.getSkillsRequest()
   }
+
 }
 </script>
