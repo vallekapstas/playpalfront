@@ -137,31 +137,23 @@ export default {
     },
 
     updateUserProfile() {
-
-
-      if (this.$refs.profileInputComponentRef.allEditFieldsWithCorrectInput()) {
+      this.getUserProfileInfo()
+      if (this.$refs.profileInputComponentRef.allEditFieldsWithCorrectInput) {
         this.saveUserIdInfo();
-        router.push({name: 'profileRoute'})
+
       }
-
-
-
 
 
     },
 
-
-
-
-
-
     saveUserIdInfo() {
-      this.$http.put(`/user/${this.userInfoUpdateRequest.userId}`, this.userInfoUpdateRequest
+      this.$http.put(`/user/${this.userInfoUpdateRequest.userId}`
       ).then(response => {
         this.userInfoUpdateRequest = response.data
       }).catch(error => {
         const errorResponseJSON = error.response.data
       })
+      router.push({name: 'profileRoute'})
     },
 
 
