@@ -45,7 +45,25 @@ export default {
     sendGetEventsRequest(params) {
       this.$http.get('/events', {
             params: {
-              params.
+              status: params.status,
+              stscond: params.stscond,
+              sortdir: params.sortdir,
+              sortparam: params.sortparam,
+              participant: params.participant,
+              host: params.host,
+              userid: params.userid,
+              minplayers: params.minplayers,
+              maxplayers: params.maxplayers,
+              minage: params.minage,
+              maxage: params.maxage,
+              minfee: params.minfee,
+              maxfee: params.maxfee,
+              minjoined: params.minjoined,
+              maxjoined: params.maxjoined,
+              countryid: params.countryid,
+              countyid: params.countyid,
+              cityid: params.cityid,
+              skillid: params.skillid
             }
           }
       ).then(response => {
