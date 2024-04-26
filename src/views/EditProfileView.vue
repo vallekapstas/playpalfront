@@ -1,7 +1,4 @@
 <template>
-  <!--todo: kasutada ProfileInputComponent-->
-
-  <!--todo: loo nupp mis kääivitab PUT /user/{userId} teenuse-->
 
   <div class="container bg-light border border-2 border-primary rounded-2 py-3 px-4 m-4 shadow-sm mx-auto">
 
@@ -36,14 +33,6 @@ export default {
   name: 'EditProfileView',
   components: {ProfileInputComponent, UserProfileComponent},
   userId: Number(sessionStorage.getItem('userId')),
-
-  // todo: too ära kasutaja andmed GET /user/userId
-  // todo: saad andmed kätte
-  // todo: profileInputComponentRef abil väärtusta ärd userProfileInfo objekt
-
-
-  // todo: loo meetod mis valideerib ära kõik väljad, (ProfileInputComponent-s vajalikud meetodid olemas)
-  // todo: saada PUT sõnum et salvestada muudatused
 
 
   data() {
@@ -116,6 +105,7 @@ export default {
       this.$refs.profileInputComponentRef.userProfileInfo.lastName = this.userProfileInfo.lastName
       this.$refs.profileInputComponentRef.userProfileInfo.username = this.userProfileInfo.username
       this.$refs.profileInputComponentRef.userProfileInfo.birthDate = this.userProfileInfo.birthDate
+      this.$refs.profileInputComponentRef.userProfileInfo.cityId = this.userProfileInfo.cityId
       this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCountryId = this.userProfileInfo.countryId
       this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCountyId = this.userProfileInfo.countyId
       this.$refs.profileInputComponentRef.$refs.locationDropdownsComponentRef.selectedCityId = this.userProfileInfo.cityId
@@ -135,27 +125,39 @@ export default {
       this.$refs.profileInputComponentRef.userProfileInfo.profileImage = this.userProfileInfo.imageData
 
     },
+    getProfileInputComponentValues() {
 
+      this.userInfoUpdateRequest.username = this.$refs.profileInputComponentRef.userProfileInfo.username
+      this.userInfoUpdateRequest.firstName = this.$refs.profileInputComponentRef.userProfileInfo.firstName
+      this.userInfoUpdateRequest.lastName = this.$refs.profileInputComponentRef.userProfileInfo.lastName
+      this.userInfoUpdateRequest.cityId = this.$refs.profileInputComponentRef.userProfileInfo.cityId
+      this.userInfoUpdateRequest.genderId = this.$refs.profileInputComponentRef.userProfileInfo.genderId
+      this.userInfoUpdateRequest.birthDate = this.$refs.profileInputComponentRef.userProfileInfo.birthDate
+      this.userInfoUpdateRequest.interestedIn = this.$refs.profileInputComponentRef.userProfileInfo.interestedIn
+      this.userInfoUpdateRequest.introduction = this.$refs.profileInputComponentRef.userProfileInfo.introduction
+      this.userInfoUpdateRequest.profileImage = this.$refs.profileInputComponentRef.userProfileInfo.profileImage
+    },
     updateUserProfile() {
-      this.getUserProfileInfo()
       if (this.$refs.profileInputComponentRef.allEditFieldsWithCorrectInput) {
-        this.saveUserIdInfo();
+        this.getProfileInputComponentValues()
+        this.sendPutUserRequest();
 
       }
 
-
     },
 
-    saveUserIdInfo() {
-      this.$http.put(`/user/${this.userInfoUpdateRequest.userId}`
+    sendPutUserRequest() {
+
+      this.$http.put(`/user/${this.userId}`, this.userInfoUpdateRequest
       ).then(response => {
         this.userInfoUpdateRequest = response.data
+        router.push({name: 'profileRoute'})
       }).catch(error => {
         const errorResponseJSON = error.response.data
-      })
-      router.push({name: 'profileRoute'})
-    },
 
+      })
+
+    },
 
   },
 
