@@ -2,7 +2,30 @@
 
   <Modal ref="modalRef">
 
-    <ProfileView :user-id="userId"/>
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Profiili vaade</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+
+          <template>
+          <div class="modal-body">
+            <ProfileView :user-id="userId"/>
+          </div>
+          </template>
+
+          <template>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sulge</button>
+          </div>
+          </template>
+
+        </div>
+      </div>
+    </div>
 
   </Modal>
 
