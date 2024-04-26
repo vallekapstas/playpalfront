@@ -7,6 +7,7 @@ import RegisterView from "@/views/RegisterView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
+import ProfilePreviewModal from "@/components/modal/ProfilePreviewModal.vue";
 
 
 const routes = [
@@ -54,6 +55,11 @@ const routes = [
         path: '/editprofile',
         name: 'editProfileView',
         component: EditProfileView
+    },
+    {
+        path: '/profilepreview',
+        name: 'ProfilePreviewModal',
+        component: ProfilePreviewModal
     },
 
 

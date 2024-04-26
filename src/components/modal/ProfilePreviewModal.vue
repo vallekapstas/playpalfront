@@ -15,7 +15,7 @@ import Modal from "@/components/modal/Modal.vue";
 import ProfileView from "@/views/ProfileView.vue";
 
 export default {
-  name: "ProfilePreviewModal",
+  name: 'ProfilePreviewModal',
   components: {ProfileView, Modal},
 
   props: {
