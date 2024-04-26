@@ -19,11 +19,12 @@ export default {
   components: {ProfileView, Modal},
 
   props: {
-    userId: Number
+    userId: Number(sessionStorage.getItem('userId'))
   },
 
   data() {
     return {
+      userId: sessionStorage.getItem('userId'),
       profileData: {
         username: '',
         roleId: 0,
