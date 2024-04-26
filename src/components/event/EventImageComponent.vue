@@ -11,7 +11,7 @@
 <script>
 
 export default {
-  name: "EventImageComponent",
+  name: 'EventImageComponent',
   props: {
     eventImage: String,
   }

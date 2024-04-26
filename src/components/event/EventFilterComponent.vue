@@ -14,7 +14,7 @@
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
 
 export default {
-  name: "EventFilterComponent",
+  name: 'EventFilterComponent',
   components: {EventImageComponent}
 }
 </script>
