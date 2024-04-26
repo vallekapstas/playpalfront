@@ -171,6 +171,14 @@ html {
 
 .event-filter:hover {
     background-color: #fff6f8 !important;
+    input:hover, select:hover {
+        background-color: #ffffff;
+        outline: none;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        cursor:default;
+    }
 }
 
 .playpal-bg {
@@ -264,6 +272,18 @@ html {
     animation-name: skew-y-shakeing;
     animation-duration: 2s;
     animation-iteration-count: infinite;
+}
+
+
+/* INPUT */
+
+.input-transparent {
+    background-color: transparent;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
 }
 
 

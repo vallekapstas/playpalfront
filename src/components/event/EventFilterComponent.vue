@@ -14,14 +14,14 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
             <div class="col-lg-4">
-              <select class="form-select border border-secondary-subtle">
+              <select class="form-select border border-secondary-subtle input-transparent">
                 <option value="1">on</option>
                 <option value="2">ei ole</option>
               </select>
             </div>
 
             <div class="col-lg-5">
-              <select class="form-select border border-secondary-subtle">
+              <select class="form-select border border-secondary-subtle input-transparent">
                 <option value="1">aktiivne</option>
                 <option value="2">ootel</option>
                 <option value="2">tühistatud</option>
@@ -36,14 +36,14 @@
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="participant">
+                <input class="form-check-input input-transparent" type="checkbox" role="switch" id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Olen osaleja</label>
               </div>
             </div>
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="eventhost">
+                <input class="form-check-input input-transparent" type="checkbox" role="switch" id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Olen korraldaja</label>
               </div>
             </div>
@@ -75,7 +75,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="minPlayers" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="minPlayers" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -85,7 +85,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="maxPlayers" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="maxPlayers" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -105,7 +105,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="minAge" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="minAge" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -115,7 +115,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="maxAge" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="maxAge" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -139,7 +139,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="minFee" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="minFee" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -149,7 +149,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="maxFee" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="maxFee" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -168,7 +168,7 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input type="number" class="form-control" id="minPlayersJoined" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="minPlayersJoined" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
@@ -178,7 +178,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control" id="maxPlayersJoined" placeholder="-" step="1">
+                    <input type="number" class="form-control input-transparent" id="maxPlayersJoined" placeholder="-" step="1">
                   </div>
                 </div>
               </div>
