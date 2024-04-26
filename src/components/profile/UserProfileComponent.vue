@@ -102,14 +102,11 @@ export default {
   name: 'UserProfileComponent',
   components: {ProfileImageComponent},
 
-  props: {
-    userId: Number
-  },
+
   data() {
     return {
-
+      userId: sessionStorage.getItem('userId'),
       profileData: {
-        userId: 0,
         username: '',
         roleId: 0,
         genderId: 0,

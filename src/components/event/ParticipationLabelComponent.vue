@@ -16,7 +16,7 @@
 import router from "@/router";
 
 export default {
-  name: "ParticipationLabelComponent",
+  name: 'ParticipationLabelComponent',
 
   props: {
     eventId: 0,

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col">
         <h1>Profiil</h1>
-        <UserProfileComponent :user-id="1"/>
+        <UserProfileComponent/>
       </div>
     </div>
 
@@ -12,8 +12,8 @@
     <div class="row d-grid justify-content-center">
       <div class="col d-flex gap-3 mt-5 mb-2">
         <button class="btn btn-dark shadow-sm" type="submit" @click="goToIndexRoute">Tagasi</button>
-        <button class="btn btn-primary shadow-sm" type="button" @click="editUserProfile">Muuda</button>
-        <!--        todo: push to edit and provide userid-->
+        <button class="btn btn-primary shadow-sm" type="button" @click="navigateToEditProfile">Muuda</button>
+
       </div>
     </div>
 
@@ -38,10 +38,10 @@ export default {
   data() {
     return {
 
-      roleId: '',
-      userId: '',
-      roleName: '',
-      birthDate: ''
+
+      userId: ''
+
+
     }
   },
   methods: {
@@ -49,30 +49,16 @@ export default {
       router.push({name: 'indexRoute'})
 
     },
-    editUserProfile() {
-      this.saveDataToSessionStorage()
-      router.push({ name: 'editProfileView', params: { userId: this.userId } })
+    navigateToEditProfile() {
+
+      router.push({ name: 'editProfileView' })
     },
 
 
-    saveDataToSessionStorage() {
-      sessionStorage.setItem('roleId', this.roleId)
-      sessionStorage.setItem('userId', this.userId)
-      sessionStorage.setItem('roleName', this.roleName)
-      sessionStorage.setItem('birtDate', this.birthDate)
-    }
 
-  },
-  mounted() {
-    const userData = JSON.parse(sessionStorage.getItem('userData'))
-    if (userData) {
-      this.roleId = userData.roleId
-      this.userId = userData.userId
-      this.roleName = userData.roleName
-      this.birthDate = userData.birthDate
-    }
 
   }
+
 }
 </script>
 
