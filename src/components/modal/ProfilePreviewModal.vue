@@ -16,7 +16,19 @@ import ProfileView from "@/views/ProfileView.vue";
 
 export default {
   name: "ProfilePreviewModal",
-  components: {ProfileView, Modal}
+  components: {ProfileView, Modal},
+
+  props: {
+    userId: Number
+  },
+
+  data() {
+    return{
+
+
+    }
+  },
+
 }
 </script>
 
