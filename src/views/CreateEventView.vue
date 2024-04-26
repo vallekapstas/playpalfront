@@ -57,19 +57,19 @@
               <input v-model="eventInfo.postCode" type="text"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="postCode" required>
-              <div v-if="!validVenueName" class="input-invalid">Palun sisesta Postiindeks!</div>
+              <div v-if="!validPostCode" class="input-invalid">Palun sisesta Postiindeks!</div>
             </div>
           </div>
 
           <div class="row mb-3">
             <div class="col">
-              <label for="latitude" class="form-label text-primary fw-lighter"><b>Asukoha laiuskraad</b></label>
+              <label for="latitude" class="form-label text-primary fw-lighter"><b>Asukoha laiuskraadid</b></label>
               <input v-model="eventInfo.latitude" type="number" step="0.000001"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="latitude" required>
             </div>
             <div class="col">
-              <label for="longitude" class="form-label text-primary fw-lighter"><b>Asukoha pikkuskraad</b></label>
+              <label for="longitude" class="form-label text-primary fw-lighter"><b>Asukoha pikkuskraadid</b></label>
               <input v-model="eventInfo.longitude" type="number" step="0.000001"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="longitude" required>
@@ -121,7 +121,7 @@
               <input v-model="eventInfo.minPlayers" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="minPlayers" required>
-              <div v-if="!validStreetName" class="input-invalid">Min. mängijate arv peab olema vähemalt 1 !</div>
+              <div v-if="!validMinPlayers" class="input-invalid">Min. mängijate arv peab olema vähemalt 1 !</div>
               <div/>
             </div>
 
@@ -130,7 +130,7 @@
               <input v-model="eventInfo.maxPlayers" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="maxPlayers" required>
-              <div v-if="!validVenueName" class="input-invalid">Max. mängijate arv peab olema vähemalt 2!</div>
+              <div v-if="!validMaxPlayers" class="input-invalid">Max. mängijate arv ei saa olla väiksem kui min. mängijate arv!</div>
             </div>
           </div>
 
@@ -161,7 +161,8 @@
               <label for="fee" class="form-label text-primary fw-lighter"><b>Maksumus*</b></label>
               <input v-model="eventInfo.fee" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
-                     id="fee" required>
+                     id="fee" required >
+              <div v-if="!validFee" class="input-invalid">Maksumus ei saa olla negatiivne number!</div>
               <div/>
             </div>
 
@@ -176,19 +177,19 @@
                 <option :value=3>Edasijõudnu</option>
                 <option :value=4>Ekspert</option>
               </select>
-              <div v-if="!validMaxAge" class="input-invalid">Palun vali tase!</div>
+              <div v-if="!validSkill" class="input-invalid">Palun vali tase!</div>
             </div>
           </div>
 
 
           <div class="row mb-3">
-            <div class="col">
-              <label for="eventGames" class="form-label text-primary fw-lighter"><b>Mängitavad mängud*</b></label>
-              <input v-model="eventInfo.eventGames" type="text"
-                     class="form-control border-primary-subtle font-monospace shadow-sm"
-                     id="eventGames" required>
-              <div v-if="!validStreetName" class="input-invalid">Palun sisesta vähemalt 1 mäng!</div>
-            </div>
+<!--            <div class="col">-->
+<!--              <label for="eventGames" class="form-label text-primary fw-lighter"><b>Mängitavad mängud*</b></label>-->
+<!--              <input v-model="eventInfo.eventGames" type="text"-->
+<!--                     class="form-control border-primary-subtle font-monospace shadow-sm"-->
+<!--                     id="eventGames" required>-->
+<!--              <div v-if="!validStreetName" class="input-invalid">Palun sisesta vähemalt 1 mäng!</div>-->
+<!--            </div>-->
 
             <div class="col">
               <label for="eventGames" class="form-label text-primary fw-lighter"><b>Ürituse Pilt*</b></label>
@@ -215,7 +216,7 @@
         <div class="row d-grid justify-content-center">
           <div class="col d-flex gap-3 mt-5 mb-2">
             <button class="btn btn-dark shadow-sm" type="submit" @click="goToEventView">Tagasi</button>
-            <button class="btn btn-primary shadow-sm" type="button" @click="sendPostEventRequest">Loo üritus</button>
+            <button class="btn btn-primary shadow-sm" type="button" @click="submitEventForm">Loo üritus</button>
           </div>
         </div>
 
@@ -273,26 +274,31 @@ export default {
         longitude: 0,
         latitude: 0,
         eventImage: '',
-        eventGames: [
-      0
-    ],
+
         eventDescription: ''
 
       },
+      country: 0,
+      county: 0,
       isUserNameAvailable: true,
       validEventName: true,
       validVenueName: true,
       validStreetName: true,
+      validPostCode: true,
       validStartDate: true,
       validEndDate: true,
       validStartTime: true,
       validEndTime: true,
+      validMinPlayers: true,
+      validMaxPlayers: true,
       validMinAge: true,
       validMaxAge: true,
+      validFee: true,
       validCountry: true,
       validCounty: true,
       validCity: true,
-      validGender: true
+      validGender: true,
+      validSkill: true,
     }
   },
 
@@ -316,11 +322,21 @@ export default {
       this.eventInfo.cityId = cityId
     },
 
+
     getToday() {
       const today = new Date();
       today.setDate(today.getDate()); // Subtract 1 day
       return today.toISOString().split('T')[0];
     },
+
+    submitEventForm() {
+      if (this.allFieldsWithCorrectInput()){
+        this.sendPostEventRequest()
+      }
+
+    },
+
+
     sendPostEventRequest() {
       this.$http.post("/event", this.eventInfo)
           .then(() => this.handlePostEventResponse())
@@ -344,6 +360,37 @@ export default {
     goToEventView() {
       router.push({name: 'indexRoute'})
     },
+
+    allFieldsWithCorrectInput() {
+      this.validEventName = this.eventInfo.eventName.length > 0
+      this.validVenueName = this.eventInfo.venueName.length > 0
+
+      this.validCountry = this.country > 0
+      this.validCounty = this.county > 0
+      this.validCity = this.eventInfo.cityId > 0
+
+      this.validStreetName = this.eventInfo.street.length > 3
+      this.validPostCode = this.eventInfo.postCode.length > 4
+      // this.validStartDate = this.eventInfo.startDate.length > 0
+      // this.validEndDate = this.eventInfo.endDate.length > 0
+      // this.validStartTime = this.eventInfo.startTime.hour > 0 || this.eventInfo.startTime.minute > 0;
+      // this.validEndTime = this.eventInfo.endTime.hour > 0 || this.eventInfo.endTime.minute > 0;
+      this.validMinPlayers = this.eventInfo.minPlayers > 0
+      this.validMaxPlayers = this.eventInfo.maxPlayers >= this.eventInfo.minPlayers;
+      this.validMinAge = this.eventInfo.minAge > 0
+      this.validMaxAge = this.eventInfo.maxAge > this.eventInfo.minAge
+
+      this.validFee = this.eventInfo.fee >= 0
+
+
+
+
+      return this.validEventName && this.validVenueName && this.validStreetName && this.validPostCode && this.validStartDate
+          && this.validEndDate && this.validStartTime && this.validEndTime && this.validCounty && this.validCity && this.validCountry
+          && this.validMinPlayers && this.validMaxPlayers && this.validMinAge && this.validMaxAge && this.validFee
+    },
+
+
 
 
 
