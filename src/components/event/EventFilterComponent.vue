@@ -14,9 +14,9 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
             <div class="col-lg-3">
-              <select v-model="filterAndSortRequest.selectedStatusCondition"
+              <select v-model="filterAndSortRequestParameters.selectedStatusCondition"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="statusCondition in this.filterAndSortRequest.statusConditions"
+                <option v-for="statusCondition in this.filterAndSortRequestParameters.statusConditions"
                         :value="statusCondition.key"
                         :key="statusCondition.key">{{ statusCondition.value }}
                 </option>
@@ -24,9 +24,9 @@
             </div>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequest.selectedStatus"
+              <select v-model="filterAndSortRequestParameters.selectedStatus"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="status in this.filterAndSortRequest.statuses" :value="status.key" :key="status.key">
+                <option v-for="status in this.filterAndSortRequestParameters.statuses" :value="status.key" :key="status.key">
                   {{ status.value }}
                 </option>
               </select>
@@ -41,18 +41,18 @@
             <label class="col-lg-2 col-form-label text-secondary text-end fw-bold">Sorteeri</label>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequest.selectedSortParameter"
+              <select v-model="filterAndSortRequestParameters.selectedSortParameter"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="sortParameter in this.filterAndSortRequest.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
+                <option v-for="sortParameter in this.filterAndSortRequestParameters.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
                   {{ sortParameter.value }}
                 </option>
               </select>
             </div>
 
             <div class="col-lg-4">
-              <select v-model="filterAndSortRequest.selectedSortDirection"
+              <select v-model="filterAndSortRequestParameters.selectedSortDirection"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option v-for="sortDirection in this.filterAndSortRequest.sortDirections"
+                <option v-for="sortDirection in this.filterAndSortRequestParameters.sortDirections"
                         :value="sortDirection.key"
                         :key="sortDirection.key">{{ sortDirection.value }}
                 </option>
@@ -72,7 +72,7 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Tase</label>
 
             <div class="col-lg-9">
-              <select v-model="filterAndSortRequest.selectedSkill"
+              <select v-model="filterAndSortRequestParameters.selectedSkill"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option value="0">Kõik tasemed</option>
                 <option v-for="skill in this.skills"
@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequest.isParticipant"
+                <input v-model="filterAndSortRequestParameters.isParticipant"
                        class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
                        id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Osalen</label>
@@ -100,7 +100,7 @@
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequest.isHost" class="form-check-input input-transparent shadow-sm"
+                <input v-model="filterAndSortRequestParameters.isHost" class="form-check-input input-transparent shadow-sm"
                        type="checkbox" role="switch"
                        id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Korraldan</label>
@@ -111,7 +111,7 @@
         </div>
 
         <div class="col-lg-2 d-grid mx-auto my-1">
-          <button class="btn btn-sm btn-primary">Otsi</button>
+          <button class="btn btn-sm btn-primary" @click="sendGetSortedAndFilteredEventsRequest">Otsi</button>
         </div>
 
       </div><!-- main row -->
@@ -137,7 +137,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.playerLimitMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.playerLimitMin" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -149,7 +149,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.playerLimitMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.playerLimitMax" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -171,7 +171,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.ageLimitMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.ageLimitMin" type="number"
                            class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
                            step="1">
                   </div>
@@ -183,7 +183,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.ageLimitMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.ageLimitMax" type="number"
                            class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
                            step="1">
                   </div>
@@ -209,7 +209,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.feeMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.feeMin" type="number"
                            class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
                            step="1">
                   </div>
@@ -221,7 +221,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.feeMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.feeMax" type="number"
                            class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
                            step="1">
                   </div>
@@ -242,7 +242,7 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.playersJoinedMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.playersJoinedMin" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -254,7 +254,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequest.playersJoinedMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.playersJoinedMax" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -283,7 +283,7 @@
 
         <div class="row mb-3 align-items-center mx-auto justify-content-center">
           <div class="col-lg-2 d-grid mx-auto my-1">
-            <button class="btn btn-sm btn-primary">Otsi</button>
+            <button class="btn btn-sm btn-primary"  @click="sendGetSortedAndFilteredEventsRequest">Otsi</button>
           </div>
         </div><!-- main row -->
 
@@ -314,7 +314,7 @@ export default {
   data() {
     return {
 
-      filterAndSortRequest: {
+      filterAndSortRequestParameters: {
         selectedStatus: 'A',
         statuses: [
           {key: 'A', value: 'aktiivne'},
@@ -375,6 +375,10 @@ export default {
   },
 
   methods: {
+
+    sendGetSortedAndFilteredEventsRequest() {
+      this.$emit('event-get-sorted-and-filtered-events', this.filterAndSortRequestParameters)
+    },
 
     getSkillsRequest() {
       this.$http.get('/skills')
