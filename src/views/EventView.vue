@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-10">
-        <EventFilterComponent @event-get-sorted-and-filtered-events="doSomething"/>
+        <EventFilterComponent @event-get-sorted-and-filtered-events="handleGetRequest"/>
         <EventComponent v-for="event in this.events" :key="event.eventId" ref="eventComponentRef"
                         :event-id="event.eventId"
                         @event-user-joined-event="this.$emit('event-user-joined-event')"
@@ -38,8 +38,10 @@ export default {
   },
 
   methods: {
-    doSomething() {
-      alert('GET Events')
+    handleGetRequest(filterAndSortRequestParameters) {
+      filterAndSortRequestParameters.userid = sessionStorage.getItem('userId')
+      // make the GET request
+      alert('GET request')
     }
   }
 }

@@ -14,7 +14,7 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
             <div class="col-lg-3">
-              <select v-model="filterAndSortRequestParameters.selectedStatusCondition"
+              <select v-model="filterAndSortRequestParameters.stscond"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option v-for="statusCondition in this.filterAndSortRequestParameters.statusConditions"
                         :value="statusCondition.key"
@@ -24,7 +24,7 @@
             </div>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequestParameters.selectedStatus"
+              <select v-model="filterAndSortRequestParameters.status"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option v-for="status in this.filterAndSortRequestParameters.statuses" :value="status.key" :key="status.key">
                   {{ status.value }}
@@ -41,7 +41,7 @@
             <label class="col-lg-2 col-form-label text-secondary text-end fw-bold">Sorteeri</label>
 
             <div class="col-lg-6">
-              <select v-model="filterAndSortRequestParameters.selectedSortParameter"
+              <select v-model="filterAndSortRequestParameters.sortparam"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option v-for="sortParameter in this.filterAndSortRequestParameters.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
                   {{ sortParameter.value }}
@@ -50,7 +50,7 @@
             </div>
 
             <div class="col-lg-4">
-              <select v-model="filterAndSortRequestParameters.selectedSortDirection"
+              <select v-model="filterAndSortRequestParameters.sortdir"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option v-for="sortDirection in this.filterAndSortRequestParameters.sortDirections"
                         :value="sortDirection.key"
@@ -72,7 +72,7 @@
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Tase</label>
 
             <div class="col-lg-9">
-              <select v-model="filterAndSortRequestParameters.selectedSkill"
+              <select v-model="filterAndSortRequestParameters.skillid"
                       class="form-select border border-secondary-subtle input-transparent shadow-sm">
                 <option value="0">Kõik tasemed</option>
                 <option v-for="skill in this.skills"
@@ -91,7 +91,7 @@
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequestParameters.isParticipant"
+                <input v-model="filterAndSortRequestParameters.participant"
                        class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
                        id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Osalen</label>
@@ -100,7 +100,7 @@
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input v-model="filterAndSortRequestParameters.isHost" class="form-check-input input-transparent shadow-sm"
+                <input v-model="filterAndSortRequestParameters.host" class="form-check-input input-transparent shadow-sm"
                        type="checkbox" role="switch"
                        id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Korraldan</label>
@@ -137,7 +137,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.playerLimitMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.minplayers" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -149,7 +149,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.playerLimitMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.maxplayers" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayers"
                            placeholder="-" step="1">
                   </div>
@@ -171,7 +171,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.ageLimitMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.minage" type="number"
                            class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
                            step="1">
                   </div>
@@ -183,7 +183,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.ageLimitMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.maxage" type="number"
                            class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
                            step="1">
                   </div>
@@ -209,7 +209,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.feeMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.minfee" type="number"
                            class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
                            step="1">
                   </div>
@@ -221,7 +221,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.feeMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.maxfee" type="number"
                            class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
                            step="1">
                   </div>
@@ -242,7 +242,7 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.playersJoinedMin" type="number"
+                    <input v-model="filterAndSortRequestParameters.minjoined" type="number"
                            class="form-control input-transparent shadow-sm" id="minPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -254,7 +254,7 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input v-model="filterAndSortRequestParameters.playersJoinedMax" type="number"
+                    <input v-model="filterAndSortRequestParameters.maxjoined" type="number"
                            class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
                            placeholder="-" step="1">
                   </div>
@@ -315,26 +315,26 @@ export default {
     return {
 
       filterAndSortRequestParameters: {
-        selectedStatus: 'A',
+        status: 'A', // Status
         statuses: [
           {key: 'A', value: 'aktiivne'},
           {key: 'P', value: 'ootel'},
           {key: 'C', value: 'tühistatud'},
         ],
 
-        selectedStatusCondition: 'is',
+        stscond: 'is', // Status Condition
         statusConditions: [
           {key: 'is', value: 'on'},
           {key: 'isnot', value: 'ei ole'}
         ],
 
-        selectedSortDirection: 'asc',
+        sortdir: 'asc', // Sorting Direction
         sortDirections: [
           {key: 'asc', value: 'kahanevalt'},
           {key: 'desc', value: 'kasvavalt'}
         ],
 
-        selectedSortParameter: 'startDate',
+        sortparam: 'startDate', // Sorting parameter
         sortParameters: [
           {key: 'startDate', value: 'alguskuupäeva järgi'},
           {key: 'endDate', value: 'lõpukuupäeva järgi'},
@@ -342,26 +342,27 @@ export default {
           {key: 'joinedPlayers', value: 'osalejate arvu järgi'}
         ],
 
-        isParticipant: false,
-        isHost: false,
+        participant: false, // User Is Participant
+        host: false, // User Is Host
+        userid: 0,
 
-        playerLimitMin: '',
-        playerLimitMax: '',
+        minplayers: '', // Minimum Players Limit
+        maxplayers: '', // Maximum Players Limit
 
-        ageLimitMin: '',
-        ageLimitMax: '',
+        minage: '', // Minimum Age Limit
+        maxage: '', // Maximum Age Limit
 
-        feeMin: '',
-        feeMax: '',
+        minfee: '', // Minimum Fee
+        maxfee: '', // Maximum Fee
 
-        playersJoinedMin: '',
-        playersJoinedMax: '',
+        minjoined: '', // Minimum Joined Players
+        maxjoined: '', // Maximum Joined Players
 
-        selectedCountryId: 0,
-        selectedCountyId: 0,
-        selectedCityId: 0,
+        countryid: 0, // Selected Country ID
+        countyid: 0, // Selected County ID
+        cityid: 0, // Selected City ID
         
-        selectedSkill: 0
+        skillid: 0 // Selected Skill ID
       },
 
       skills: [
