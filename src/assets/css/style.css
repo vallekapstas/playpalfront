@@ -396,8 +396,11 @@ input.form-check-input:checked:hover {
 
 /*Custom Alert Styling for Error Messages*/
 .input-invalid {
-    color: red;
+    color: white;
+    background-color: #fc7b4c;
     margin-top: 5px;
+    border-radius: 5px;
+    align-content: center;
 }
 
 /* Custom Icon Styling */

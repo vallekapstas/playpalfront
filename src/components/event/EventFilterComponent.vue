@@ -6,37 +6,75 @@
     <div
         class="event-filter text-start bg-transparent border border-2 border-secondary rounded-2 pt-3 px-4 m-4 shadow-sm">
 
-      <div class="row mb-3 align-items-center d-flex mx-auto">
+      <div class="row mb-3 align-items-center d-flex mx-auto gy-2">
 
-        <div class="col-6">
+        <div class="col-xl-6">
 
-          <div class="row input-group gy-1">
+          <div class="row input-group gy-2">
             <label class="col-lg-3 col-form-label text-secondary text-end fw-bold">Staatus</label>
 
-            <div class="col-lg-4">
-              <select class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option value="1">on</option>
-                <option value="2">ei ole</option>
+            <div class="col-lg-3">
+              <select v-model="filterAndSortRequest.selectedStatusCondition"
+                      class="form-select border border-secondary-subtle input-transparent shadow-sm">
+                <option v-for="statusCondition in this.filterAndSortRequest.statusConditions"
+                        :value="statusCondition.key"
+                        :key="statusCondition.key">{{ statusCondition.value }}
+                </option>
               </select>
             </div>
 
-            <div class="col-lg-5">
-              <select class="form-select border border-secondary-subtle input-transparent shadow-sm">
-                <option value="1">aktiivne</option>
-                <option value="2">ootel</option>
-                <option value="2">tühistatud</option>
+            <div class="col-lg-6">
+              <select v-model="filterAndSortRequest.selectedStatus"
+                      class="form-select border border-secondary-subtle input-transparent shadow-sm">
+                <option v-for="status in this.filterAndSortRequest.statuses" :value="status.key" :key="status.key">
+                  {{ status.value }}
+                </option>
               </select>
             </div>
           </div>
 
         </div>
 
-        <div class="col-5">
+        <div class="col-xl-6">
+
+          <div class="row input-group gy-2">
+            <label class="col-lg-2 col-form-label text-secondary text-end fw-bold">Sorteeri</label>
+
+            <div class="col-lg-6">
+              <select v-model="filterAndSortRequest.selectedSortParameter"
+                      class="form-select border border-secondary-subtle input-transparent shadow-sm">
+                <option v-for="sortParameter in this.filterAndSortRequest.sortParameters" :value="sortParameter.key" :key="sortParameter.key">
+                  {{ sortParameter.value }}
+                </option>
+              </select>
+            </div>
+
+            <div class="col-lg-4">
+              <select v-model="filterAndSortRequest.selectedSortDirection"
+                      class="form-select border border-secondary-subtle input-transparent shadow-sm">
+                <option v-for="sortDirection in this.filterAndSortRequest.sortDirections"
+                        :value="sortDirection.key"
+                        :key="sortDirection.key">{{ sortDirection.value }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div><!-- main row -->
+
+      <div class="row mb-3 align-items-center d-flex mx-auto px-5">
+
+
+        <div class="col-lg">
 
           <div class="row">
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
+                <input v-model="filterAndSortRequest.isParticipant"
+                       class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
                        id="participant">
                 <label class="form-check-label fw-bold text-secondary" for="participant">Olen osaleja</label>
               </div>
@@ -44,7 +82,8 @@
 
             <div class="col-lg input-group my-2">
               <div class="form-check form-switch">
-                <input class="form-check-input input-transparent shadow-sm" type="checkbox" role="switch"
+                <input v-model="filterAndSortRequest.isHost" class="form-check-input input-transparent shadow-sm"
+                       type="checkbox" role="switch"
                        id="eventhost">
                 <label class="form-check-label fw-bold text-secondary" for="eventhost">Olen korraldaja</label>
               </div>
@@ -53,12 +92,11 @@
 
         </div>
 
-        <div class="col d-grid mx-auto my-1">
+        <div class="col-lg-2 d-grid mx-auto my-1">
           <button class="btn btn-sm btn-primary">Otsi</button>
         </div>
 
       </div><!-- main row -->
-
 
       <div class="row align-items-center mx-auto justify-content-center mb-3">
         <span class="pointer link-secondary animate-link small w-auto" data-bs-toggle="collapse" href="#extendedSearch">Täpsem otsing</span>
@@ -81,7 +119,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="minPlayers"
+                    <input v-model="filterAndSortRequest.playerLimitMin" type="number"
+                           class="form-control input-transparent shadow-sm" id="minPlayers"
                            placeholder="-" step="1">
                   </div>
                 </div>
@@ -92,7 +131,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="maxPlayers"
+                    <input v-model="filterAndSortRequest.playerLimitMax" type="number"
+                           class="form-control input-transparent shadow-sm" id="maxPlayers"
                            placeholder="-" step="1">
                   </div>
                 </div>
@@ -113,7 +153,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
+                    <input v-model="filterAndSortRequest.ageLimitMin" type="number"
+                           class="form-control input-transparent shadow-sm" id="minAge" placeholder="-"
                            step="1">
                   </div>
                 </div>
@@ -124,7 +165,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
+                    <input v-model="filterAndSortRequest.ageLimitMax" type="number"
+                           class="form-control input-transparent shadow-sm" id="maxAge" placeholder="-"
                            step="1">
                   </div>
                 </div>
@@ -149,7 +191,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
+                    <input v-model="filterAndSortRequest.feeMin" type="number"
+                           class="form-control input-transparent shadow-sm" id="minFee" placeholder="-"
                            step="1">
                   </div>
                 </div>
@@ -160,7 +203,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
+                    <input v-model="filterAndSortRequest.feeMax" type="number"
+                           class="form-control input-transparent shadow-sm" id="maxFee" placeholder="-"
                            step="1">
                   </div>
                 </div>
@@ -180,7 +224,8 @@
               <div class="col-lg">
                 <div class="row align-items-center">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="minPlayersJoined"
+                    <input v-model="filterAndSortRequest.playersJoinedMin" type="number"
+                           class="form-control input-transparent shadow-sm" id="minPlayersJoined"
                            placeholder="-" step="1">
                   </div>
                 </div>
@@ -191,7 +236,8 @@
               <div class="col-lg">
                 <div class="row">
                   <div class="col">
-                    <input type="number" class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
+                    <input v-model="filterAndSortRequest.playersJoinedMax" type="number"
+                           class="form-control input-transparent shadow-sm" id="maxPlayersJoined"
                            placeholder="-" step="1">
                   </div>
                 </div>
@@ -248,22 +294,54 @@ export default {
 
   data() {
     return {
-      selectedStatus: 'A',
-      statuses: [
-        {key: 'A', value: 'Aktiivne'},
-        {key: 'P', value: 'Ootel'},
-        {key: 'C', value: 'Tühistatud'},
-      ],
 
-      selectedStatusCondition: 'is',
-      statusConditions: [
-        {key: 'is', value: 'on'},
-        {key: 'isnot', value: 'ei ole'}
-      ],
+      filterAndSortRequest: {
+        selectedStatus: 'A',
+        statuses: [
+          {key: 'A', value: 'aktiivne'},
+          {key: 'P', value: 'ootel'},
+          {key: 'C', value: 'tühistatud'},
+        ],
 
-      selectedCountryId: 0,
-      selectedCountyId: 0,
-      selectedCityId: 0
+        selectedStatusCondition: 'is',
+        statusConditions: [
+          {key: 'is', value: 'on'},
+          {key: 'isnot', value: 'ei ole'}
+        ],
+
+        selectedSortDirection: 'asc',
+        sortDirections: [
+          {key: 'asc', value: 'kahanevalt'},
+          {key: 'desc', value: 'kasvavalt'}
+        ],
+
+        selectedSortParameter: 'startDate',
+        sortParameters: [
+          {key: 'startDate', value: 'alguskuupäeva järgi'},
+          {key: 'endDate', value: 'lõpukuupäeva järgi'},
+          {key: 'fee', value: 'tasu järgi'},
+          {key: 'joinedPlayers', value: 'osalejate arvu järgi'}
+        ],
+
+        isParticipant: false,
+        isHost: false,
+
+        playerLimitMin: '',
+        playerLimitMax: '',
+
+        ageLimitMin: '',
+        ageLimitMax: '',
+
+        feeMin: '',
+        feeMax: '',
+
+        playersJoinedMin: '',
+        playersJoinedMax: '',
+
+        selectedCountryId: 0,
+        selectedCountyId: 0,
+        selectedCityId: 0
+      }
 
     }
   },
