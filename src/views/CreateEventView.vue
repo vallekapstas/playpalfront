@@ -238,18 +238,30 @@ import router from "@/router";
 export default {
   name: "CreateEventView",
   components: {ImageInput, EventImageComponent, ProfileImageComponent, RemoveImageComponent, LocationDropdownsComponent},
+
   data() {
     return {
+
       eventInfo: {
 
-        hostId: 0,
+        hostId: Number(sessionStorage.getItem('userId')),
         eventName: '',
         venueName: '',
         startDate: 0,
         endDate: 0,
-        startTime: '',
-        endTime: '',
-        minPlayers: 0,
+        startTime: {
+      hour: 0,
+          minute: 0,
+          second: 0,
+          nano: 0
+    },
+      endTime: {
+      hour: 0,
+          minute: 0,
+          second: 0,
+          nano: 0
+    },
+      minPlayers: 0,
         maxPlayers: 0,
         minAge: 0,
         maxAge: 0,
@@ -261,8 +273,11 @@ export default {
         longitude: 0,
         latitude: 0,
         eventImage: '',
-        eventGames: [0],
+        eventGames: [
+      0
+    ],
         eventDescription: ''
+
       },
       isUserNameAvailable: true,
       validEventName: true,
