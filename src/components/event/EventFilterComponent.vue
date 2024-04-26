@@ -31,7 +31,7 @@
 
         </div>
 
-        <div class="col-6">
+        <div class="col-5">
 
           <div class="row">
             <div class="col-lg input-group my-2">
@@ -51,6 +51,10 @@
             </div>
           </div>
 
+        </div>
+
+        <div class="col d-grid mx-auto my-1">
+          <button class="btn btn-sm btn-primary">Otsi</button>
         </div>
 
       </div><!-- main row -->
@@ -208,8 +212,14 @@
                                       @event-selected-county-change="handleCountySelect"
                                       @event-selected-city-change="handleCitySelect"/>
           <div class="row form-text justify-content-center text-center input-helper-text m-2"
-               id="locationDescription">Kõigepealt vali riik. Seejärel laetakse nimekiri maakondadest. Siis vali maakond
-            ja selle peale laetakse nimekirja selle maakonna linnadest. Vali linn.
+               id="locationDescription">Kõigepealt vali riik, mille peale laetakse nimekiri maakondadest. Kui valid
+            seejärel maakonna, laetakse nimekiri selle maakonna linnadest. Viimasena saad valida linna.
+          </div>
+        </div><!-- main row -->
+
+        <div class="row mb-3 align-items-center mx-auto justify-content-center">
+          <div class="col-lg-2 d-grid mx-auto my-1">
+            <button class="btn btn-sm btn-primary">Otsi</button>
           </div>
         </div><!-- main row -->
 
