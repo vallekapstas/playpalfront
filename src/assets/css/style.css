@@ -336,3 +336,12 @@ html {
     background-color: #000000;
 }
 
+.filter-helper-text {
+    font-size: 0.75em;
+    color: #adadad;
+}
+
+.filter-helper-text:hover {
+    color: #000000;
+}
+
