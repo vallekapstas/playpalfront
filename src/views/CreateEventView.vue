@@ -83,15 +83,16 @@
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      :min="getToday()"
                      id="startDate" required>
-              <div v-if="!validStartDate" class="input-invalid">Alguskuupäev!</div>
+              <div v-if="!validStartDate" class="input-invalid">Palun vali alguskuupäev!</div>
             </div>
             <div class="col">
               <label for="endDate" class="form-label text-primary fw-lighter"><b>Lõpp Kuupäev*</b></label>
               <input v-model="eventInfo.endDate" type="date"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
-                     :min="getToday()"
-                     id="endDate" required>
-              <div v-if="!validEndDate" class="input-invalid">Lõpp kuupäev!</div>
+                     :min="eventInfo.startDate"
+                     id="endDate" required
+                     :disabled="!eventInfo.startDate">
+              <div v-if="!validEndDate" class="input-invalid">Palun vali lõpp kuupäev!</div>
             </div>
           </div>
 
@@ -182,7 +183,7 @@
           </div>
 
 
-          <div class="row mb-3">
+<!--          <div class="row mb-3">-->
 <!--            <div class="col">-->
 <!--              <label for="eventGames" class="form-label text-primary fw-lighter"><b>Mängitavad mängud*</b></label>-->
 <!--              <input v-model="eventInfo.eventGames" type="text"-->
@@ -190,12 +191,7 @@
 <!--                     id="eventGames" required>-->
 <!--              <div v-if="!validStreetName" class="input-invalid">Palun sisesta vähemalt 1 mäng!</div>-->
 <!--            </div>-->
-
-            <div class="col">
-              <label for="eventGames" class="form-label text-primary fw-lighter"><b>Ürituse Pilt*</b></label>
-              <ImageInput @event-new-image-file-selected="setEventImage"/>
-              </div>
-          </div>
+<!--          </div>-->
 
 
           <div class="row mb-3">
@@ -210,8 +206,15 @@
         </div>
 
 
-      <div class="col-lg-4 mt-5">
+      <div class="col-lg-4">
+        <label for="eventGames" class="form-label text-primary fw-lighter"><b>Ürituse Pilt*</b></label>
+        <ImageInput @event-new-image-file-selected="setEventImage"/>
               <EventImageComponent :event-image="eventInfo.eventImage" id="eventImage"/>
+        <div class="col">
+
+
+        </div>
+
       </div>
         <div class="row d-grid justify-content-center">
           <div class="col d-flex gap-3 mt-5 mb-2">
@@ -371,8 +374,8 @@ export default {
 
       this.validStreetName = this.eventInfo.street.length > 3
       this.validPostCode = this.eventInfo.postCode.length > 4
-      // this.validStartDate = this.eventInfo.startDate.length > 0
-      // this.validEndDate = this.eventInfo.endDate.length > 0
+      this.validStartDate = this.eventInfo.startDate.length > 0
+      this.validEndDate = this.eventInfo.endDate.length > 0
       // this.validStartTime = this.eventInfo.startTime.hour > 0 || this.eventInfo.startTime.minute > 0;
       // this.validEndTime = this.eventInfo.endTime.hour > 0 || this.eventInfo.endTime.minute > 0;
       this.validMinPlayers = this.eventInfo.minPlayers > 0
@@ -381,7 +384,7 @@ export default {
       this.validMaxAge = this.eventInfo.maxAge > this.eventInfo.minAge
 
       this.validFee = this.eventInfo.fee >= 0
-
+      this.validSkill= this.eventInfo.skillId > 0
 
 
 
