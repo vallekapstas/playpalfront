@@ -321,10 +321,8 @@ export default {
         sortparam: 'start_date',
         name: '',
         venue: '',
-        startdate: '',
-        enddate: '',
-        starttime: '',
-        endtime: '',
+        datefrom: '2024-04-29',
+        dateuntil: '',
         participant: '',
         host: '',
         userid: '',
@@ -406,12 +404,16 @@ export default {
     getUserIdFromSession() {
       this.params.userid = sessionStorage.getItem('userId')
     },
+
+    getDateToday() {
+      return new Date().toISOString().slice(0, 10)
+    }
   },
 
   mounted() {
     this.getSkillsRequest()
     this.getUserIdFromSession()
-  }
+  },
 
 };
 </script>
