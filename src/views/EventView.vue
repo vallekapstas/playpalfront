@@ -51,7 +51,7 @@ export default {
     sendGetEventsRequest() {
       this.$http.get('/events', {
             params: this.params
-          }
+          },
       ).then(response => {
         this.events = response.data
       }).catch(() => {
