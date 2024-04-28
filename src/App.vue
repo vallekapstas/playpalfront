@@ -51,7 +51,8 @@
   <router-view @event-update-nav-menu="handleUserStatusUpdates"
                @event-user-registered="handleUserRegistered"
                @event-user-joined-event="handleUserJoinedEvent"
-               @event-user-left-event="handleUserLeftEvent"/>
+               @event-user-left-event="handleUserLeftEvent"
+               @event-filter-and-sort-events="reloadApp"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";

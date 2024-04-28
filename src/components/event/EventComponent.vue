@@ -143,7 +143,7 @@ export default {
     }
   },
 
-  beforeMount() {
+  mounted() {
     this.handleComponentLoading()
   },
 
@@ -178,7 +178,7 @@ export default {
             this.eventData = response.data
           })
           .catch(() => {
-            router.push({name: 'errorRoute'})
+            // router.push({name: 'errorRoute'})
           })
     },
 

@@ -21,6 +21,7 @@
 // @ is an alias to /src
 import EventComponent from '@/components/event/EventComponent.vue'
 import EventFilterComponent from "@/components/event/EventFilterComponent.vue";
+import router from "@/router";
 
 export default {
   name: 'HomeView',
@@ -32,7 +33,9 @@ export default {
   data() {
     return {
       events: [
-        {eventId: 1}, {eventId: 2}, {eventId: 3}, {eventId: 4}, {eventId: 5}, {eventId: 6}, {eventId: 7}
+        {
+          eventId: 0
+        }
       ]
     }
   },
@@ -41,9 +44,10 @@ export default {
     handleGetRequest(params) {
       const filteredParams = this.filterEmptyParams(params)
       this.sendGetEventsRequest(filteredParams)
+      this.$emit('event-filter-and-sort-events')
     },
 
-    sendGetEventsRequest(params) {
+    sendGetEventsRequest(params = '') {
       this.$http.get('/events', {
             params: {
               status: params.status,
@@ -68,9 +72,9 @@ export default {
             }
           }
       ).then(response => {
-        const responseJSON = response.data
-      }).catch(error => {
-        const errorResponseJSON = error.response.data
+        this.events = response.data
+      }).catch(() => {
+        // router.push({name: 'errorRoute'})
       })
     },
 
@@ -86,6 +90,10 @@ export default {
       return filteredParams;
     }
 
+  },
+
+  beforeMount() {
+    this.sendGetEventsRequest()
   }
 }
 </script>
