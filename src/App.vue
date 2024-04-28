@@ -19,6 +19,8 @@
         <template v-if="isLoggedIn">
           <router-link to="/myevents" @click="handleRouteClick('/myevents')" class="nav-link">Minu üritused
           </router-link>
+          <router-link to="/hostevent" @click="handleRouteClick('/hostevent')" class="nav-link">Lisa üritus
+          </router-link>
           <router-link to="/profile" @click="handleRouteClick('/profile')" class="nav-link">Profiil</router-link>
         </template>
         <template v-if="isAdmin">
@@ -51,7 +53,8 @@
   <router-view @event-update-nav-menu="handleUserStatusUpdates"
                @event-user-registered="handleUserRegistered"
                @event-user-joined-event="handleUserJoinedEvent"
-               @event-user-left-event="handleUserLeftEvent"/>
+               @event-user-left-event="handleUserLeftEvent"
+               @event-new-event-created="handleEventCreated"/>
 </template>
 <script>
 import LogInModal from "@/components/modal/LogInModal.vue";
@@ -164,6 +167,10 @@ export default {
 
     async handleUserRegistered(alertParams) {
       await this.openLogInModal()
+      this.displayAlert(alertParams)
+    },
+
+    async handleEventCreated(alertParams) {
       this.displayAlert(alertParams)
     },
 

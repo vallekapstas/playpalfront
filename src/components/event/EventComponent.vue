@@ -1,6 +1,5 @@
 <template>
 
-
   <div class="container">
 
     <div @click="openEventPreviewModal(eventId)"
@@ -143,8 +142,9 @@ export default {
     }
   },
 
-  mounted() {
+   mounted() {
     this.handleComponentLoading()
+
   },
 
   methods: {

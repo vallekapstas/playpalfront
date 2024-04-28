@@ -1,4 +1,5 @@
 <template>
+
   <div class="container text-center">
     <div class="row">
       <div class="col">
@@ -8,10 +9,21 @@
     <div class="row justify-content-center">
       <div class="col col-10">
         <EventFilterComponent @event-get-sorted-and-filtered-events="handleFilterAndSortRequest"/>
-        <EventComponent v-for="event in this.events" :key="event.eventId" ref="eventComponentRef"
+        <EventComponent :class="{ 'hidden': isLoading }" v-for="event in this.events" :key="event.eventId"
+                        ref="eventComponentRef"
                         :event-id="event.eventId"
                         @event-user-joined-event="this.$emit('event-user-joined-event')"
                         @event-user-left-event="this.$emit('event-user-left-event')"/>
+
+        <!-- Loading indicator -->
+        <div v-show="isLoading" class="mt-5 loading-indicator">
+          <div class="row mb-3">
+            <div class="col">
+              <div class="spinner-border text-primary" role="status"/>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -31,6 +43,8 @@ export default {
 
   data() {
     return {
+      isLoading: true,
+
       events: [
         {
           eventId: 0
@@ -44,7 +58,8 @@ export default {
   methods: {
     async handleFilterAndSortRequest(rawParams) {
       this.params = this.filterEmptyParams(rawParams)
-      this.sendGetEventsRequest()
+      await this.sendGetEventsRequest()
+      setTimeout(this.setDoneLoading, 1000)
     },
 
     sendGetEventsRequest() {
@@ -70,10 +85,25 @@ export default {
       return filteredParams;
     },
 
+    setDoneLoading() {
+      this.isLoading = false
+    },
+
   },
 
-  beforeMount() {
-    this.sendGetEventsRequest()
+  async beforeMount() {
+    await this.sendGetEventsRequest()
+    setTimeout(this.setDoneLoading, 1000)
   }
 }
 </script>
+
+<style scoped>
+.hidden {
+  display: none;
+}
+
+.loading-indicator {
+  /* Add styles for loading indicator */
+}
+</style>

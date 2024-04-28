@@ -321,7 +321,7 @@ export default {
         sortparam: 'start_date',
         name: '',
         venue: '',
-        datefrom: '2024-04-29',
+        datefrom: '',
         dateuntil: '',
         participant: '',
         host: '',
@@ -405,8 +405,10 @@ export default {
       this.params.userid = sessionStorage.getItem('userId')
     },
 
-    getDateToday() {
-      return new Date().toISOString().slice(0, 10)
+    getToday() {
+      const today = new Date();
+      today.setDate(today.getDate()); // Subtract 1 day
+      return today.toISOString().split('T')[0];
     }
   },
 

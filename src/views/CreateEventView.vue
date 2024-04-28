@@ -78,7 +78,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label for="startDate" class="form-label text-primary fw-lighter"><b>Algus kuupäev*</b></label>
+              <label for="startDate" class="form-label text-primary fw-lighter"><b>Alguse kuupäev*</b></label>
               <input v-model="eventInfo.startDate" type="date"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      :min="getToday()"
@@ -86,7 +86,7 @@
               <div v-if="!validStartDate" class="input-invalid">Palun vali alguskuupäev!</div>
             </div>
             <div class="col">
-              <label for="endDate" class="form-label text-primary fw-lighter"><b>Lõpp Kuupäev*</b></label>
+              <label for="endDate" class="form-label text-primary fw-lighter"><b>Lõpu kuupäev*</b></label>
               <input v-model="eventInfo.endDate" type="date"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      :min="eventInfo.startDate"
@@ -99,7 +99,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label for="startTime" class="form-label text-primary fw-lighter"><b>Algus kellaaeg*</b></label>
+              <label for="startTime" class="form-label text-primary fw-lighter"><b>Alguse kellaaeg*</b></label>
               <input v-model="eventInfo.startTime" type="time"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="startTime" required>
@@ -107,7 +107,7 @@
             </div>
 
             <div class="col">
-              <label for="endTime" class="form-label text-primary fw-lighter"><b>Lõpp kellaaeg*</b></label>
+              <label for="endTime" class="form-label text-primary fw-lighter"><b>Lõpu kellaaeg*</b></label>
               <input v-model="eventInfo.endTime" type="time"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="endTime" required>
@@ -118,7 +118,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label for="minPlayers" class="form-label text-primary fw-lighter"><b>Miinimum mängijate arv*</b></label>
+              <label for="minPlayers" class="form-label text-primary fw-lighter"><b>Mängijate arv vähemalt</b></label>
               <input v-model="eventInfo.minPlayers" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="minPlayers" required>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="col">
-              <label for="maxPlayers" class="form-label text-primary fw-lighter"><b>Maksimum mängijate arv*</b></label>
+              <label for="maxPlayers" class="form-label text-primary fw-lighter"><b>Mängijate arv kuni</b></label>
               <input v-model="eventInfo.maxPlayers" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="maxPlayers" required>
@@ -140,7 +140,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label for="minAge" class="form-label text-primary fw-lighter"><b>Miinimum mängijate vanus</b></label>
+              <label for="minAge" class="form-label text-primary fw-lighter"><b>Mängijate vanus vähemalt</b></label>
               <input v-model="eventInfo.minAge" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="minAge" required placeholder="">
@@ -148,7 +148,7 @@
             </div>
 
             <div class="col">
-              <label for="maxAge" class="form-label text-primary fw-lighter"><b>Maksimum mängijate vanus</b></label>
+              <label for="maxAge" class="form-label text-primary fw-lighter"><b>Mängijate vanus kuni</b></label>
               <input v-model="eventInfo.maxAge" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="maxAge" required>
@@ -158,7 +158,7 @@
 
           <div class="row mb-3">
             <div class="col">
-              <label for="fee" class="form-label text-primary fw-lighter"><b>Maksumus</b></label>
+              <label for="fee" class="form-label text-primary fw-lighter"><b>Osavõtutasu</b></label>
               <input v-model="eventInfo.fee" type="number"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="fee" required>
@@ -172,10 +172,7 @@
                       class="form-control border-primary-subtle font-monospace shadow-sm"
                       id="skill" required>
                 <option :value=0>Vali Tase</option>
-                <option :value=1>Kõik on teretulnud</option>
-                <option :value=2>Algaja</option>
-                <option :value=3>Edasijõudnu</option>
-                <option :value=4>Ekspert</option>
+                <option v-for="skill in skills" :value="skill.id">{{ skill.name }}</option>
               </select>
               <div v-if="!validSkill" class="input-invalid">Palun vali tase!</div>
             </div>
@@ -198,7 +195,7 @@
               <textarea v-model="eventInfo.eventDescription" class="form-control border-primary-subtle font-monospace"
                         id="floatingTextareaIntroduction"></textarea>
               <label for="floatingTextareaIntroduction" class="text-primary fw-lighter">Ürituse kirjeldus</label>
-              <div v-if="!validEventDescription" class="input-invalid">Palun kirjeldage oma üritust!</div>
+<!--              <div v-if="!validEventDescription" class="input-invalid">Palun kirjelda oma üritust!</div>-->
             </div>
           </div>
 
@@ -207,7 +204,7 @@
 
 
         <div class="col-lg-4">
-          <label for="eventGames" class="form-label text-primary fw-lighter"><b>Ürituse Pilt</b></label>
+          <label for="eventGames" class="form-label text-primary fw-lighter"><b>Ürituse pilt</b></label>
           <ImageInput @event-new-image-file-selected="setEventImage"/>
           <EventImageComponent :event-image="eventInfo.eventImage" id="eventImage"/>
           <div class="col">
@@ -253,7 +250,6 @@ export default {
     return {
 
       eventInfo: {
-
         hostId: Number(sessionStorage.getItem('userId')),
         eventName: '',
         venueName: '',
@@ -287,6 +283,7 @@ export default {
         eventDescription: ''
 
       },
+
       country: 0,
       county: 0,
       isUserNameAvailable: true,
@@ -306,11 +303,20 @@ export default {
       validCity: true,
       validGender: true,
       validSkill: true,
-      validEventDescription: true
+      // validEventDescription: true,
 
+      skills: [
+        {
+          id: 0,
+          name: ''
+        }
+      ]
     }
   },
 
+  beforeMount() {
+    this.getSkills()
+  },
 
   methods: {
     setEventImage(imageData) {
@@ -329,12 +335,22 @@ export default {
       this.eventInfo.cityId = cityId
     },
 
-
+    getSkills() {
+      this.$http.get('/skills')
+          .then(response => {
+            this.skills = response.data
+          })
+          .catch(error => {
+            router.push({name: 'errorRoute'})
+          })
+    },
+    
     getToday() {
       const today = new Date();
       today.setDate(today.getDate()); // Subtract 1 day
       return today.toISOString().split('T')[0];
     },
+
     convertEmptyToZero() {
       if (this.eventInfo.fee === '') {
         this.eventInfo.fee = 0;
@@ -348,7 +364,6 @@ export default {
       }
 
     },
-
 
     sendPostEventRequest() {
       this.$http.post("/event", this.eventInfo)
@@ -365,9 +380,9 @@ export default {
     showSuccessMessage() {
       const alertParams = {
         style: 'alert-success',
-        message: this.eventInfo.eventName + ', Üritus on loodud!'
+        message: 'Üritus ' + this.eventInfo.eventName + ' on loodud!'
       }
-      this.$emit('event-user-registered', alertParams)
+      this.$emit('event-new-event-created', alertParams)
     },
 
     goToEventView() {
@@ -398,7 +413,8 @@ export default {
 
       return this.validEventName && this.validVenueName && this.validStreetName && this.validPostCode && this.validStartDate
           && this.validEndDate && this.validStartTime && this.validEndTime && this.validCounty && this.validCity && this.validCountry
-           &&  this.validFee && this.validEventDescription
+           &&  this.validFee
+          // && this.validEventDescription
     },
 
 
