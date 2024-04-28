@@ -29,9 +29,6 @@
         <EventComponent ref="eventComponentRef" :eventId="7"
                         @event-user-joined-event="this.$emit('event-user-joined-event')"
                         @event-user-left-event="this.$emit('event-user-left-event')"/>
-        <EventComponent ref="eventComponentRef" :eventId="8"
-                        @event-user-joined-event="this.$emit('event-user-joined-event')"
-                        @event-user-left-event="this.$emit('event-user-left-event')"/>
       </div>
     </div>
   </div>
