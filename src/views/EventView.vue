@@ -7,7 +7,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="col col-10">
-        <EventFilterComponent @event-get-sorted-and-filtered-events="handleGetRequest"/>
+        <EventFilterComponent @event-get-sorted-and-filtered-events="handleFilterAndSortRequest"/>
         <EventComponent v-for="event in this.events" :key="event.eventId" ref="eventComponentRef"
                         :event-id="event.eventId"
                         @event-user-joined-event="this.$emit('event-user-joined-event')"
@@ -21,7 +21,6 @@
 // @ is an alias to /src
 import EventComponent from '@/components/event/EventComponent.vue'
 import EventFilterComponent from "@/components/event/EventFilterComponent.vue";
-import router from "@/router";
 
 export default {
   name: 'HomeView',
@@ -36,40 +35,22 @@ export default {
         {
           eventId: 0
         }
-      ]
+      ],
+
+      params: {}
     }
   },
 
   methods: {
-    handleGetRequest(params) {
-      const filteredParams = this.filterEmptyParams(params)
-      this.sendGetEventsRequest(filteredParams)
-      this.$emit('event-filter-and-sort-events')
+    async handleFilterAndSortRequest(rawParams) {
+      this.params = this.filterEmptyParams(rawParams)
+      this.sendGetEventsRequest()
+      this.reloadApp()
     },
 
-    sendGetEventsRequest(params = '') {
+    sendGetEventsRequest() {
       this.$http.get('/events', {
-            params: {
-              status: params.status,
-              stscond: params.stscond,
-              sortdir: params.sortdir,
-              sortparam: params.sortparam,
-              participant: params.participant,
-              host: params.host,
-              userid: params.userid,
-              minplayers: params.minplayers,
-              maxplayers: params.maxplayers,
-              minage: params.minage,
-              maxage: params.maxage,
-              minfee: params.minfee,
-              maxfee: params.maxfee,
-              minjoined: params.minjoined,
-              maxjoined: params.maxjoined,
-              countryid: params.countryid,
-              countyid: params.countyid,
-              cityid: params.cityid,
-              skillid: params.skillid
-            }
+            params: this.params
           }
       ).then(response => {
         this.events = response.data
@@ -88,7 +69,11 @@ export default {
       }
 
       return filteredParams;
-    }
+    },
+
+    reloadApp() {
+      window.location.reload()
+    },
 
   },
 
