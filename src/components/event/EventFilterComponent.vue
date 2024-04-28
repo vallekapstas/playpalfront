@@ -317,8 +317,8 @@ export default {
       params: {
         status: 'A',
         stscond: 'is',
-        sortdir: 'asc',
-        sortparam: 'startDate',
+        sortdir: 'ASC',
+        sortparam: 'start_date',
         name: '',
         venue: '',
         startdate: '',
@@ -354,15 +354,15 @@ export default {
       ],
 
       sortDirections: [
-        {key: 'asc', value: 'kahanevalt'},
-        {key: 'desc', value: 'kasvavalt'}
+        {key: 'ASC', value: 'kasvavalt'},
+        {key: 'DESC', value: 'kahanevalt'}
       ],
 
       sortParameters: [
-        {key: 'startDate', value: 'alguskuupäeva järgi'},
-        {key: 'endDate', value: 'lõpukuupäeva järgi'},
+        {key: 'start_date', value: 'alguskuupäeva järgi'},
+        {key: 'end_date', value: 'lõpukuupäeva järgi'},
         {key: 'fee', value: 'tasu järgi'},
-        {key: 'joinedPlayers', value: 'osalejate arvu järgi'}
+        {key: 'joined_players', value: 'osalejate arvu järgi'}
       ],
 
       skills: [

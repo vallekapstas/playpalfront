@@ -45,7 +45,7 @@ export default {
     async handleFilterAndSortRequest(rawParams) {
       this.params = this.filterEmptyParams(rawParams)
       this.sendGetEventsRequest()
-      this.reloadApp()
+      // this.reloadApp()
     },
 
     sendGetEventsRequest() {
