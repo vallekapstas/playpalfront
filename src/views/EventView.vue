@@ -45,7 +45,6 @@ export default {
     async handleFilterAndSortRequest(rawParams) {
       this.params = this.filterEmptyParams(rawParams)
       this.sendGetEventsRequest()
-      // this.reloadApp()
     },
 
     sendGetEventsRequest() {
@@ -55,7 +54,7 @@ export default {
       ).then(response => {
         this.events = response.data
       }).catch(() => {
-        // router.push({name: 'errorRoute'})
+        // no error
       })
     },
 
@@ -69,10 +68,6 @@ export default {
       }
 
       return filteredParams;
-    },
-
-    reloadApp() {
-      window.location.reload()
     },
 
   },
