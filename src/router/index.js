@@ -7,6 +7,7 @@ import RegisterView from "@/views/RegisterView.vue";
 
 import ProfileView from "@/views/ProfileView.vue";
 import EditProfileView from "@/views/EditProfileView.vue";
+import CreateEventView from "@/views/CreateEventView.vue";
 
 
 const routes = [
@@ -55,6 +56,12 @@ const routes = [
         name: 'editProfileView',
         component: EditProfileView
     },
+    {
+        path: '/hostevent',
+        name: 'createEventView',
+        component: CreateEventView
+    },
+
 
 
     // {
