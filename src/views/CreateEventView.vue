@@ -23,7 +23,7 @@
             </div>
 
             <div class="col">
-              <label for="venueName" class="form-label text-primary fw-lighter"><b>Toimumiskoht*</b></label>
+              <label for="venueName" class="form-label text-primary fw-lighter"><b>Kohtumispaik*</b></label>
               <input v-model="eventInfo.venueName" type="text"
                      class="form-control border-primary-subtle font-monospace shadow-sm"
                      id="venueName" required>
@@ -199,6 +199,7 @@
               <textarea v-model="eventInfo.eventDescription" class="form-control border-primary-subtle font-monospace"
                         id="floatingTextareaIntroduction"></textarea>
               <label for="floatingTextareaIntroduction" class="text-primary fw-lighter">Ürituse kirjeldus</label>
+              <div v-if="!validEventDescription" class="input-invalid">Palun kirjeldage oma üritust!</div>
             </div>
           </div>
 
@@ -302,11 +303,12 @@ export default {
       validCity: true,
       validGender: true,
       validSkill: true,
+      validEventDescription: true
+
     }
   },
 
-//   KONTROLLI ET LÕPPKUUPÄEV EI OLEKS ENNE ALGUSKUUPÄEVA
-//   Ja kui samal päeval siis lõppkellaaeg ei tohi olla enne alguskellaaega
+
 
   methods: {
     setEventImage(imageData) {
@@ -376,8 +378,8 @@ export default {
       this.validPostCode = this.eventInfo.postCode.length > 4
       this.validStartDate = this.eventInfo.startDate.length > 0
       this.validEndDate = this.eventInfo.endDate.length > 0
-      // this.validStartTime = this.eventInfo.startTime.hour > 0 || this.eventInfo.startTime.minute > 0;
-      // this.validEndTime = this.eventInfo.endTime.hour > 0 || this.eventInfo.endTime.minute > 0;
+      this.validStartTime = typeof this.eventInfo.startTime === 'string' && this.eventInfo.startTime.trim().length > 0;
+      this.validEndTime = typeof this.eventInfo.endTime === 'string' && this.eventInfo.endTime.trim().length > 0;
       this.validMinPlayers = this.eventInfo.minPlayers > 0
       this.validMaxPlayers = this.eventInfo.maxPlayers >= this.eventInfo.minPlayers;
       this.validMinAge = this.eventInfo.minAge > 0
@@ -385,12 +387,13 @@ export default {
 
       this.validFee = this.eventInfo.fee >= 0
       this.validSkill= this.eventInfo.skillId > 0
+      this.validEventDescription= this.eventInfo.eventDescription.length > 0
 
 
 
       return this.validEventName && this.validVenueName && this.validStreetName && this.validPostCode && this.validStartDate
           && this.validEndDate && this.validStartTime && this.validEndTime && this.validCounty && this.validCity && this.validCountry
-          && this.validMinPlayers && this.validMaxPlayers && this.validMinAge && this.validMaxAge && this.validFee
+          && this.validMinPlayers && this.validMaxPlayers && this.validMinAge && this.validMaxAge && this.validFee && this.validEventDescription
     },
 
 
