@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import router from "@/router";
 import EventImageComponent from "@/components/event/EventImageComponent.vue";
 import ParticipationLabelComponent from "@/components/event/ParticipationLabelComponent.vue";
 
@@ -136,13 +135,14 @@ export default {
         countryName: '',
         eventImage: '',
         eventStatus: '',
-        participantCount: 0
+        participantCount: 0,
+        eventDescription: ''
       }
 
     }
   },
 
-   mounted() {
+  mounted() {
     this.handleComponentLoading()
 
   },
@@ -198,7 +198,9 @@ export default {
     },
 
     openEventPreviewModal(id) {
-      alert('test: open event preview modal ID: ' + id)
+      if (this.userIsLoggedIn) {
+        alert(this.eventData.eventDescription);
+      }
     },
 
     assembleDateAndTimeString() {
